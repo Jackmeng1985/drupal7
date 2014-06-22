@@ -1,0 +1,140 @@
+<?php
+
+
+
+/**
+ * Implements hook_schema().
+ */
+function beauty_crm_schema() {
+  $schema['beauty_barber'] = array(
+    'description' => '美发师.',
+    'fields' => array(
+      'bid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => '美发师 ID.',
+      ),
+      'sid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '门店 ID.',
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '美发师名字.',
+      ),    
+      'phone' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '美发师电话号码.',
+      ),         
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'size' => 'tiny',          
+        'description' => '美发师状态.',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '创建时间.',
+      ),
+    ),
+    'primary key' => array('bid')
+  );
+
+  $schema['beauty_shop'] = array(
+    'description' => '美发店',
+    'fields' => array(
+      'sid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => '美发店 ID',
+      ),
+      'phone' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '美发店 电话.',
+      ),    
+      'address' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '美发店 地址.',
+      ),   
+      'description' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'description' => '美发店 描述.',
+      ),   
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'size' => 'tiny',          
+        'description' => '美发店 状态.',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '创建时间.',
+        ),
+    ),  
+    'primary key' => array('sid')
+  );
+
+  $schema['beauty_hairstyle'] = array(
+    'description' => '发型库',
+    'fields' => array(
+      'sid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => '发型 ID',
+      ),
+      'bid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '美发师 ID.',
+      ),   
+      'description' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '发型 描述.',
+      ),   
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'size' => 'tiny',          
+        'description' => '美发店 状态.',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '创建时间.',
+        ),
+    ),  
+    'primary key' => array('sid')
+  ); 
+  
+  return $schema;
+}

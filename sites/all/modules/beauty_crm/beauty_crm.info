@@ -1,0 +1,7 @@
+name = beauty CRM
+description = beauty CRM base module
+version = "7.x-1.0"
+package = beautyCRM
+core = 7.x
+files[] = beauty_crm.module
+files[] = beauty_crm.install
