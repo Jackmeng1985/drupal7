@@ -6,6 +6,10 @@
  * and open the template in the editor.
  */
 
+include_once dirname(__FILE__) . '/includes/beauty_crm_entity_beauty_shop.inc';
+include_once dirname(__FILE__) . '/includes/beauty_crm_entity_beauty_barber.inc';
+include_once dirname(__FILE__) . '/includes/beauty_crm_entity_beauty_hairstyle.inc';
+
 function beauty_crm_entity_info() {
   $return = array(
     'beauty_shop' => array(
@@ -37,13 +41,84 @@ function beauty_crm_entity_info() {
       'controller class' => 'EntityAPIController',
       'admin ui' => array(
           'path' => 'admin/beauty-crm/content/beauty_shop',
-          'file' => 'beauty_crm.admin.inc',
+          'file' => 'includes/beauty_crm.entity.admin.inc',
           'controller class' => 'EntityDefaultUIController' // content controller doesn't work well
       ),
       'access callback' => 'beauty_crm_entity_access_callback',
       'creation callback' => 'beauty_shop_create',
     ),
-    
+      
+   'beauty_hairstyle' => array(
+      'label' => '发型',
+      'base table' => 'beauty_hairstyle',
+      'uri callback' => 'entity_class_uri',
+      'fieldable' => TRUE,
+      'module' => 'beauty_crm',
+      'entity keys' => array(
+        'id' => 'hid',
+      ),
+      'bundles' => array(
+        'beauty_hairstyle' => array(
+          'label' => '发型',
+          'admin' => array(
+            'path' => 'admin/beauty-crm/building/beauty_hairstyle',
+            'access arguments' => array('administer users'),
+          ),
+        ),
+      ),      
+      'view modes' => array(
+        'full' => array(
+          'label' => t('Full content'),
+          'custom settings' => FALSE,
+        )
+      ),
+      // the following coder is for entity api module
+      'entity class' => 'Entity',
+      'controller class' => 'EntityAPIController',
+      'admin ui' => array(
+          'path' => 'admin/beauty-crm/content/beauty_hairstyle',
+          'file' => 'includes/beauty_crm.entity.admin.inc',
+          'controller class' => 'EntityDefaultUIController' // content controller doesn't work well
+      ),
+      'access callback' => 'beauty_crm_entity_access_callback',
+      'creation callback' => 'beauty_hairstyle_create',
+    ),
+     
+  'beauty_barber' => array(
+      'label' => '美发师',
+      'base table' => 'beauty_barber',
+      'uri callback' => 'entity_class_uri',
+      'fieldable' => TRUE,
+      'module' => 'beauty_crm',
+      'entity keys' => array(
+        'id' => 'bid',
+      ),
+      'bundles' => array(
+        'beauty_barber' => array(
+          'label' => '发型',
+          'admin' => array(
+            'path' => 'admin/beauty-crm/building/beauty_barber',
+            'access arguments' => array('administer users'),
+          ),
+        ),
+      ),      
+      'view modes' => array(
+        'full' => array(
+          'label' => t('Full content'),
+          'custom settings' => FALSE,
+        )
+      ),
+      // the following coder is for entity api module
+      'entity class' => 'Entity',
+      'controller class' => 'EntityAPIController',
+      'admin ui' => array(
+          'path' => 'admin/beauty-crm/content/beauty_barber',
+          'file' => 'includes/beauty_crm.entity.admin.inc',
+          'controller class' => 'EntityDefaultUIController' // content controller doesn't work well
+      ),
+      'access callback' => 'beauty_crm_entity_access_callback',
+      'creation callback' => 'beauty_barber_create',
+    ),      
   );
   return $return;
 }
@@ -52,78 +127,10 @@ function beauty_crm_entity_access_callback($op, $entity, $account, $entity_type)
   return true;
 }
 
-
-/**
- * Implements callback_entity_info_uri().
- */
-function beauty_crm_beauty_shop_uri($beauty_shop) {
-  return array(
-    'path' => 'beauty_shop/' . $beauty_shop->sid,
-  );
-}
-
-/**
- * Saves a model to the database.
- *
- * @param $model
- *   The model object.
- */
-function beauty_shop_save(Entity $beauty_shop) {
-  return $beauty_shop->save();
-}
-
-/**
- * Fetch a model object. Make sure that the wildcard you choose 
- * in the model entity definition fits the function name here.
- *
- * @param $model_id
- *   Integer specifying the model id.
- * @param $reset
- *   A boolean indicating that the internal cache should be reset.
- * @return
- *   A fully-loaded $model object or FALSE if it cannot be loaded.
- *
- * @see model_load_multiple()
- */
-function beauty_shop_load($beauty_shop_id, $reset = FALSE) {
-  $models = beauty_shop_load_multiple(array($beauty_shop_id), array(), $reset);
-  return reset($models);
-}
-
-
-/**
- * Load multiple models based on certain conditions.
- *
- * @param $model_ids
- *   An array of model IDs.
- * @param $conditions
- *   An array of conditions to match against the {model} table.
- * @param $reset
- *   A boolean indicating that the internal cache should be reset.
- * @return
- *   An array of model objects, indexed by model_id.
- *
- * @see entity_load()
- * @see model_load()
- */
-function beauty_shop_load_multiple($beauty_shop_ids = array(), $conditions = array(), $reset = FALSE) {
-  return entity_load('beauty_shop', $beauty_shop_ids, $conditions, $reset);
-}
-
-
-/**
- * Create a model object.
- */
-function beauty_shop_create($values = array()) {
-  return entity_get_controller('beauty_shop')->create($values);
-}
-
-
-
 /**
  * Implements hook_field_extra_fields().
  */
-function beauty_shop_field_extra_fields() {
+function beauty_field_extra_fields() {
   $return = array();
   $info = entity_get_info('beauty_shop');
     $return['beauty_shop']['beauty_shop'] = array(

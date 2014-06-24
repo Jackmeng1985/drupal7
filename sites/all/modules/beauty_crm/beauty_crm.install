@@ -60,6 +60,13 @@ function beauty_crm_schema() {
         'not null' => TRUE,
         'description' => '美发店 ID',
       ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '美发店 店名.',
+      ),         
       'phone' => array(
         'type' => 'varchar',
         'length' => 64,
@@ -100,7 +107,7 @@ function beauty_crm_schema() {
   $schema['beauty_hairstyle'] = array(
     'description' => '发型库',
     'fields' => array(
-      'sid' => array(
+      'hid' => array(
         'type' => 'serial',
         'not null' => TRUE,
         'description' => '发型 ID',
@@ -110,7 +117,14 @@ function beauty_crm_schema() {
         'not null' => TRUE,
         'default' => 0,
         'description' => '美发师 ID.',
-      ),   
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '发型名称.',
+      ),            
       'description' => array(
         'type' => 'varchar',
         'length' => 255,
@@ -124,7 +138,7 @@ function beauty_crm_schema() {
         'not null' => TRUE,
         'default' => 1,
         'size' => 'tiny',          
-        'description' => '美发店 状态.',
+        'description' => '发型 状态.',
       ),
       'created' => array(
         'type' => 'int',
