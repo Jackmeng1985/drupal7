@@ -147,7 +147,7 @@ function beauty_crm_schema() {
         'description' => '创建时间.',
         ),
     ),  
-    'primary key' => array('sid')
+    'primary key' => array('hid')
   ); 
   
   return $schema;
