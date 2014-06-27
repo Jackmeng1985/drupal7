@@ -17,7 +17,6 @@ function beauty_preprocess_page(&$vars) {
             $suggestion_template = 'page__beauty_' . str_replace('/', '_', $_GET['q']);
         }
         array_splice($vars['theme_hook_suggestions'], 0, 0, $suggestion_template);
-        dsm($vars);
     }
 }
 
