@@ -1,0 +1,6 @@
+name        = Beaudy
+description = Beaudy World Cup theme
+screenshot  = screenshot.jpg
+
+core        = 7.x
+engine      = phptemplate

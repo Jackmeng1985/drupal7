@@ -1,0 +1,102 @@
+@charset "utf-8";
+
+.page-content {
+	padding: 10px;
+
+	.page-content-header {
+		margin-top: 10px;
+		margin-bottom: 15px;
+		overflow: hidden;
+		font-size: 12px;
+		color: $submit-color;
+	}
+
+	.submit {
+		margin-right: 15px;
+	}
+
+	.page-content-body p{
+		color: #000;
+	}
+}
+
+.page-hair {
+	h2 {
+		padding:15px 10px;
+		font-size: 18px;
+		margin-bottom: 0;
+		color: #21292c;
+	}
+}
+
+.tags {
+	border-top: $border-default;
+	border-bottom: $border-default;
+	padding: 6px 10px 3px;
+	margin-bottom: 10px;
+}
+
+.table-stars {
+	padding: 0 10px;
+	overflow: hidden;
+
+	> div {
+		margin-right: -10px;
+	}
+
+	a {
+		display: block;
+		float: left;
+		width: 33.333333333%;
+		padding-right: 10px;
+		margin-bottom: 10px;
+
+		img {
+			width: 100%;
+			//height: 100px;
+			vertical-align: top;
+		}
+	}
+}
+
+.page-hair-adjustment {
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+
+	img {
+		width: 100%;
+		vertical-align: top;
+		position: absolute;
+		bottom:0;
+	}
+}
+
+.page-upload {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
+.page-hair-advantage {
+	margin-top: 10px;
+
+	.table-stars a {
+		width: 50%;
+		text-align: center;
+
+		img {
+			height: 80px;
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		.hair-title {
+			padding:0 10px;
+			color: #3e3e3e;
+			font-size: 12px;
+			line-height: 1.25;
+		}
+	}
+}

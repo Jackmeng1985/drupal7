@@ -1,0 +1,6 @@
+name = beauty world cup
+description = beauty world cup
+version = "7.x-1.0"
+package = beautyCRM
+core = 7.x
+files[] = beauty_world_cup.module

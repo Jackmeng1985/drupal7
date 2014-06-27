@@ -1,0 +1,70 @@
+//
+// Variables
+// --------------------------------------------------
+
+
+// Type
+// --------------------------------------------------
+$font-family-default: "Microsoft Yahei","微软雅黑","Helvetica Neue", Helvetica, sans-serif !default;
+$font-size-default: 13px !default;
+$font-weight: 500 !default;
+$font-weight-light: 400 !default;
+$line-height-default: 21px !default;
+
+
+
+// Colors
+// --------------------------------------------------
+
+//font color
+$text-color: #a3a3a3 !default;
+$header-color: #2b2828 !default;
+$link-color: #3399ff !default;
+$view-color: #474747 !default;
+$submit-color: #c5c8cb !default;
+
+// Main theme colors
+$primary-color: #22ae39 !default;
+$chrome-color:  #f6f6f6 !default;
+
+// Action colors
+$default-color:  #fff !default;
+$positive-color: #22ae39 !default;
+$negative-color: #d9534f !default;
+
+//buttons color
+$btn-primary-color: #ff8a00 !default;
+$btn-upload-color: #f2f2f2 !default;
+
+
+// Bars
+// --------------------------------------------------
+
+$bar-base-height:  44px !default;
+$bar-tab-height:   50px !default;
+$bar-side-spacing: 10px !default;
+
+
+// Cards
+// --------------------------------------------------
+
+$card-bg: #fff !default;
+
+
+// Buttons
+// --------------------------------------------------
+
+$button-font-size: 12px !default;
+
+
+// Transitions
+// --------------------------------------------------
+
+$timing-fuction: cubic-bezier(.1,.5,.1,1) !default; // Inspired by @c2prods
+
+
+// Borders
+// --------------------------------------------------
+
+$border-default: 1px solid #e7e7e7 !default;
+$border-radius: 6px !default;

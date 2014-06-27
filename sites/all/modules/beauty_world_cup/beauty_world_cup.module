@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function beauty_world_cup_menu() {
+  // Note: we can't dynamically append destination to querystring.
+  // Do so at theme layer. Fix in D7?
+  $items['world_cup'] = array(
+    'title' => '首页',
+    'page callback' => 'beauty_world_cup_pages',
+    'access callback' => true,
+  );
+
+  return $items;
+}
+
+function beauty_world_cup_pages() {
+    return '';
+}
+
+/**
+ * HOOK_theme
+ */
+function beauty_world_cup_theme() {
+  return array(
+    'beauty_world_cup_front_page' => array(
+      'template' => 'beauty-world-cup-front-page',
+    ),
+  );    
+}
