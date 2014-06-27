@@ -61,3 +61,55 @@ function beauty_hairstyle_load_multiple($beauty_hairstyle_ids = array(), $condit
 function beauty_hairstyle_create($values = array()) {
   return entity_get_controller('beauty_hairstyle')->create($values);
 }
+
+
+
+/**
+ * UI controller.
+ */
+class BeautyHairstyleUIController extends EntityDefaultUIController {
+    
+  /**
+   * Generates the render array for a overview table for arbitrary entities
+   * matching the given conditions.
+   *
+   * @param $conditions
+   *   An array of conditions as needed by entity_load().
+
+   * @return Array
+   *   A renderable array.
+   */
+  public function overviewTable($conditions = array()) {
+
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', $this->entityType);
+
+    // Add all conditions to query.
+    foreach ($conditions as $key => $value) {
+      $query->propertyCondition($key, $value);
+    }
+
+    if ($this->overviewPagerLimit) {
+      $query->pager($this->overviewPagerLimit);
+    }
+
+    $results = $query->execute();
+
+    $ids = isset($results[$this->entityType]) ? array_keys($results[$this->entityType]) : array();
+    $entities = $ids ? entity_load($this->entityType, $ids) : array();
+    ksort($entities);
+
+    $rows = array();
+    foreach ($entities as $entity) {
+      $rows[] = $this->overviewTableRow($conditions, entity_id($this->entityType, $entity), $entity, array(l('编辑图片', 'admin/beauty-crm/content/edit_picture/'.$entity->hid)));
+    }
+
+    $render = array(
+      '#theme' => 'table',
+      '#header' => $this->overviewTableHeaders($conditions, $rows),
+      '#rows' => $rows,
+      '#empty' => t('None.'),
+    );
+    return $render;
+  }    
+}

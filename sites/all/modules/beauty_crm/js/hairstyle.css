@@ -1,0 +1,61 @@
+@charset "utf-8";
+/* reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}
+body{font:12px/1.7 微软雅黑 Tahoma,\5B8B\4F53;-webkit-text-size-adjust:none;}
+h1,h2,h3,h4,h5,h6{*font-size:100%;font-weight:400;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,i,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul,li{list-style:none outside;}
+blockquote:before,blockquote:after,q:before,q:after{content:'';}
+table{border-collapse:collapse;border-spacing:0;}
+caption,th{text-align:left;}
+input,textarea,select,button{font-family:inherit;font-size:inherit;*font-size:100%;font-weight:inherit;resize:none;}
+button{cursor:pointer;}
+:focus{outline:0;}
+a{text-decoration:none;}
+a:hover{text-decoration:underline;}
+.clr{*zoom:1;}
+.clr:before,.clr:after{content:"";display:table;}
+.clr:after{clear:both;}
+body{background:#3a3a3a;}
+
+/* body */
+.nav{background:#000;height:40px;line-height:40px;color:#999;}
+.nav a{font-size:13px;color:#999;font-weight:600;}
+.nav h1{float:left;font-size:25px;font-weight:600;}
+.nav div{width:945px;margin:0 auto;}
+.nav ul{float:left;padding:0 0 0 50px;}
+.nav li{float:left;padding:3px 10px 0 10px;}
+
+.art{width:945px;margin:10px auto 10px;*zoom:1;}
+.art:after{content:'.';display:block;width:0;height:0;visibility: hidden;clear:both;}
+.art .pic{position:relative;width:520px;height:693px;float:left;background:#b3b3b3;}
+.art i{position:absolute;width:22px;height:22px; cursor:pointer;z-index:2;cursor:move;}
+.art .userhead{width:520px;height:693px;cursor:pointer;background-position:center center;background-repeat:no-repeat;}
+.art .upload{width:425px;height:693px;float:left;background:#4c4c4c;}
+
+.upload .load{width:330px;height:280px;background:#fff;border-radius:10px;margin:40px auto 40px;}
+.upload .load img{display:block;}
+.upload .sel{width:330px;height:210px;background:#fff;border-radius:10px;margin:0 auto 10px;}
+.upload .btn{padding:20px 0 0 0;text-align:center;}
+.hair{width:185px;margin:0px auto 0;padding:20px 0 0 0;}
+.complie{width:330px;margin:0 auto 10px;}
+.face{padding:35px 0 0 45px;}
+.face li{position:relative;float:left;z-index:1;width:90px;height:48px;padding:0 0 0 30px;font-size:14px;font-weight:600;color:#464646;}
+.face li i{position:absolute;top:1px;left:0;width:22px;height:22px;cursor:move;z-index:2;}
+
+.notice{font-size:16px;font-weight:600;color:#9b9b9b;text-align:center}
+.upbtn{display:inline-block;width:117px;height:42px;background:url(ico_btn.png) -116px 0 no-repeat;}
+.fine{display:inline-block;width:117px;height:42px;background:url(ico_btn.png) 0px 0 no-repeat;}
+.i_red{background:url(i_red.png) no-repeat; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="/images/i_red.png");}
+.i_eye_left{background:url(i_left_eye.png) no-repeat; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="/images/i_left_eye.png");}
+.i_eye_right{background:url(i_right_eye.png) no-repeat; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="/images/i_right_eye.png");}
+.i_mouth{background:url(i_mouth.png) no-repeat; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="/images/i_mouth.png");}
+.i_blue{background:url(i_blue.png) no-repeat; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="/images/i_blue.png");}
+
+
+
+
+
+
+

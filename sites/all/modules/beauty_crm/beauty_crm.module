@@ -42,7 +42,7 @@ function beauty_crm_entity_info() {
       'controller class' => 'EntityAPIController',
       'admin ui' => array(
           'path' => 'admin/beauty-crm/content/beauty_shop',
-          'file' => 'includes/beauty_crm.entity.admin.inc',
+          'file' => 'beauty_crm.entity.admin.inc',
           'controller class' => 'EntityDefaultUIController' // content controller doesn't work well
       ),
       'access callback' => 'beauty_crm_entity_access_callback',
@@ -79,8 +79,9 @@ function beauty_crm_entity_info() {
       'controller class' => 'EntityAPIController',
       'admin ui' => array(
           'path' => 'admin/beauty-crm/content/beauty_hairstyle',
-          'file' => 'includes/beauty_crm.entity.admin.inc',
-          'controller class' => 'EntityDefaultUIController' // content controller doesn't work well
+          'file path' => drupal_get_path('module', 'beauty_crm') . '/includes',
+          'file' => 'beauty_crm.entity.admin.inc',
+          'controller class' => 'BeautyHairstyleUIController', // content controller doesn't work well
       ),
       'access callback' => 'beauty_crm_entity_access_callback',
       'creation callback' => 'beauty_hairstyle_create',
@@ -116,7 +117,7 @@ function beauty_crm_entity_info() {
       'controller class' => 'EntityAPIController',
       'admin ui' => array(
           'path' => 'admin/beauty-crm/content/beauty_barber',
-          'file' => 'includes/beauty_crm.entity.admin.inc',
+          'file' => 'beauty_crm.entity.admin.inc',
           'controller class' => 'EntityDefaultUIController' // content controller doesn't work well
       ),
       'access callback' => 'beauty_crm_entity_access_callback',
@@ -159,6 +160,36 @@ function beauty_field_extra_fields() {
     );
 
   return $return;
+}
+
+/**
+ * hook_menu
+ */
+
+function beauty_crm_menu() {
+    $items = array();
+
+    $items['admin/beauty-crm/content/edit_picture/%beauty_hairstyle'] = array(
+        'title' => '首页',
+        'page callback' => 'beauty_crm_edit_hair_picture',
+        'page arguments' => array(4),
+        'access arguments' => array('administration pages'),
+        'file' => 'beauty_crm.admin.inc'
+    );
+    return $items;
+}
+
+/**
+ * hook_theme
+ */
+function beauty_crm_theme() {
+    return array(
+    'beauty_crm_edit_hair_picture' => array(
+      'template' => 'beauty-crm-edit-hair-picture',
+      'variables' => array('beauty_hairstyle' => NULL),
+      'path' => drupal_get_path('module', 'beauty_crm') . '/theme',
+    ),
+  );
 }
 
 
