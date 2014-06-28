@@ -149,7 +149,6 @@ function beauty_crm_schema() {
       'data' => array(
         'type' => 'blob',
         'not null' => TRUE,
-        'size' => 'small',
         'serialize' => TRUE,
         'description' => '另外数据',
       ),        

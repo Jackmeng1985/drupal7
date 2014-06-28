@@ -15,4 +15,4 @@ PRIMARY KEY (`hid`)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8;
 
 
-alter table beauty_hairstyle add column `data` smallblob COMMENT '另外数据';
+alter table beauty_hairstyle add column `data` Blob COMMENT '另外数据';
