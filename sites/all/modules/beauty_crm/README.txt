@@ -13,3 +13,6 @@ CREATE TABLE beauty_hairstyle (
 `created` INT NOT NULL DEFAULT 0, 
 PRIMARY KEY (`hid`)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8;
+
+
+alter table beauty_hairstyle add column `data` smallblob COMMENT '另外数据';

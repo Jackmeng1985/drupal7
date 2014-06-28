@@ -146,6 +146,13 @@ function beauty_crm_schema() {
         'default' => 0,
         'description' => '创建时间.',
         ),
+      'data' => array(
+        'type' => 'blob',
+        'not null' => TRUE,
+        'size' => 'small',
+        'serialize' => TRUE,
+        'description' => '另外数据',
+      ),        
     ),  
     'primary key' => array('hid')
   ); 
