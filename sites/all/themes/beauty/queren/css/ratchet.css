@@ -646,18 +646,22 @@ input[type="button"] {
   #comment .media-body .table-view-footer span {
     margin-right: 15px; }
 
-#video .media-object {
+#video .media-object,
+.page-tucao-home .media-object {
   width: 115px;
   height: 60px; }
-  #video .media-object img {
+  #video .media-object img,
+  .page-tucao-home .media-object img {
     max-width: 100%;
     vertical-align: top; }
-#video .media-body h4 {
+#video .media-body h4,
+.page-tucao-home .media-body h4 {
   font-size: 14px;
   color: #2b2828;
   margin-bottom: 8px;
   line-height: 1.2; }
-#video .media-body .table-view-footer {
+#video .media-body .table-view-footer,
+.page-tucao-home .media-body .table-view-footer {
   font-size: 12px;
   color: #c5c8cb; }
 
@@ -1533,6 +1537,28 @@ select {
     display: inline-block;
     margin-left: 5px; }
 
+.icon-shars {
+  font-size: 12px; }
+  .icon-shars:before {
+    content: "";
+    background: url(../images/icon-shars.png) no-repeat center;
+    background-size: 12px 12px;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 5px; }
+
+.icon-shars-sm {
+  font-size: 12px; }
+  .icon-shars-sm:before {
+    content: "";
+    background: url(../images/icon-shars-sm.png) no-repeat center;
+    background-size: 10px 10px;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 5px; }
+
 .banner {
   position: relative; }
   .banner img {
@@ -1564,12 +1590,6 @@ select {
   .page-content .page-content-body p {
     color: #000; }
 
-.page-hair h2 {
-  padding: 15px 10px;
-  font-size: 18px;
-  margin-bottom: 0;
-  color: #21292c; }
-
 .tags {
   border-top: 1px solid #e7e7e7;
   border-bottom: 1px solid #e7e7e7;
@@ -1586,10 +1606,26 @@ select {
     float: left;
     width: 33.333333333%;
     padding-right: 10px;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    text-align: center; }
     .table-stars a img {
       width: 100%;
-      vertical-align: top; }
+      vertical-align: top;
+      display: block;
+      margin-bottom: 5px; }
+    .table-stars a .hair-title {
+      padding: 0 10px;
+      color: #3e3e3e;
+      font-size: 12px;
+      line-height: 1.25; }
+
+.page-hair h2 {
+  padding: 15px 10px;
+  font-size: 18px;
+  margin-bottom: 0;
+  color: #21292c; }
+.page-hair .table-stars img {
+  margin-bottom: 0; }
 
 .page-hair-adjustment {
   height: 100%;
@@ -1611,16 +1647,13 @@ select {
 .page-hair-advantage {
   margin-top: 10px; }
   .page-hair-advantage .table-stars a {
-    width: 50%;
-    text-align: center; }
+    width: 50%; }
     .page-hair-advantage .table-stars a img {
-      height: 80px;
-      display: block;
-      margin-bottom: 5px; }
-    .page-hair-advantage .table-stars a .hair-title {
-      padding: 0 10px;
-      color: #3e3e3e;
-      font-size: 12px;
-      line-height: 1.25; }
+      height: 80px; }
+
+.page-tucao-home .media-body h4 {
+  color: #3f3f3f; }
+.page-tucao-home .subbmit {
+  margin-right: 15px; }
 
 /*# sourceMappingURL=ratchet.css.map */

@@ -124,7 +124,7 @@ $base_path = base_path();
             <li class="table-view-cell media">
               <a class="">
                 <div class="media-object pull-left">
-                  <img  src="http://placehold.it/45x45">
+                  <img  src="http://placehold.it/60x60">
                 </div>
                 <div class="media-body">
                   <h4>@迷迷虎  ：</h4>
@@ -136,7 +136,7 @@ $base_path = base_path();
             <li class="table-view-cell media">
               <a class="">
                 <div class="media-object pull-left">
-                  <img  src="http://placehold.it/45x45">
+                  <img  src="http://placehold.it/60x60">
                 </div>
                 <div class="media-body">
                   <h4>@迷迷虎  ：</h4>

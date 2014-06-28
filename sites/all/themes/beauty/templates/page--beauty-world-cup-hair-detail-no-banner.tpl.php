@@ -15,12 +15,6 @@ $base_path = base_path();
   </head>
   <body>
     <div class="content">
-      <div class="banner">
-        <img src="<?php print $base_path . $directory; ?>/images/banner.jpg" alt="">
-        <div class="banner-title">【独家】如何打理内马尔洗剪吹造型</div>
-      </div>
-      <!-- end banner content -->
-
       <div class="segmented-control" id="hair-segmented-control">
         <a class="control-item active" href="#stylist">
           <div class="tag-box">
@@ -72,6 +66,7 @@ $base_path = base_path();
             </div>
           </div>
         </span>
+        <span id="friends" class="control-content">
           <!-- 网友秀 -->
           <div class="table-stars">
             <div>
