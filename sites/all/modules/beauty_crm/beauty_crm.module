@@ -176,6 +176,14 @@ function beauty_crm_menu() {
         'access arguments' => array('administration pages'),
         'file' => 'beauty_crm.admin.inc'
     );
+    
+    $items['world_cup/hair/adjustment/%beauty_hairstyle'] = array(
+        'title' => '换发型',
+        'page callback' => 'beauty_crm_hair_picture_adjustment',
+        'page arguments' => array(3),
+        'access arguments' => array('administration pages'),
+        'file' => 'beauty_crm.pages.inc'        
+    );
     return $items;
 }
 
