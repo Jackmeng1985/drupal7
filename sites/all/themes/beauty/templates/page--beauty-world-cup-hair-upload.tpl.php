@@ -1,4 +1,4 @@
-<?php 
+<?php
 $base_path = base_path();
 /*<?php print $base_path . $directory; ?>/*/
 ?>
@@ -15,8 +15,18 @@ $base_path = base_path();
   <body>
     <div class="content">
       <div class="page-upload">
-        <button class="btn btn-upload">选择文件</button>
+        <form id="image_upload" action="getFace.php" method="post" enctype="multipart/form-data" >
+          <input type="file" name="file" id="file" accept="image/*" capture="camera" >
+          <input type="submit" name="submit" class="btn btn-upload" value="点击上传">
+        </form>
       </div>
     </div>
+    <script>
+      var w = document.documentElement.clientWidth;
+      var r = window.devicePixelRatio;
+      w = w * r;
+      var f = document.getElementById('image_upload');
+      f.action += '?w=' + w;
+    </script>
   </body>
 </html>
