@@ -184,6 +184,14 @@ function beauty_crm_menu() {
         'access arguments' => array('administration pages'),
         'file' => 'beauty_crm.pages.inc'        
     );
+    
+    $items['world_cup/hair/upload/%'] = array(
+        'title' => '上传照片',
+        'page callback' => 'beauty_crm_hair_picture_upload',
+        'page arguments' => array(3),
+        'access callback' => TRUE,
+        'file' => 'beauty_crm.pages.inc'        
+    );    
     return $items;
 }
 

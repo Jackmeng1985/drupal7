@@ -22,6 +22,9 @@ function beauty_preprocess_page(&$vars) {
         if (strstr($_GET['q'], 'world_cup/hair/adjustment') !== FALSE) {
             $suggestion_template = 'page__beauty_world_cup_hair_adjustment';
         }
+        if (strstr($_GET['q'], 'world_cup/hair/upload') !== FALSE) {
+            $suggestion_template = 'page__beauty_world_cup_hair_upload';
+        }        
         array_splice($vars['theme_hook_suggestions'], 0, 0, $suggestion_template);
     }
 }
@@ -33,11 +36,10 @@ function beauty_preprocess_page(&$vars) {
  *   An array of variables to pass to the theme template.
  */
 function beauty_preprocess_html(&$vars) {
-    beauty_add_js('misc/jquery.js');
-    beauty_add_js('misc/drupal.js');
-    
+    $needs_mobile_html_template = FALSE;
     if (strstr($_GET['q'], 'world_cup/hair/adjustment') !== FALSE) {
-        beauty_add_css(drupal_get_path('theme', 'beauty') . '/css/ratchet.css');
+        beauty_add_js('misc/jquery.js');
+        beauty_add_js('misc/drupal.js');
         $hairstyle = menu_get_object('beauty_hairstyle', 3);
         $variables['pic_origin_path'] = file_create_url($hairstyle->field_origin_pic['und'][0]['uri']);
         $variables['pic_path'] = file_create_url($hairstyle->field_naked_pic['und'][0]['uri']);
@@ -50,6 +52,13 @@ function beauty_preprocess_html(&$vars) {
         $data['rawHairContour'] = $variables['rawHairContour'];
         $data['rawFacePoints'] = $variables['rawFacePoints'];
         beauty_add_js(array('beauty' => $data), 'setting');
-        array_splice($vars['theme_hook_suggestions'], 0, 0, 'html__mobile');
+        $needs_mobile_html_template = TRUE;
+    }
+    if (strstr($_GET['q'], 'world_cup/hair/upload') !== FALSE) {
+        $needs_mobile_html_template = TRUE;
+    }
+    if ($needs_mobile_html_template) {
+        beauty_add_css(drupal_get_path('theme', 'beauty') . '/css/ratchet.css');
+        array_splice($vars['theme_hook_suggestions'], 0, 0, 'html__mobile');        
     }
 }
