@@ -1,5 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the beauty_crm_features feature.
  */
+
+include_once 'beauty_crm_features.features.inc';

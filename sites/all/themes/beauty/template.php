@@ -43,6 +43,9 @@ function beauty_preprocess_html(&$vars) {
     if (strstr($_GET['q'], 'world_cup/hair/upload') !== FALSE) {
         $needs_mobile_html_template = TRUE;
     }
+    if (strstr($_GET['q'], 'world_cup/hair') !== FALSE && (!arg(2) || is_numeric(arg(2))) ) {
+        $needs_mobile_html_template = TRUE;
+    }    
     if ($needs_mobile_html_template) {
         beauty_add_css(drupal_get_path('theme', 'beauty') . '/css/ratchet.css');
         array_splice($vars['theme_hook_suggestions'], 0, 0, 'html__mobile');        

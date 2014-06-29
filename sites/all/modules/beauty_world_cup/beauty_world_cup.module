@@ -12,6 +12,11 @@ function beauty_world_cup_menu() {
     'access callback' => true,
   );
 
+  $items['world_cup/hair'] = array(
+    'title' => '发行库',
+    'page callback' => 'beauty_world_cup_pages_hair',
+    'access callback' => true,      
+  );
   return $items;
 }
 
@@ -24,8 +29,31 @@ function beauty_world_cup_pages() {
  */
 function beauty_world_cup_theme() {
   return array(
-    'beauty_world_cup_front_page' => array(
-      'template' => 'beauty-world-cup-front-page',
+    'beauty_world_cup_hair' => array(
+      'template' => 'beauty-world-cup-hair',
+      'variables' => array('hairstyles' => NULL, 'tags' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
     ),
   );    
+}
+
+function beauty_world_cup_pages_hair() {
+    $termid = arg(2);
+    $query = db_select('beauty_hairstyle', 'bh');
+    if (is_numeric($termid)) {
+        $query->join('field_data_field_hairstyle_tags', 'fdfht', 'fdfht.entity_id = bh.hid');
+        $query->condition('fdfht.field_hairstyle_tags_tid', $termid, '=');
+    }
+    $query->addField('bh', 'hid');
+    $query->orderBy('bh.hid', 'desc');
+    $result = $query->execute();
+    foreach ($result as $row) {
+        $rows[] = $row->hid;
+    }
+    $hairstyles = beauty_hairstyle_load_multiple($rows);
+    
+    $tags = taxonomy_get_tree(2); //TODO vid is required
+    
+    return theme('beauty_world_cup_hair', array('hairstyles' => $hairstyles, 'tags' => $tags));
 }
