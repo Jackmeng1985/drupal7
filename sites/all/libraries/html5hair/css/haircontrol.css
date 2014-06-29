@@ -1,0 +1,63 @@
+/* 
+    Document   : haircontrol
+    Created on : Oct 14, 2013, 4:02:10 PM
+    Author     : yehong
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.spirit { 
+ position: absolute;
+ width: 50px;
+ height: 50px;
+ background-color: red;
+}
+
+#guo{
+ position: absolute; 
+ z-index: -1;
+ left:0px;
+ top: 0px;
+}
+
+#face{
+ position: absolute; 
+ left:0px;
+ top: 0px;
+ border-width:1px;
+ border-style: solid;
+ border-color:red;
+   
+}
+
+#hairChange{
+ position: absolute; 
+ left:800px;
+ top: 0px;
+ border: 1px;
+ border-style: solid;
+ border-color: red;
+ display: none;
+}
+
+#hairStyle{
+ position: absolute; 
+ left:800px;
+ top: 800px;
+ border: 1px;
+ border-style: solid;
+ border-color: red;
+ display: none;
+} 
+
+#scaledown{
+ position: absolute; 
+ left:600px;
+ top: 500px;  
+}
+
+#scaleup{
+ position: absolute; 
+ left:550px;
+ top: 500px;  
+}
