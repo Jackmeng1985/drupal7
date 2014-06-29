@@ -38,20 +38,6 @@ function beauty_preprocess_page(&$vars) {
 function beauty_preprocess_html(&$vars) {
     $needs_mobile_html_template = FALSE;
     if (strstr($_GET['q'], 'world_cup/hair/adjustment') !== FALSE) {
-        beauty_add_js('misc/jquery.js');
-        beauty_add_js('misc/drupal.js');
-        $hairstyle = menu_get_object('beauty_hairstyle', 3);
-        $variables['pic_origin_path'] = file_create_url($hairstyle->field_origin_pic['und'][0]['uri']);
-        $variables['pic_path'] = file_create_url($hairstyle->field_naked_pic['und'][0]['uri']);
-
-        $variables['rawHairContour'] = $hairstyle->data['rawHairContour'];
-        $variables['rawFacePoints'] = $hairstyle->data['rawFacePoints'];
-
-        $data['pic_origin_path'] = $variables['pic_origin_path'];
-        $data['pic_path'] = $variables['pic_path'];
-        $data['rawHairContour'] = $variables['rawHairContour'];
-        $data['rawFacePoints'] = $variables['rawFacePoints'];
-        beauty_add_js(array('beauty' => $data), 'setting');
         $needs_mobile_html_template = TRUE;
     }
     if (strstr($_GET['q'], 'world_cup/hair/upload') !== FALSE) {
