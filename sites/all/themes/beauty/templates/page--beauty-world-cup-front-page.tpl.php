@@ -1,4 +1,4 @@
-<?php 
+<?php
 $base_path = base_path();
 /*<?php print $base_path . $directory; ?>/*/
 ?>
@@ -13,6 +13,52 @@ $base_path = base_path();
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link href="<?php print $base_path . $directory; ?>/css/ratchet.css" rel="stylesheet">
     <script src="<?php print $base_path . $directory; ?>/js/segmented-controllers.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="<?php print $base_path . $directory; ?>/js/mid2url.js"></script>
+    <script src="<?php print $base_path . $directory; ?>/js/template.js"></script>
+    <script src="<?php print $base_path . $directory; ?>/js/tatali.js"></script>
+    <script>
+      tatali('weibo', 1457, 'weibo-content', 'comment');
+      tatali('youku', 1462, 'video-content', 'video')
+    </script>
+    <script id='weibo-content' type="text/html">
+      <ul class="table-view">
+        {{each list as value index}}
+          <li class="table-view-cell media">
+            <a href="{{value.url}}" target="_blank">
+              <div class="media-object pull-left">
+                <img  src="{{value.author_image}}">
+              </div>
+              <div class="media-body">
+                <h4>@{{value.author_name}}  ：</h4>
+                <div class="table-view-des">{{value.weibo_content}}</div>
+                <div class="table-view-footer">{{value.created}}</div>
+              </div>
+            </a>
+          </li>
+        {{/each}}
+    </script>
+    <script id='video-content' type="text/html">
+      <ul class="table-view">
+        {{each list as value index}}
+          <li class="table-view-cell media">
+              <a href="{{value.link}}">
+                <div class="media-object pull-right">
+                  <img  src="{{value.thumbnail}}">
+                </div>
+                <div class="media-body">
+                  <h4>{{value.title}}</h4>
+                  <div class="table-view-footer">
+                    <span class="subbmit pull-left">{{value.duration}}</span>
+                    <div class="video-source pull-right">
+                      <span class="icon icon-video"></span>优酷
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+        {{/each}}
+    </script>
   </head>
   <body>
     <div class="content">

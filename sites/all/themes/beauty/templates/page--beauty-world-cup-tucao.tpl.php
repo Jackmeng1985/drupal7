@@ -14,7 +14,10 @@ $base_path = base_path();
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="<?php print $base_path . $directory; ?>/js/mid2url.js"></script>
     <script src="<?php print $base_path . $directory; ?>/js/template.js"></script>
-    <script src="<?php print $base_path . $directory; ?>/js/weibo.js"></script>
+    <script src="<?php print $base_path . $directory; ?>/js/tatali.js"></script>
+    <script>
+      tatali('weibo', 1452, 'weibo-content', 'comment');
+    </script>
     <script id='weibo-content' type="text/html">
       <ul class="table-view">
         {{each list as value index}}
