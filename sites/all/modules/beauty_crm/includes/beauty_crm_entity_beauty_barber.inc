@@ -61,3 +61,25 @@ function beauty_barber_load_multiple($beauty_barber_ids = array(), $conditions =
 function beauty_barber_create($values = array()) {
   return entity_get_controller('beauty_barber')->create($values);
 }
+
+
+/**
+ * The Controller for Model entities
+ */
+class BeautyBarberController extends EntityAPIController {
+
+    public function __construct($entityType) {
+        parent::__construct($entityType);
+    }
+
+    /**
+     * 保存的时候同步美发店的id
+     */
+    public function save($entity, DatabaseTransaction $transaction = NULL) {
+        if (isset($entity->field_shop)) {
+            $entity->sid = $entity->field_shop['und'][0]['target_id'];
+        }
+        $return = parent::save($entity, $transaction);
+        return $return;
+    }
+}

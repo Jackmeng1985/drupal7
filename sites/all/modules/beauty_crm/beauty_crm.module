@@ -42,7 +42,7 @@ function beauty_crm_entity_info() {
       'controller class' => 'EntityAPIController',
       'admin ui' => array(
           'path' => 'admin/beauty-crm/content/beauty_shop',
-          'file' => 'beauty_crm.entity.admin.inc',
+          'file' => 'includes/beauty_crm.entity.admin.inc',
           'controller class' => 'EntityDefaultUIController' // content controller doesn't work well
       ),
       'access callback' => 'beauty_crm_entity_access_callback',
@@ -76,11 +76,10 @@ function beauty_crm_entity_info() {
       ),
       // the following coder is for entity api module
       'entity class' => 'Entity',
-      'controller class' => 'EntityAPIController',
+      'controller class' => 'BeautyHairstyleController',
       'admin ui' => array(
           'path' => 'admin/beauty-crm/content/beauty_hairstyle',
-          'file path' => drupal_get_path('module', 'beauty_crm') . '/includes',
-          'file' => 'beauty_crm.entity.admin.inc',
+          'file' => 'includes/beauty_crm.entity.admin.inc',
           'controller class' => 'BeautyHairstyleUIController', // content controller doesn't work well
       ),
       'access callback' => 'beauty_crm_entity_access_callback',
@@ -114,10 +113,10 @@ function beauty_crm_entity_info() {
       ),
       // the following coder is for entity api module
       'entity class' => 'Entity',
-      'controller class' => 'EntityAPIController',
+      'controller class' => 'BeautyBarberController',
       'admin ui' => array(
           'path' => 'admin/beauty-crm/content/beauty_barber',
-          'file' => 'beauty_crm.entity.admin.inc',
+          'file' => 'includes/beauty_crm.entity.admin.inc',
           'controller class' => 'EntityDefaultUIController' // content controller doesn't work well
       ),
       'access callback' => 'beauty_crm_entity_access_callback',

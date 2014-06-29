@@ -113,3 +113,24 @@ class BeautyHairstyleUIController extends EntityDefaultUIController {
     return $render;
   }    
 }
+
+/**
+ * The Controller for Model entities
+ */
+class BeautyHairstyleController extends EntityAPIController {
+
+    public function __construct($entityType) {
+        parent::__construct($entityType);
+    }
+
+    /**
+     * 保存的时候同步美发师的id
+     */
+    public function save($entity, DatabaseTransaction $transaction = NULL) {
+        if (isset($entity->field_harber)) {
+            $entity->bid = $entity->field_harber['und'][0]['target_id'];
+        }
+        $return = parent::save($entity, $transaction);
+        return $return;
+    }
+}
