@@ -10,6 +10,9 @@ $base_path = base_path();
 </nav>
 <div class="content">
   <div class="page-hair-adjustment">
-    <img src="<?php print $base_path . $directory; ?>/images/hair.jpg" alt="">
+       <canvas id="face" width="600" height = "600"> </canvas>
+       <canvas id ="hairChange" width="448" height="733" > </canvas>   
+       <canvas id="hairStyle" width="448" height="733"></canvas>
   </div>
 </div>
+<?php print($page['content']['system_main']['main']['#markup']);?>
