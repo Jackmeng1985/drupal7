@@ -1,4 +1,4 @@
-<?php 
+<?php
 $base_path = base_path();
 /*<?php print $base_path . $directory; ?>/*/
 ?>
@@ -11,36 +11,32 @@ $base_path = base_path();
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link href="<?php print $base_path . $directory; ?>/css/ratchet.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="<?php print $base_path . $directory; ?>/js/mid2url.js"></script>
+    <script src="<?php print $base_path . $directory; ?>/js/template.js"></script>
+    <script src="<?php print $base_path . $directory; ?>/js/weibo.js"></script>
+    <script id='weibo-content' type="text/html">
+      <ul class="table-view">
+        {{each list as value index}}
+          <li class="table-view-cell media">
+            <a href="{{value.url}}" target="_blank">
+              <div class="media-object pull-left">
+                <img  src="{{value.author_image}}">
+              </div>
+              <div class="media-body">
+                <h4>@{{value.author_name}}  ：</h4>
+                <div class="table-view-des">{{value.weibo_content}}</div>
+                <div class="table-view-footer"><span class="submit">{{value.created}}</span><span class="source">新浪微博</span></div>
+              </div>
+            </a>
+          </li>
+        {{/each}}
+      </ul>
+    </script>
   </head>
   <body>
     <div class="content">
       <div class="page-tucao" id="comment">
-        <ul class="table-view">
-          <li class="table-view-cell media">
-            <a class="">
-              <div class="media-object pull-left">
-                <img  src="<?php print $base_path . $directory; ?>/images/stars.jpg">
-              </div>
-              <div class="media-body">
-                <h4>@迷迷虎  ：</h4>
-                <div class="table-view-des">费莱尼利这发型真的很有的优势么！！！</div>
-                <div class="table-view-footer"><span class="submit">6-16 16:26</span><span class="source">新浪微博</span></div>
-              </div>
-            </a>
-          </li>
-          <li class="table-view-cell media">
-            <a class="">
-              <div class="media-object pull-left">
-                <img  src="<?php print $base_path . $directory; ?>/images/stars.jpg">
-              </div>
-              <div class="media-body">
-                <h4>@迷迷虎  ：</h4>
-                <div class="table-view-des">世界杯史上共产生8支冠军球队，也只有巴西队曾战胜过中国队。欧洲诸强德西荷法英意葡等从来没有在世界杯上战胜过中国。中国队在世界杯上丢球数远少于“足球王国”巴西和以防守见长的意大利，在过去84年里，</div>
-                <div class="table-view-footer"><span class="submit">6-16 16:26</span><span class="source">新浪微博</span></div>
-              </div>
-            </a>
-          </li>
-        </ul>
       </div>
     </div>
   </body>
