@@ -97,7 +97,7 @@ function beauty_crm_hair_picture_upload($hid) {
         imagedestroy($thumb);
         
         $_SESSION['thumb_face_file_name'] = $thumb_face_file_name;
-        $_SESSION['thumb_face_file_path'] = $thumb_face_file_name;
+        $_SESSION['thumb_face_file_path'] = $thumb_face_file_path;
         
         drupal_goto('/world_cup/hair/adjustment/' . $hid);
     }
