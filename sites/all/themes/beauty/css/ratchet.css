@@ -332,14 +332,10 @@ p {
     border: 1px solid #c9302c; }
 
 .btn-upload {
-  color: #b7b8b8;
-  background-color: #f2f2f2;
-  border: 1px solid #d8d8d8;
-  padding: 25px 30px; }
-  .btn-upload:active, .btn-upload.active {
-    color: #fff;
-    background-color: #22ae39;
-    border: 1px solid #22ae39; }
+  padding: 25px 30px;
+  color: #fff;
+  background-color: #22ae39;
+  border: 1px solid #22ae39; }
 
 .btn-outlined {
   background-color: transparent; }
