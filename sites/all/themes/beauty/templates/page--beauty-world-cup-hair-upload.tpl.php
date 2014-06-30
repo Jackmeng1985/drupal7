@@ -13,4 +13,10 @@
   var f = document.getElementById('image_upload');
   f.action += '?w=' + w;
 </script>
+<style>
+  #file {
+    display: block;
+    margin: 20px 0;
+  }
+</style>
 
