@@ -20,5 +20,6 @@ features[field_instance][] = beauty_hairstyle-beauty_hairstyle-field_hairstyle_t
 features[field_instance][] = beauty_hairstyle-beauty_hairstyle-field_harber
 features[field_instance][] = beauty_hairstyle-beauty_hairstyle-field_naked_pic
 features[field_instance][] = beauty_hairstyle-beauty_hairstyle-field_origin_pic
+features[image][] = hairstyle_change
 features[image][] = hairstyle_world_cup
 features[taxonomy][] = hairstyle_tags
