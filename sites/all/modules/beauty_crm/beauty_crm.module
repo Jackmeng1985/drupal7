@@ -195,6 +195,15 @@ function beauty_crm_menu() {
 }
 
 /**
+ * 
+ */
+function beauty_crm_custom_theme(){
+    if (arg(0) != 'world_cup') {
+        return  'rubik';
+    }
+}
+
+/**
  * hook_theme
  */
 function beauty_crm_theme() {
