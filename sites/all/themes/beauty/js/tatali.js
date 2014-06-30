@@ -63,6 +63,22 @@ var tatali = function(type, id, template_name, target) {
           items.push(dpam);
         });
       break;
+
+      case 'news':
+        $.each(data, function(i, e) {
+          var created_at = parseInt(e.field_created.und[0].value);
+          var created = new Date(created_at);
+          created = created.format('yyyy-MM-dd hh:mm:ss');
+
+          item = {
+            img: e.field_imageurl.und[0].value,
+            title: e.field_tatamediatitle.und[0].value,
+            content: e.field_tatamediatext.und[0].value,
+            time: created
+          };
+          items.push(item);
+        });
+      break;
     }
 
     var list = {
