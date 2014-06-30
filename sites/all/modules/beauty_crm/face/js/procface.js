@@ -132,16 +132,18 @@ function calculateHairPosition(){
 
   face_eye_center = [];
   console.log(face_position);
-  face_eye_center['x'] = (face_position.eye_right.x - face_position.eye_left.x)/2 ; 
-  face_eye_center['y'] = (face_position.eye_right.y - face_position.eye_left.y)/2 ;  
+  face_eye_center['x'] = (face_position.eye_right.x + face_position.eye_left.x)/2 ; 
+  face_eye_center['y'] = (face_position.eye_right.y + face_position.eye_left.y)/2 ;  
  ////we then get the middle points between eyes of hairstyle.
  
   hair_eye_center = [];
-  hair_eye_center['x']  = hair_eye_left.x + (hair_eye_right.x-hair_eye_left.x) /2;  
-  hair_eye_center['y']  = hair_eye_left.y + (hair_eye_right.y-hair_eye_left.y) /2;  
+  hair_eye_center['x']  = (hair_eye_right.x + hair_eye_left.x) /2;  
+  hair_eye_center['y']  = (hair_eye_right.y + hair_eye_left.y) /2;  
   
-  t_hair_position['x'] = face_eye_center['x'] -  hair_eye_center['x'];
-  t_hair_position['y'] = face_eye_center['y'] -  hair_eye_center['y'];
+  console.log(face_eye_center);
+  console.log(hair_eye_center);
+  t_hair_position['x'] =  hair_eye_center['x'] * window.hairscale - hair_width*window.hairscale/2;// - (hair_eye_center['x'] *window.hairscale - face_eye_center['x']);
+  t_hair_position['y'] =  hair_eye_center['y'] * window.hairscale - hair_width*window.hairscale/2;// - (hair_eye_center['y'] *window.hairscale - face_eye_center['y']);
   return t_hair_position;
 }
 
@@ -152,9 +154,9 @@ function calculateHairScale(){
   face_scale = face_position.eye_right.x - face_position.eye_left.x;
   hair_scale = hair_eye_right.x-hair_eye_left.x;
 // we first need to scale hair_scale according to screen;
-  initial_scale = hair_width /(window.cwidth); 
-  window.hairscale = hair_scale / face_scale / initial_scale ;
-  
+//  initial_scale = hair_width /(window.cwidth); 
+  window.hairscale =  face_scale / hair_scale;
+ 
   return  ;
 }
 
@@ -311,14 +313,15 @@ function initializeFaceData(face_url){
         t_hair_position['y'] = 0;
         t_hair_scale = 1;  
         window.faceposition = t_face_position;
- //we need to calculate the position of hair style and scale;
-        window.hairposition = calculateHairPosition();
+        //we need to calculate the position of hair style and scale;
         calculateHairScale(); 
+        window.hairposition = calculateHairPosition();
+        
        // getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale/10); //put hair sytle on top of face
         
-        window.hairposition['x'] = 0;
-        window.hairposition['y'] =0;
-        window.hairscale  = 1;
+//        window.hairposition['x'] = 0;
+//        window.hairposition['y'] =0;
+//        window.hairscale  = 1;
 
         $('#scaleup'). click(function (){changeScale(window.hairscale + 0.01);});
         $('#scaledown'). click(function (){changeScale(window.hairscale - 0.01);});   

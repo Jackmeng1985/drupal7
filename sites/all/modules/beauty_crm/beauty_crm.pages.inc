@@ -17,11 +17,15 @@ function beauty_crm_hair_picture_adjustment(Entity $beauty_hairstyle) {
     $body = json_decode( $response['body']);
     $face_width = $body->img_width;
     $face_height = $body->img_height;
-    $face = $body->face[0]->position;    
+    $face = $body->face[0]->position; 
     
     
+    $face->eye_left->x = $face->eye_left->x * ($face_width  / 100);
+    $face->eye_left->y = $face->eye_left->y * ($face_height  / 100);
+    $face->eye_right->x = $face->eye_right->x * ($face_width  / 100);
+    $face->eye_right->y = $face->eye_right->y * ($face_height  / 100);    
 //        $variables['pic_origin_path'] = file_create_url($beauty_hairstyle->field_origin_pic['und'][0]['uri']);
-    $hair_url = image_style_url('hairstyle_change',$beauty_hairstyle->field_naked_pic['und'][0]['uri']);
+    $hair_url = image_style_url('hairstyle_change',$beauty_hairstyle->field_origin_pic['und'][0]['uri']);
     $hair_points = $beauty_hairstyle->data['rawHairContour'];
     $face_points = drupal_json_decode($beauty_hairstyle->data['rawFacePoints']);
 
