@@ -19,7 +19,8 @@ $base_path = base_path();
     <script src="<?php print $base_path . $directory; ?>/js/tatali.js"></script>
     <script>
       tatali('weibo', 1457, 'weibo-content', 'comment');
-      tatali('youku', 1462, 'video-content', 'video')
+      tatali('youku', 1462, 'video-content', 'video');
+      tatali('news', 1473, 'bulletin-content', 'bulletin');
     </script>
     <script id='weibo-content' type="text/html">
       <ul class="table-view">
@@ -37,27 +38,50 @@ $base_path = base_path();
             </a>
           </li>
         {{/each}}
+      </ul>
     </script>
     <script id='video-content' type="text/html">
       <ul class="table-view">
         {{each list as value index}}
           <li class="table-view-cell media">
-              <a href="{{value.link}}">
-                <div class="media-object pull-right">
-                  <img  src="{{value.thumbnail}}">
+            <a href="{{value.link}}">
+              <div class="media-object pull-right">
+                <img  src="{{value.thumbnail}}">
+              </div>
+              <div class="media-body">
+                <h4>{{value.title}}</h4>
+                <div class="table-view-footer">
+                  <span class="subbmit pull-left">{{value.duration}}</span>
+                  <div class="video-source pull-right">
+                    <span class="icon icon-video"></span>优酷
+                  </div>
+                </div>
+              </div>
+            </a>
+          </li>
+        {{/each}}
+      </ul>
+    </script>
+    <script id='bulletin-content' type="text/html">
+      <ul class="table-view">
+        {{each list as value index}}
+          <li class="table-view-cell media">
+              <a class="">
+                <div class="media-object pull-left">
+                  <img  src="{{value.img}}">
                 </div>
                 <div class="media-body">
                   <h4>{{value.title}}</h4>
+                  <div class="table-view-des">{{value.content}}</div>
                   <div class="table-view-footer">
-                    <span class="subbmit pull-left">{{value.duration}}</span>
-                    <div class="video-source pull-right">
-                      <span class="icon icon-video"></span>优酷
-                    </div>
+                    <span class="subbmit">{{value.time}}</span>
+                    <span class="tag">搜狐体育</span>
                   </div>
                 </div>
               </a>
             </li>
         {{/each}}
+      </ul>
     </script>
   </head>
   <body>
@@ -94,104 +118,12 @@ $base_path = base_path();
       <div class="card">
         <span id="bulletin" class="control-content active">
           <!-- 快报 -->
-          <ul class="table-view">
-            <li class="table-view-cell media">
-              <a class="">
-                <div class="media-object pull-left">
-                  <img  src="<?php print $base_path . $directory; ?>/images/video.jpg">
-                </div>
-                <div class="media-body">
-                  <h4>门神开挂！墨西哥0- 0逼平巴西</h4>
-                  <div class="table-view-des">世界杯小组赛第二轮比赛开打，A组的巴西和墨西哥最终战成0-0平。</div>
-                  <div class="table-view-footer">
-                    <span class="subbmit">15分钟前</span>
-                    <span class="tag">搜狐体育</span>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li class="table-view-cell media">
-              <a class="">
-                <div class="media-object pull-left">
-                  <img  src="<?php print $base_path . $directory; ?>/images/video.jpg">
-                </div>
-                <div class="media-body">
-                  <h4>门神开挂！墨西哥0- 0逼平巴西</h4>
-                  <div class="table-view-des">世界杯小组赛第二轮比赛开打，A组的巴西和墨西哥最终战成0-0平。</div>
-                  <div class="table-view-footer">
-                    <span class="subbmit">15分钟前</span>
-                    <span class="tag">搜狐体育</span>
-                  </div>
-                </div>
-              </a>
-            </li>
-          </ul>
         </span>
         <span id="video" class="control-content">
           <!-- 视频 -->
-          <ul class="table-view">
-            <li class="table-view-cell media">
-              <a class="">
-                <div class="media-object pull-right">
-                  <img  src="<?php print $base_path . $directory; ?>/images/video.jpg">
-                </div>
-                <div class="media-body">
-                  <h4>阿尔及利亚拔头筹跪地庆祝阿尔及利亚拔头</h4>
-                  <div class="table-view-footer">
-                    <span class="subbmit pull-left">01:17</span>
-                    <div class="video-source pull-right">
-                      <span class="icon icon-video"></span>优酷
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li class="table-view-cell media">
-              <a class="">
-                <div class="media-object pull-right">
-                  <img  src="<?php print $base_path . $directory; ?>/images/video.jpg">
-                </div>
-                <div class="media-body">
-                  <h4>阿尔及利亚拔头筹跪地庆祝阿尔及利亚拔头</h4>
-                  <div class="table-view-footer">
-                    <span class="subbmit pull-left">01:17</span>
-                    <div class="video-source pull-right">
-                      <span class="icon icon-video"></span>优酷
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </li>
-          </ul>
         </span>
         <span id="comment" class="control-content">
           <!-- 神评论　-->
-          <ul class="table-view">
-            <li class="table-view-cell media">
-              <a class="">
-                <div class="media-object pull-left">
-                  <img  src="http://placehold.it/60x60">
-                </div>
-                <div class="media-body">
-                  <h4>@迷迷虎  ：</h4>
-                  <div class="table-view-des">费莱尼利这发型真的很有的优势么！！！</div>
-                  <div class="table-view-footer">6-16 16:26</div>
-                </div>
-              </a>
-            </li>
-            <li class="table-view-cell media">
-              <a class="">
-                <div class="media-object pull-left">
-                  <img  src="http://placehold.it/60x60">
-                </div>
-                <div class="media-body">
-                  <h4>@迷迷虎  ：</h4>
-                  <div class="table-view-des">费莱尼利这发型真的很有的优势么！！！</div>
-                  <div class="table-view-footer">6-16 16:26</div>
-                </div>
-              </a>
-            </li>
-          </ul>
         </span>
       </div>
 
