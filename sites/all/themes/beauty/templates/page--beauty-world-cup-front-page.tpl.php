@@ -66,7 +66,7 @@ $base_path = base_path();
       <ul class="table-view">
         {{each list as value index}}
           <li class="table-view-cell media">
-              <a class="">
+              <a href="{{value.url}}">
                 <div class="media-object pull-left">
                   <img  src="{{value.img}}">
                 </div>

@@ -69,8 +69,8 @@ var tatali = function(type, id, template_name, target) {
           var created_at = parseInt(e.field_created.und[0].value);
           var created = new Date(created_at);
           created = created.format('yyyy-MM-dd hh:mm:ss');
-
           item = {
+            url: e.field_infourl.und[0].value,
             img: e.field_imageurl.und[0].value,
             title: e.field_tatamediatitle.und[0].value,
             content: e.field_tatamediatext.und[0].value,
