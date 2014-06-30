@@ -32,7 +32,7 @@ body{background:#3a3a3a;}
 .art .pic{position:relative;width:520px;height:693px;float:left;background:#b3b3b3;}
 .art i{position:absolute;width:22px;height:22px; cursor:pointer;z-index:2;cursor:move;}
 // TODO
-.art .userhead{width:300px;height:500px;cursor:pointer;background-position:center center;background-repeat:no-repeat;}
+.art .userhead{width:200px;cursor:pointer;background-position:center center;background-repeat:no-repeat;}
 .art .upload{width:425px;height:693px;float:left;background:#4c4c4c;}
 
 .upload .load{width:330px;height:280px;background:#fff;border-radius:10px;margin:40px auto 40px;}

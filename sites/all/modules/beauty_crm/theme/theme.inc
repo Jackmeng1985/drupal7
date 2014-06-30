@@ -10,7 +10,7 @@ function beauty_crm_preprocess_beauty_crm_edit_hair_picture(&$variables) {
     
 //    dsm($beauty_hairstyle);
     
-    $variables['pic_origin_path'] = file_create_url($beauty_hairstyle->field_origin_pic['und'][0]['uri']);
+    $variables['pic_origin_path'] = image_style_url('hairstyle_change', $beauty_hairstyle->field_origin_pic['und'][0]['uri']);
     $variables['pic_path'] = file_create_url($beauty_hairstyle->field_naked_pic['und'][0]['uri']);
     
     $variables['rawHairContour'] = $beauty_hairstyle->data['rawHairContour'];
