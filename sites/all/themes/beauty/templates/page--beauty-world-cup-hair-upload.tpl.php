@@ -9,7 +9,7 @@
 <script type="text/javascript">
   var w = document.documentElement.clientWidth;
   var r = window.devicePixelRatio;
-  w = w * r;
+//  w = w * r;
   var f = document.getElementById('image_upload');
   f.action += '?w=' + w;
 </script>
