@@ -299,7 +299,7 @@ function initializeFaceData(face_url){
        console.log( window.cwidth) ; 
         initializeCanvas();  //change canvas to proper width and height;
         initializePoints();  //put hair points into window.p, be noticed the point position is relative to upper-left of hairstyle
-        face_url = 'faces/'+ face_file; 
+        face_url = '/sites/default/files/faces/'+ face_file; 
         t_face_position = []; 
         t_hair_position = [];    
         t_face_position['x'] = 0; 
