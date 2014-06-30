@@ -14,12 +14,12 @@ window.qbak = new Array();
 window.g = new Array();
 window.gTrans = new Array();
 
-function initializePoints(){  
+function initializePoints(scale){  
   var i = 0;
   j =  hair_points.length;
 
   for(i=0;i<j; i++){
-    q = new Point(hair_points[i].x, hair_points[i].y); 
+    q = new Point(hair_points[i].x * scale, hair_points[i].y * scale); 
     window.p[window.p.length] = q; // add the point to the array of preset points.
   }   
  }

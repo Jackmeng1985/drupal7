@@ -300,7 +300,7 @@ function initializeFaceData(face_url){
        window.cheight =  document.getElementsByTagName("body")[0].clientHeight  ;
        console.log( window.cwidth) ; 
         initializeCanvas();  //change canvas to proper width and height;
-        initializePoints();  //put hair points into window.p, be noticed the point position is relative to upper-left of hairstyle
+        
         face_url = '/sites/default/files/faces/'+ face_file; 
         t_face_position = []; 
         t_hair_position = [];    
@@ -316,7 +316,7 @@ function initializeFaceData(face_url){
         //we need to calculate the position of hair style and scale;
         calculateHairScale(); 
         window.hairposition = calculateHairPosition();
-        
+        initializePoints(window.hairscale);  //put hair points into window.p, be noticed the point position is relative to upper-left of hairstyle
        // getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale/10); //put hair sytle on top of face
         
 //        window.hairposition['x'] = 0;
