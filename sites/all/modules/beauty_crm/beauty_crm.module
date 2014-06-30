@@ -180,7 +180,7 @@ function beauty_crm_menu() {
         'title' => '换发型',
         'page callback' => 'beauty_crm_hair_picture_adjustment',
         'page arguments' => array(3),
-        'access arguments' => array('administration pages'),
+        'access callback' => TRUE,
         'file' => 'beauty_crm.pages.inc'        
     );
     
