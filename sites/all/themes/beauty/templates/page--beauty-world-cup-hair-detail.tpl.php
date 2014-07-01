@@ -68,7 +68,7 @@ $base_path = base_path();
               <button class="btn btn-positive btn-block"><span class="icon icon-price"></span>价格</button>
             </div>
             <div class="btn-table-cell">
-              <a href="tel:0106883659" class="btn btn-primary btn-block">预约<span class="icon icon-phone"></span></a>
+              <a href="tel:4006883659" class="btn btn-primary btn-block">预约<span class="icon icon-phone"></span></a>
             </div>
           </div>
         </span>
