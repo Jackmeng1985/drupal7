@@ -142,8 +142,8 @@ function calculateHairPosition(){
 
   console.log(face_eye_center);
   console.log(hair_eye_center);
-  t_hair_position['x'] =  hair_eye_center['x'] * window.hairscale - hair_width*window.hairscale/2;// - (hair_eye_center['x'] *window.hairscale - face_eye_center['x']);
-  t_hair_position['y'] =  hair_eye_center['y'] * window.hairscale - hair_width*window.hairscale/2;// - (hair_eye_center['y'] *window.hairscale - face_eye_center['y']);
+  t_hair_position['x'] =  face_eye_center['x']  - hair_eye_center['x'] * window.hairscale ;
+  t_hair_position['y'] =  face_eye_center['y']  - hair_eye_center['y'] * window.hairscale ;
   return t_hair_position;
 }
 
@@ -298,7 +298,7 @@ function initializeFaceData(face_url){
   source.onload = function (){
     context.drawImage(source,0,0);
     window.faceImg = context.getImageData( 0, 0, window.cwidth , window.cheight);
-    context.clearRect(0, 0, canvas.width, canvas.height);
+//    context.clearRect(0, 0, canvas.width, canvas.height);
   }
 }
 
@@ -337,12 +337,12 @@ function initializeFaceData(face_url){
 //        window.hairposition['y'] =0;
 //        window.hairscale  = 1;
 
-        $('#scaleup'). click(function (){changeScale(window.hairscale + 0.01);});
-        $('#scaledown'). click(function (){changeScale(window.hairscale - 0.01);});
+        $('.bar .scaleup'). click(function (){changeScale(window.hairscale + 0.01);});
+        $('.bar .scaledown'). click(function (){changeScale(window.hairscale - 0.01);});
          initializeFaceData(face_url);
 
         //drawcanvas();
-        getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale); //put hair sytle on top of face
+        //getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale); //put hair sytle on top of face
 
         c=document.getElementById("face");
         c.addEventListener(startEvent, touchStart, false);

@@ -196,3 +196,34 @@
     }
   }
 }
+#hair-list-segmented-control {
+  background-color: transparent;
+
+  .control-item {
+    border:none;
+    background-color: transparent;
+
+    &:before{
+      display: none;
+    }
+    &:first-child{
+      padding-right: 10px;
+      text-align: right;
+    }
+    &:last-child{
+      padding-left: 10px;
+      text-align: left;
+    }
+
+    span {
+      padding: 5px 10px;
+      font-size: 17px;
+      color: #555;
+      border-bottom: 2px solid transparent;
+    }
+
+    &.active span {
+      border-bottom-color: #ffba00;
+    }
+  }
+}

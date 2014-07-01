@@ -12,7 +12,7 @@
 <div class="table-stars">
   <div>
     <?php foreach ($hairstyles as $hairstyle) :?>
-      <a href="<?php print url('world_cup/hair/detail/'. $hairstyle->hid); ?>" title="">
+      <a href="<?php print url('world_cup/hair/big/'. $hairstyle->hid); ?>" title="">
         <img src="<?php print image_style_url('hairstyle_world_cup', $hairstyle->field_origin_pic['und'][0]['uri']);?>" alt="">
     </a>
     <?php endforeach;?>
