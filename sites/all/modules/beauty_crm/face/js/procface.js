@@ -7,6 +7,8 @@ window.hairposition = [];
 window.hairscale = 1;
 window.faceposition = [];
 window.temppoint = [];
+window.temppoint2 = [];
+window.setpoints = true;
 
 
 
@@ -140,8 +142,6 @@ function calculateHairPosition(){
   hair_eye_center['x']  = (hair_eye_right.x + hair_eye_left.x) /2;
   hair_eye_center['y']  = (hair_eye_right.y + hair_eye_left.y) /2;
 
-  console.log(face_eye_center);
-  console.log(hair_eye_center);
   t_hair_position['x'] =  face_eye_center['x']  - hair_eye_center['x'] * window.hairscale ;
   t_hair_position['y'] =  face_eye_center['y']  - hair_eye_center['y'] * window.hairscale ;
   return t_hair_position;
@@ -209,6 +209,39 @@ function getMergedImage(face_url, hair_url, face_position, hair_position, hair_s
    });
  }
 
+function changePosition2(x, y){
+   window.hairposition['x'] = window.hairposition['x'] + x;
+   window.hairposition['y'] = window.hairposition['y'] + y;
+
+ //  changeHairPointsByXY(x, y);
+
+   var canvas = document.getElementById('face');
+   var context = canvas.getContext('2d');
+   //context.clearRect(0, 0, canvas.width, canvas.height);
+   getMergedImage2(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale );
+
+
+
+}
+
+
+
+function getMergedImage2(face_url, hair_url, face_position, hair_position, hair_scale){//put hair sytle on top of face
+  // first we need to get face image data
+
+  canvas = document.getElementById('face');
+  var context = canvas.getContext('2d');
+  var sources = { face: face_url, hair: hair_url};
+
+  loadImages(sources, function(images) {
+       context.drawImage(images.face, face_position['x'],face_position['y'],face_width,face_height);;
+
+       faceimgTargetData = context.getImageData(face_position['x'],face_position['y'],face_width, face_height);
+       context.drawImage(images.hair, hair_position['x'],hair_position['y'],images.hair.width * hair_scale,images.hair.height * hair_scale);
+       hairimgTargetData = context.getImageData(hair_position['x'],hair_position['y'],images.hair.width * hair_scale,images.hair.height * hair_scale);
+       //drawPointsOnHair(context);  //draw change points according to scale;
+   });
+ }
 
 function getCurrentPointIndex(q){
   currentPoint = -1;
@@ -237,6 +270,9 @@ function touchStart(event){
    startY = touch.pageY;
    window.temppoint['x'] = startX; // this is used to move whole hairstyle
    window.temppoint['y'] = startY;
+
+   window.temppoint2['x'] = startX; // this is used to move whole hairstyle
+   window.temppoint2['y'] = startY;
 
    q = new Point(startX, startY); //create an object for currrent point
    window.currentPointIndex = getCurrentPointIndex(q); // we get the point index
@@ -282,6 +318,20 @@ function touchEnd(event){
     startX = touch.pageX;
     startY = touch.pageY;
 
+    changeX = startX - window.temppoint2['x'];
+    changeY = startY - window.temppoint2['y'];
+
+    if(changeX == 0 && changeY == 0) {
+      if(window.setpoints) {
+        changePosition2(changeX, changeY);
+        window.setpoints = false;
+      }
+      else {
+        changePosition(changeX, changeY);
+        window.setpoints = true;
+      }
+    }
+
     if( window.currentPointIndex > 0 ){
        movedPoint = new Point( parseInt((startX -  window.hairposition['x'])),parseInt((startY -  window.hairposition['y'])));
        work(movedPoint);  // we move the point
@@ -298,7 +348,7 @@ function initializeFaceData(face_url){
   source.onload = function (){
     context.drawImage(source,0,0);
     window.faceImg = context.getImageData( 0, 0, window.cwidth , window.cheight);
-//    context.clearRect(0, 0, canvas.width, canvas.height);
+    //context.clearRect(0, 0, canvas.width, canvas.height);
   }
 }
 
