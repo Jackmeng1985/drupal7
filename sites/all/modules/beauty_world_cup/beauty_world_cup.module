@@ -13,12 +13,12 @@ function beauty_world_cup_menu() {
   );
 
   $items['world_cup/hair'] = array(
-    'title' => '发行库',
+    'title' => '发型库',
     'page callback' => 'beauty_world_cup_pages_hair',
     'access callback' => true,      
   );
   $items['world_cup/hair/big/%beauty_hairstyle'] = array(
-    'title' => '发行库',
+    'title' => '发型库',
     'page callback' => 'beauty_world_cup_pages_hair_big',
     'page arguments' => array(3),
     'access callback' => true,      
