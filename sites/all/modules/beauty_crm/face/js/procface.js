@@ -284,7 +284,7 @@ function initializeFaceData(face_url){
   source.onload = function (){
     context.drawImage(source,0,0);
     window.faceImg = context.getImageData( 0, 0, window.cwidth , window.cheight);   
-    context.clearRect(0, 0, canvas.width, canvas.height);   
+//    context.clearRect(0, 0, canvas.width, canvas.height);   
   } 
 }
 
