@@ -326,9 +326,9 @@ function initializeFaceData(face_url){
         $('.bar .scaleup'). click(function (){changeScale(window.hairscale + 0.01);});
         $('.bar .scaledown'). click(function (){changeScale(window.hairscale - 0.01);});   
          initializeFaceData(face_url);
-      return;       
+
         //drawcanvas();
-        getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale); //put hair sytle on top of face
+        //getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale); //put hair sytle on top of face
        
         c=document.getElementById("face");
         c.addEventListener(startEvent, touchStart, false); 
