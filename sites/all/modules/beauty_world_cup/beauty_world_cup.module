@@ -17,6 +17,12 @@ function beauty_world_cup_menu() {
     'page callback' => 'beauty_world_cup_pages_hair',
     'access callback' => true,      
   );
+  $items['world_cup/hair/big/%beauty_hairstyle'] = array(
+    'title' => '发行库',
+    'page callback' => 'beauty_world_cup_pages_hair_big',
+    'page arguments' => array(3),
+    'access callback' => true,      
+  );
   return $items;
 }
 
@@ -32,6 +38,12 @@ function beauty_world_cup_theme() {
     'beauty_world_cup_hair' => array(
       'template' => 'beauty-world-cup-hair',
       'variables' => array('hairstyles' => NULL, 'tags' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
+    ),
+    'beauty_world_cup_hair_big' => array(
+      'template' => 'beauty-world-cup-hair-big',
+      'variables' => array('hairstyle' => NULL),
       'file' => 'theme.inc',
       'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
     ),
@@ -56,4 +68,11 @@ function beauty_world_cup_pages_hair() {
     $tags = taxonomy_get_tree(2); //TODO vid is required
     
     return theme('beauty_world_cup_hair', array('hairstyles' => $hairstyles, 'tags' => $tags));
+}
+
+function beauty_world_cup_pages_hair_big(Entity $beauty_hairstyle) {
+    
+    $barber = beauty_barber_load($beauty_hairstyle->bid);
+    $shop = beauty_shop_load($beauty_barber->sid);
+    return theme('beauty_world_cup_hair_big', array('hairstyle' => $beauty_hairstyle));
 }
