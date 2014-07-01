@@ -142,8 +142,8 @@ function calculateHairPosition(){
   
   console.log(face_eye_center);
   console.log(hair_eye_center);
-  t_hair_position['x'] =  hair_eye_center['x'] * window.hairscale - hair_width*window.hairscale/2;// - (hair_eye_center['x'] *window.hairscale - face_eye_center['x']);
-  t_hair_position['y'] =  hair_eye_center['y'] * window.hairscale - hair_width*window.hairscale/2;// - (hair_eye_center['y'] *window.hairscale - face_eye_center['y']);
+  t_hair_position['x'] =  face_eye_center['x']  - hair_eye_center['x'] * window.hairscale ;
+  t_hair_position['y'] =  face_eye_center['y']  - hair_eye_center['y'] * window.hairscale ;
   return t_hair_position;
 }
 
