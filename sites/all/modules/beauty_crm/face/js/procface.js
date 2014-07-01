@@ -392,7 +392,7 @@ function initializeFaceData(face_url){
          initializeFaceData(face_url);
 
         //drawcanvas();
-        //getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale); //put hair sytle on top of face
+        getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale); //put hair sytle on top of face
 
         c=document.getElementById("face");
         c.addEventListener(startEvent, touchStart, false);
