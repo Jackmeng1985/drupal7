@@ -387,8 +387,8 @@ function initializeFaceData(face_url){
 //        window.hairposition['y'] =0;
 //        window.hairscale  = 1;
 
-        $('.bar .scaleup'). click(function (){changeScale(window.hairscale + 0.01);});
-        $('.bar .scaledown'). click(function (){changeScale(window.hairscale - 0.01);});
+        $('.bar .scaleup'). click(function (){changeScale(window.hairscale + 0.1);});
+        $('.bar .scaledown'). click(function (){changeScale(window.hairscale - 0.1);});
          initializeFaceData(face_url);
 
         //drawcanvas();
