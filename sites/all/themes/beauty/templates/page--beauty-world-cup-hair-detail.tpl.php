@@ -1,4 +1,4 @@
-<?php 
+<?php
 $base_path = base_path();
 /*<?php print $base_path . $directory; ?>/*/
 ?>
@@ -68,11 +68,12 @@ $base_path = base_path();
               <button class="btn btn-positive btn-block"><span class="icon icon-price"></span>价格</button>
             </div>
             <div class="btn-table-cell">
-              <button class="btn btn-primary btn-block">预约<span class="icon icon-phone"></span></button>
+              <a href="tel:4006883659" class="btn btn-primary btn-block">预约<span class="icon icon-phone"></span></a>
             </div>
           </div>
         </span>
           <!-- 网友秀 -->
+        <span id="friends" class="control-content">
           <div class="table-stars">
             <div>
               <a href="##" title="">
