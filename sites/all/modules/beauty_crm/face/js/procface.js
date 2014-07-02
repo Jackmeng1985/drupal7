@@ -80,17 +80,11 @@ function changeHairChangeScale(){ // we scale the screen to 100% of hair;
   c.height = hair_height;
 }
 
-function changeFaceClone() {
-  var c = document.getElementById('faceClone');
-  c.width = hair_width;
-  c.height = hair_height;    
-}
 
 function   initializeCanvas(){
         changeFaceScale();
         changeHairScale();
         changeHairChangeScale();
-        changeFaceClone();
 }
 
 
