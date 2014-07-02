@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -30,7 +30,7 @@ function beauty_crm_entity_info() {
             'access arguments' => array('administer users'),
           ),
         ),
-      ),      
+      ),
       'view modes' => array(
         'full' => array(
           'label' => t('Full content'),
@@ -48,7 +48,7 @@ function beauty_crm_entity_info() {
       'access callback' => 'beauty_crm_entity_access_callback',
       'creation callback' => 'beauty_shop_create',
     ),
-      
+
    'beauty_hairstyle' => array(
       'label' => '发型',
       'base table' => 'beauty_hairstyle',
@@ -67,7 +67,7 @@ function beauty_crm_entity_info() {
             'access arguments' => array('administer users'),
           ),
         ),
-      ),      
+      ),
       'view modes' => array(
         'full' => array(
           'label' => t('Full content'),
@@ -85,7 +85,7 @@ function beauty_crm_entity_info() {
       'access callback' => 'beauty_crm_entity_access_callback',
       'creation callback' => 'beauty_hairstyle_create',
     ),
-     
+
   'beauty_barber' => array(
       'label' => '美发师',
       'base table' => 'beauty_barber',
@@ -94,7 +94,7 @@ function beauty_crm_entity_info() {
       'module' => 'beauty_crm',
       'entity keys' => array(
         'id' => 'bid',
-        'label' => 'name',  
+        'label' => 'name',
       ),
       'bundles' => array(
         'beauty_barber' => array(
@@ -104,7 +104,7 @@ function beauty_crm_entity_info() {
             'access arguments' => array('administer users'),
           ),
         ),
-      ),      
+      ),
       'view modes' => array(
         'full' => array(
           'label' => t('Full content'),
@@ -121,7 +121,7 @@ function beauty_crm_entity_info() {
       ),
       'access callback' => 'beauty_crm_entity_access_callback',
       'creation callback' => 'beauty_barber_create',
-    ),      
+    ),
   );
   return $return;
 }
@@ -175,27 +175,34 @@ function beauty_crm_menu() {
         'access arguments' => array('administration pages'),
         'file' => 'beauty_crm.admin.inc'
     );
-    
+
     $items['world_cup/hair/adjustment/%beauty_hairstyle'] = array(
         'title' => '换发型',
         'page callback' => 'beauty_crm_hair_picture_adjustment',
         'page arguments' => array(3),
         'access callback' => TRUE,
-        'file' => 'beauty_crm.pages.inc'        
+        'file' => 'beauty_crm.pages.inc'
     );
-    
+
     $items['world_cup/hair/upload/%'] = array(
         'title' => '上传照片',
         'page callback' => 'beauty_crm_hair_picture_upload',
         'page arguments' => array(3),
         'access callback' => TRUE,
-        'file' => 'beauty_crm.pages.inc'        
-    );    
+        'file' => 'beauty_crm.pages.inc'
+    );
+
+    $items['world_cup/hair/share'] = array(
+        'title' => '上传照片',
+        'delivery callback' => 'beauty_crm_hair_picture_share',
+        'access callback' => TRUE,
+        'file' => 'beauty_crm.pages.inc'
+    );
     return $items;
 }
 
 /**
- * 
+ *
  */
 function beauty_crm_custom_theme(){
     if (arg(0) != 'world_cup') {

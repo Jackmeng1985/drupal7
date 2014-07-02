@@ -359,7 +359,11 @@ function initializeFaceData(face_url){
 
 function savePicture (){
   canvas = document.getElementById('face');
-  window.location = canvas.toDataURL("image/png");
+  var share_data = canvas.toDataURL();
+  $.post('/world_cup/hair/share', {'image': share_data}, function(data) {
+    var url = data.url;
+    window.location.href = url;
+  }, 'json');
 }
 
 
