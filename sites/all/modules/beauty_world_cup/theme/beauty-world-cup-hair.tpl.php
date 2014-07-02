@@ -5,6 +5,7 @@
 <h2>世界杯帅哥</h2>
 <div class="tags">
   <span class="icon icon-tag"></span>
+  <a href='<?php print url('world_cup/hair'); ?>' ><button class="btn btn-link <?php if (!arg(2)) {print 'btn-active';}?>">全部</button></a>
   <?php foreach ($tags as $tag) :?>
   <a href='<?php print url('world_cup/hair/'. $tag->tid); ?>' ><button class="btn btn-link <?php if (arg(2) == $tag->tid) {print 'btn-active';}?>"><?php print $tag->name; ?></button></a>
   <?php endforeach;?>
