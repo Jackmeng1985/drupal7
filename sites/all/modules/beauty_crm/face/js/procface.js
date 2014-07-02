@@ -144,9 +144,9 @@ function calculateHairPosition(){
 
   t_hair_position['x'] =  face_eye_center['x']  - hair_eye_center['x'] * window.hairscale ;
   t_hair_position['y'] =  face_eye_center['y']  - hair_eye_center['y'] * window.hairscale ;
-  t_hair_position['x'] = t_hair_position['x'] < 0 ? 0 : t_hair_position['x'];
-  t_hair_position['y'] = t_hair_position['y'] < 0 ? 0 : t_hair_position['y'];
-  console.log(t_hair_position);
+//  t_hair_position['x'] = t_hair_position['x'] < 0 ? 0 : t_hair_position['x'];
+//  t_hair_position['y'] = t_hair_position['y'] < 0 ? 0 : t_hair_position['y'];
+//  console.log(t_hair_position);
   return t_hair_position;
 }
 
@@ -208,7 +208,7 @@ function getMergedImage(face_url, hair_url, face_position, hair_position, hair_s
        faceimgTargetData = context.getImageData(face_position['x'],face_position['y'],face_width, face_height);
        context.drawImage(images.hair, hair_position['x'],hair_position['y'],images.hair.width * hair_scale,images.hair.height * hair_scale);
        hairimgTargetData = context.getImageData(hair_position['x'],hair_position['y'],images.hair.width * hair_scale,images.hair.height * hair_scale);
-       drawPointsOnHair(context);  //draw change points according to scale;
+//       drawPointsOnHair(context);  //draw change points according to scale;
    });
  }
 
@@ -351,7 +351,7 @@ function initializeFaceData(face_url){
   source.src = face_url;
   source.onload = function (){
     context.drawImage(source,0,0);
-    window.faceImg = context.getImageData( 0, 0, window.cwidth , window.cheight);
+//    window.faceImg = context.getImageData( 0, 0, window.cwidth , window.cheight);
     //context.clearRect(0, 0, canvas.width, canvas.height);
   }
 }
@@ -405,9 +405,9 @@ function savePicture (){
         getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale); //put hair sytle on top of face
 
         c=document.getElementById("face");
-        c.addEventListener(startEvent, touchStart, false);
+//        c.addEventListener(startEvent, touchStart, false);
         c.addEventListener(moveEvent, touchMove, false);
-        c.addEventListener(endEvent, touchEnd, false);
+//        c.addEventListener(endEvent, touchEnd, false);
 
         return;
  });
