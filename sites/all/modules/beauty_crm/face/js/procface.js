@@ -353,6 +353,11 @@ function initializeFaceData(face_url){
 }
 
 
+function savePicture (){
+  canvas = document.getElementById('face');
+  window.location = canvas.toDataURL("image/png");
+}
+
 
 
 
@@ -389,6 +394,7 @@ function initializeFaceData(face_url){
 
         $('.bar .scaleup'). click(function (){changeScale(window.hairscale + 0.1);});
         $('.bar .scaledown'). click(function (){changeScale(window.hairscale - 0.1);});
+        $('.bar .share'). click(function (){savePicture();});
          initializeFaceData(face_url);
 
         //drawcanvas();
