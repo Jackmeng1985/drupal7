@@ -16,19 +16,3 @@ $base_path = base_path();
   </div>
 </div>
 <?php print($page['content']['system_main']['main']['#markup']);?>
-
-<script>
-(function($) {$(document).ready(
-  function() {
-    var share = document.getElementById('share');
-    share.addEventListener(endEvent, function() {
-      var canvas = document.getElementById('face');
-      if (canvas.getContext) {
-        var ctx = canvas.getContext('2d');
-        var share_data = canvas.toDataURL();
-      }
-    }, false);
-  });
-})(jQuery);
-
-</script>
