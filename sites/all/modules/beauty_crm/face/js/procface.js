@@ -80,11 +80,17 @@ function changeHairChangeScale(){ // we scale the screen to 100% of hair;
   c.height = hair_height;
 }
 
+function changeFaceClone() {
+  var c = document.getElementById('faceClone');
+  c.width = hair_width;
+  c.height = hair_height;    
+}
 
 function   initializeCanvas(){
         changeFaceScale();
         changeHairScale();
         changeHairChangeScale();
+        changeFaceClone();
 }
 
 
@@ -144,6 +150,9 @@ function calculateHairPosition(){
 
   t_hair_position['x'] =  face_eye_center['x']  - hair_eye_center['x'] * window.hairscale ;
   t_hair_position['y'] =  face_eye_center['y']  - hair_eye_center['y'] * window.hairscale ;
+  t_hair_position['x'] = t_hair_position['x'] < 0 ? 0 : t_hair_position['x'];
+  t_hair_position['y'] = t_hair_position['y'] < 0 ? 0 : t_hair_position['y'];
+  console.log(t_hair_position);
   return t_hair_position;
 }
 
