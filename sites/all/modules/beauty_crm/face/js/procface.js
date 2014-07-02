@@ -252,7 +252,7 @@ function getCurrentPointIndex(q){
   y = q.y -  window.hairposition['y'];
   k = new Point(x,y);
   for(var i = 0 ; i< window.p.length; i++){
-        if (  window.p[i].InfintyNormDistanceTo(k) <= 20 ) {
+        if (  window.p[i].InfintyNormDistanceTo(k) <= 30 ) {
              currentPoint = i;
              return i;
         }
@@ -321,8 +321,9 @@ function touchEnd(event){
     startX = touch.pageX;
     startY = touch.pageY;
 
-    changeX = startX - window.temppoint2['x'];
-    changeY = startY - window.temppoint2['y'];
+    var Scale = 0.5;
+    changeX = (startX - window.temppoint2['x']) * Scale;
+    changeY = (startY - window.temppoint2['y']) * Scale;
 
     if(changeX == 0 && changeY == 0) {
       if(window.setpoints) {
