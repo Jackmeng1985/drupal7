@@ -36,9 +36,9 @@ $base_path = base_path();
               async : false
           });
           $.post('/world_cup/hair/share', {'image': share_data}, function(data) {
-            window.share_url = data.url;
+            wxData.imgUrl = data.url;
           }, 'json');
-          wxData.imgUrl = window.share_url;
+        },
         // 分享被用户自动取消
         cancel : function(resp) {
             // 你可以在你的页面上给用户一个小Tip，为什么要取消呢？
