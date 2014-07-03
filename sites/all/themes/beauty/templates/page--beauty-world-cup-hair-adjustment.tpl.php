@@ -6,7 +6,6 @@ $base_path = base_path();
   <a class="tab-item scaleup" href="#">放大</a>
   <a class="tab-item scaledown" href="#">缩小</a>
   <a class="tab-item" href="<?php print url('world_cup/hair'); ?>">更多发型</a>
-  <a id="share" class="tab-item share" href="#">分享</a>
 </nav>
 <div class="content">
   <div class="page-hair-adjustment">
