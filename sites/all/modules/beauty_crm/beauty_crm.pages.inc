@@ -58,6 +58,7 @@ var hair_height = '.$style_height.';';
     beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/BinlinearInterpolation.js');
     beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/deformation.js');
     beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/procface.js');
+    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/WeixinApi.js');
     return  ' ';
 }
 
