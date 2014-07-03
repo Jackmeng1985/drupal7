@@ -16,3 +16,15 @@ PRIMARY KEY (`hid`)
 
 
 alter table beauty_hairstyle add column `data` Blob COMMENT '另外数据';
+
+
+CREATE TABLE IF NOT EXISTS `beauty_works` (
+  `wid` int(11) NOT NULL AUTO_INCREMENT COMMENT '作品 ID',
+  `bid` int(11) NOT NULL DEFAULT '0' COMMENT '美发师 ID.',
+  `name` varchar(64) NOT NULL DEFAULT '' COMMENT '作品名称.',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '作品 描述.',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '作品 状态.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间.',
+  `data` longblob COMMENT '其它数据',
+  PRIMARY KEY (`wid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 

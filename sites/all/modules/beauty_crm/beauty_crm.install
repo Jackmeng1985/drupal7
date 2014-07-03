@@ -150,11 +150,63 @@ function beauty_crm_schema() {
         'type' => 'blob',
         'not null' => TRUE,
         'serialize' => TRUE,
-        'description' => '另外数据',
+        'description' => '其它数据',
       ),        
     ),  
     'primary key' => array('hid')
   ); 
+  
+ $schema['beauty_works'] = array(
+    'description' => '作品集',
+    'fields' => array(
+      'wid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => '作品 ID',
+      ),
+      'bid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '美发师 ID.',
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '作品名称.',
+      ),            
+      'description' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '作品 描述.',
+      ),   
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'size' => 'tiny',          
+        'description' => '作品 状态.',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '创建时间.',
+        ),
+      'data' => array(
+        'type' => 'blob',
+        'not null' => TRUE,
+        'serialize' => TRUE,
+        'description' => '其它数据',
+      ),        
+    ),  
+    'primary key' => array('wid')
+  );   
   
   return $schema;
 }

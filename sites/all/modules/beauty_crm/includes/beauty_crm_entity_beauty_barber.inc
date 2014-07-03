@@ -83,3 +83,53 @@ class BeautyBarberController extends EntityAPIController {
         return $return;
     }
 }
+
+/**
+ * UI controller.
+ */
+class BeautyBarberUIController extends EntityDefaultUIController {
+    
+  /**
+   * Generates the render array for a overview table for arbitrary entities
+   * matching the given conditions.
+   *
+   * @param $conditions
+   *   An array of conditions as needed by entity_load().
+
+   * @return Array
+   *   A renderable array.
+   */
+  public function overviewTable($conditions = array()) {
+
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', $this->entityType);
+
+    // Add all conditions to query.
+    foreach ($conditions as $key => $value) {
+      $query->propertyCondition($key, $value);
+    }
+
+    if ($this->overviewPagerLimit) {
+      $query->pager($this->overviewPagerLimit);
+    }
+
+    $results = $query->execute();
+
+    $ids = isset($results[$this->entityType]) ? array_keys($results[$this->entityType]) : array();
+    $entities = $ids ? entity_load($this->entityType, $ids) : array();
+    ksort($entities);
+
+    $rows = array();
+    foreach ($entities as $entity) {
+      $rows[] = $this->overviewTableRow($conditions, entity_id($this->entityType, $entity), $entity, array(l('添加作品集', 'admin/beauty-crm/content/beauty_works/add', array('query' => array('bid' => $entity->bid, 'destination' => current_path())))));
+    }
+
+    $render = array(
+      '#theme' => 'table',
+      '#header' => $this->overviewTableHeaders($conditions, $rows),
+      '#rows' => $rows,
+      '#empty' => t('None.'),
+    );
+    return $render;
+  }    
+}
