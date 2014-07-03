@@ -341,7 +341,7 @@ function beauty_works_form($form_id, $form_state) {
   $form_state['beauty_hairstyle'] = $beauty_works;
   field_attach_form('beauty_works', $beauty_works, $form, $form_state);
   
-  if($beauty_works->is_new && $_GET['bid']) {
+  if($beauty_works->is_new && isset($_GET['bid'])) {
     $form['field_harber']['und']['#default_value'] = $_GET['bid'];
   }
   $form['actions'] = array(
