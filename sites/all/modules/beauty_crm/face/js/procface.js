@@ -164,15 +164,17 @@ function calculateHairScale(){
 }
 
 
-function changeScale(scale){
+function changeScale(scale, change){
 
-   window.hairscale = scale;
+   window.hairscale = scale + change;
    changeHairPointsByScale(scale);
 
    var canvas = document.getElementById('face');
    var context = canvas.getContext('2d');
 
    context.clearRect(0, 0, canvas.width, canvas.height);
+   window.hairposition['x'] =  window.hairposition['x'] - hair_width * change /2;
+   window.hairposition['y'] =  window.hairposition['y'] - hair_height * change /2;
    getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale);
 
 
@@ -400,8 +402,8 @@ function savePicture (){
 //        window.hairposition['y'] =0;
 //        window.hairscale  = 1;
 
-        $('.bar .scaleup'). click(function (){changeScale(window.hairscale + 0.1);});
-        $('.bar .scaledown'). click(function (){changeScale(window.hairscale - 0.1);});
+        $('.bar .scaleup'). click(function (){changeScale(window.hairscale,  0.1);});
+        $('.bar .scaledown'). click(function (){changeScale(window.hairscale, -0.1);});
         $('.bar .share'). click(function (){savePicture();});
          initializeFaceData(face_url);
 
