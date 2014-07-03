@@ -358,7 +358,7 @@ function initializeFaceData(face_url){
 
 
 function savePicture (){
-  canvas = document.getElementById('face');
+  var canvas = document.getElementById('face');
   var share_data = canvas.toDataURL();
   $.post('/world_cup/hair/share', {'image': share_data}, function(data) {
     var url = data.url;
