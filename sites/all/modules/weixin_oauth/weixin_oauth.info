@@ -1,0 +1,5 @@
+name = Weixin Oauth
+description = Authentication for Weixin
+package = Beauty
+core = 7.x
+configure = admin/config/services/weixin
