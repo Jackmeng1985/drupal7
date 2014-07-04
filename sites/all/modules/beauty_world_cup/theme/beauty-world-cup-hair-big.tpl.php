@@ -19,12 +19,6 @@
     </li>
     <li class="table-view-cell media">
       <a class="">
-        <span class="media-object pull-left media-title">球队</span>
-        <div class="media-body media-text"><?php print $hairstyle_tag_name;?></div>
-      </a>
-    </li>
-    <li class="table-view-cell media">
-      <a class="">
         <span class="media-object pull-left media-title">打理要点</span>
         <div class="media-body media-text"><?php print $hairstyle->description;?></div>
       </a>
