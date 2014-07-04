@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * @file
+ * Winxin oauth.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function weixin_oauth_menu() {
+  $items = array();
+  $items['weixin/oauth'] = array(
+    'title' => 'Weixin Redirect',
+    'page callback' => 'weixin_oauth_redirect',
+    'access callback' => 'user_is_anonymous',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['weixin/oauth/callback'] = array(
+    'title' => 'Authentication callback',
+    'page callback' => 'weinxin_oauth_callback',
+    'access callback' => 'user_is_anonymous',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/config/services/weixin'] = array(
+    'title' => 'Weixin oauth settings',
+    'description' => 'Configure the weixin AppId and AppSecret.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('winxin_oauth_admin_settings'),
+    'access arguments' => array('administer weixin'),
+    'file' => 'weixin_oauth.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function weixin_oauth_permission() {
+  return array(
+    'administer winxin' => t('Administer Weixin'),
+    'description' => t('Configure Weixin.'),
+  );
+}
+
+/**
+ * Menu callback: Weixin Redirect.
+ */
+function weixin_oauth_redirect() {
+  $parameters = array(
+    'appid' => variable_get('weixin_appid', ''),
+    'redirect_uri' => url('weixin/oauth/callback', array('absolute' => TRUE)),
+    'response_type' => 'code',
+    'scope' => 'snsapi_userinfo',
+  );
+  $oauth_url = 'https://open.weixin.qq.com/connect/oauth2/authorize';
+  drupal_goto($oauth_url, array('query' => $parameters, 'fragment' => 'wechat_redirect'));
+}
+
+/**
+ * Menu callback: Weixin Callback.
+ */
+function weixin_oauth_callback() {
+  $request = $_REQUEST;
+
+  if (isset($request['code'])) {
+    $parameters = array(
+      'appid' => variable_get('weixin_appid', ''),
+      'secret' => variable_get('weixin_appsecret', ''),
+      'code' => $request['code'],
+      'grant_type' => 'authorization_code',
+    );
+
+    $param_data = array(
+      'method' => 'POST',
+      'data' => drupal_http_build_query($parameters),
+    );
+
+    $access_token_uri = 'https://api.weixin.qq.com/sns/oauth2/access_token';
+
+    $http = drupal_http_request(url($access_token_uri, array('query' => $parameters)), $param_data);
+    $data = $http->data;
+    $data = drupal_json_decode($data);
+    $openid = $data->openid;
+    $access_token = $data->access_token;
+
+    $info_uri = 'https://api.weixin.qq.com/sns/userinfo';
+    $http = drupal_http_request(url($provider['info_uri'], array(
+      'query' => array(
+        'access_token' => $access_token,
+        'openid' => $openid,
+        'lang' => 'zh_CN',))));
+    $info = drupal_json_decode($http->data);
+
+    @todo 用户登陆
+  }
+}
