@@ -19,6 +19,7 @@
   margin: 20px auto;
   border-radius: 50%;
   display: block;
+  font-size: 18px;
 }
 </style>
 <div class="content">
