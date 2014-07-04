@@ -30,7 +30,7 @@ function beauty_crm_features_field_default_field_instances() {
     'entity_type' => 'beauty_barber',
     'field_name' => 'field_barber_avatar',
     'label' => '美发师头像',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
