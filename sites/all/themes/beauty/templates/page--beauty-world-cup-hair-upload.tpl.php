@@ -20,6 +20,7 @@
   border-radius: 50%;
   display: block;
   font-size: 18px;
+  color: #fff;
 }
 </style>
 <div class="content">
