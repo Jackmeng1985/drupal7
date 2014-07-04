@@ -63,24 +63,27 @@ function beauty_crm_features_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'list_default',
+        'type' => 'text_default',
         'weight' => 2,
       ),
     ),
     'entity_type' => 'beauty_barber',
     'field_name' => 'field_barber_level',
     'label' => '美发师职称',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 3,
     ),
   );

@@ -17,14 +17,6 @@ function beauty_crm_features_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
-    'tags' => array(
-      'name' => 'Tags',
-      'machine_name' => 'tags',
-      'description' => 'Use tags to group articles on similar topics into categories.',
-      'hierarchy' => 0,
-      'module' => 'taxonomy',
-      'weight' => 0,
-    ),
     'works_tags' => array(
       'name' => '作品集标签',
       'machine_name' => 'works_tags',
