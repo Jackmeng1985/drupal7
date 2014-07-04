@@ -1,3 +1,7 @@
+<?php 
+$base_path = base_path();
+/*<?php print $base_path . $directory; ?>/*/
+?>
 <style type="text/css">
 #file {
   position: absolute;
@@ -29,6 +33,7 @@
       <input id="photo" class="btn btn-upload" value="拍照" disabled="disabled" />
       <input type="file" name="file" id="file" accept="image/*" capture="camera" >
       <input id="submit" type="submit" name="submit" class="btn btn-upload" value="点击上传" style="display: none;">
+      <img  id="loading" src="<?php print $base_path . $directory; ?>/images/GIF0112.gif" alt="" style="display: none;">
     </form>
   </div>
 </div>
@@ -40,6 +45,10 @@
         $('#submit').show();
       }
     });
+    $('#image_upload').submit(function() {
+         $('#submit').hide();
+         $('#loading').show();
+    })
     var w = document.documentElement.clientWidth;
     var r = window.devicePixelRatio;
   //  w = w * r;
