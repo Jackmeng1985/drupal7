@@ -57,8 +57,8 @@ $base_path = base_path();
               <a class="navigate-right">
                 <span class="media-object pull-left icon icon-address"></span>
                 <div class="media-body">
-                  <h4>丽锦望京香颂店</h4>
-                  <div class="table-view-des">北京市朝阳区香颂</div>
+                  <h4>丽锦美业</h4>
+                  <div class="table-view-des">北京市朝阳区南湖西园北京香颂221号楼2层221-6</div>
                 </div>
               </a>
             </li>
