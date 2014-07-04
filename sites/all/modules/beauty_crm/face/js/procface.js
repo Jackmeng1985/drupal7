@@ -411,7 +411,8 @@ function savePicture (){
 
         //drawcanvas();
         getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale); //put hair sytle on top of face
-
+        
+        $("#loading").hide();
         c=document.getElementById("face");
         c.addEventListener(startEvent, touchStart, false);
         c.addEventListener(moveEvent, touchMove, false);
