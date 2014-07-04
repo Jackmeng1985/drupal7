@@ -54,6 +54,37 @@ function beauty_crm_features_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'beauty_barber-beauty_barber-field_barber_level'
+  $field_instances['beauty_barber-beauty_barber-field_barber_level'] = array(
+    'bundle' => 'beauty_barber',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'beauty_barber',
+    'field_name' => 'field_barber_level',
+    'label' => '美发师职称',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'beauty_barber-beauty_barber-field_shop'
   $field_instances['beauty_barber-beauty_barber-field_shop'] = array(
     'bundle' => 'beauty_barber',
@@ -397,6 +428,7 @@ function beauty_crm_features_field_default_field_instances() {
   t('标签');
   t('美发师');
   t('美发师头像');
+  t('美发师职称');
   t('美发店');
 
   return $field_instances;

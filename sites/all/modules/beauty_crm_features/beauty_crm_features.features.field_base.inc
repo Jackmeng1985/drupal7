@@ -40,6 +40,35 @@ function beauty_crm_features_field_default_field_bases() {
     'type' => 'image',
   );
 
+  // Exported field_base: 'field_barber_level'
+  $field_bases['field_barber_level'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_barber_level',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        '店长' => '店长',
+        '副店长' => '副店长',
+        '技术副店长' => '技术副店长',
+        '美发师' => '美发师',
+        '助理' => '助理',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   // Exported field_base: 'field_hairstyle_tags'
   $field_bases['field_hairstyle_tags'] = array(
     'active' => 1,
