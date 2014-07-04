@@ -9,6 +9,7 @@ $base_path = base_path();
 </nav>
 <div class="content">
   <div class="page-hair-adjustment">
+      <img  id="loading" src="<?php print $base_path . $directory; ?>/images/GIF0111.gif" alt="" style="display: block;">
        <canvas id="face" width="600" height = "600"> </canvas>
        <canvas id ="hairChange" width="448" height="733" > </canvas>
        <canvas id="hairStyle" width="448" height="733"></canvas>
