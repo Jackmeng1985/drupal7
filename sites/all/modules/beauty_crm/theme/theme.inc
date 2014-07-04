@@ -16,4 +16,6 @@ function beauty_crm_preprocess_beauty_crm_edit_hair_picture(&$variables) {
     $variables['rawHairContour'] = $beauty_hairstyle->data['rawHairContour'];
     $variables['rawFacePoints'] = $beauty_hairstyle->data['rawFacePoints'];
     
+    list($variables['pic_origin_width'], $variables['pic_origin_height']) = getimagesize($variables['pic_origin_path']);
+    
 }
