@@ -4,7 +4,7 @@ $base_path = base_path();
 ?>
 
 <div class="art">
-  <div class="pic">
+    <div class="pic" style="width:<?php print $pic_origin_width;?>px;height:<?php print $pic_origin_height;?>px;">
     <div class="userhead"><img id="imageHair" src="<?php print $pic_origin_path; ?>" width="<?php print $pic_origin_width;?>" height="<?php print $pic_origin_height;?>" ></div>
   </div>
   <div class="upload">

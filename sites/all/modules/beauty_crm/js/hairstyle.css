@@ -27,9 +27,9 @@ body{background:#3a3a3a;}
 .nav ul{float:left;padding:0 0 0 50px;}
 .nav li{float:left;padding:3px 10px 0 10px;}
 
-.art{width:945px;margin:10px auto 10px;*zoom:1;}
+.art{width:100%;margin:10px auto 10px;*zoom:1;}
 .art:after{content:'.';display:block;width:0;height:0;visibility: hidden;clear:both;}
-.art .pic{position:relative;width:520px;height:693px;float:left;background:#b3b3b3;}
+.art .pic{position:relative;float:left;background:#b3b3b3;}
 .art i{position:absolute;width:22px;height:22px; cursor:pointer;z-index:2;cursor:move;}
 // TODO
 .art .userhead{width:200px;cursor:pointer;background-position:center center;background-repeat:no-repeat;}
