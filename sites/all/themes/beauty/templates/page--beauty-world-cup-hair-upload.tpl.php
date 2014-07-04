@@ -6,6 +6,8 @@
   margin: 0;
   padding: 0;
   font-size: 20px;
+  height: 100px;
+  width: 100%;
   cursor: pointer;
   opacity: 0;
   filter: alpha(opacity=0);
@@ -31,9 +33,6 @@
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#photo').click(function() {
-      $('#file').trigger('click');
-    });
     $('#file').change(function() {
       if(this.value != '') {
         $('#submit').show();
