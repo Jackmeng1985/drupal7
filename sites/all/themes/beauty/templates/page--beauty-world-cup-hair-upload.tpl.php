@@ -11,8 +11,8 @@
   filter: alpha(opacity=0);
 }
 #photo {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   padding: 0;
   margin: 20px auto;
   border-radius: 50%;
