@@ -211,6 +211,8 @@ function getMergedImage(face_url, hair_url, face_position, hair_position, hair_s
        context.drawImage(images.hair, hair_position['x'],hair_position['y'],images.hair.width * hair_scale,images.hair.height * hair_scale);
        hairimgTargetData = context.getImageData(hair_position['x'],hair_position['y'],images.hair.width * hair_scale,images.hair.height * hair_scale);
 //       drawPointsOnHair(context);  //draw change points according to scale;
+       context.clearRect(0, face_height, 2000, 2000);
+       context.clearRect(face_width, 0, 2000, 2000);
    });
  }
 
