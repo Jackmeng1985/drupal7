@@ -97,7 +97,10 @@ $base_path = base_path();
       <ul class="table-view">
         <li class="table-view-cell">
           <div class="">
-            <div class="table-view-des">全场都是香蕉黄，这是一场精彩的南美黄衣军团对决，看的人心惊胆战，也赏心悦目。桑巴帅哥们与各式亮瞎眼的发型对熬夜看比赛的伪球迷妹纸来说绝对是球场上的最大靓点！</div>
+            <div class="table-view-des">
+              全场都是香蕉黄，这是一场精彩的南美黄衣军团对决，看的人心惊胆战，也赏心悦目。桑巴帅哥们与各式亮瞎眼的发型对熬夜看比赛的伪球迷妹纸来说绝对是球场上的最大靓点！
+              <a href="/world_cup/detail">查看详情</a>
+            </div>
             <div class="table-view-cell-footer">
               <span class="icon icon-comment"></span><span>135</span>
             </div>
