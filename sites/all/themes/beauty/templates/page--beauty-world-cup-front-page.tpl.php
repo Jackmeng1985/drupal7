@@ -87,9 +87,9 @@ $base_path = base_path();
   <body>
     <div class="content">
       <div class="banner">
-        <img src="<?php print $base_path . $directory; ?>/images/banner.jpg" alt="">
+        <a href="/world_cup/detail"><img src="<?php print $base_path . $directory; ?>/images/banner1.png" alt=""></a>
         <div class="banner-title">
-          <span class="pull-left">比利时VS阿尔及利亚： 发型的优势</span>
+          <span class="pull-left">【丽锦嗨时尚独家】桑巴军团悲情对决 杀马特天王重伤泪飙</span>
           <span class="pull-right">
             <span class="icon icon-comment-orange"></span>135
           </span>
@@ -100,8 +100,8 @@ $base_path = base_path();
       <ul class="table-view">
         <li class="table-view-cell">
           <div class="">
-            <h3>比利时2-1阿尔及利亚反败为胜</h3>
-            <div class="table-view-des">阿尔扎两度助攻，费莱尼、梅尔滕斯先后替补出场破门梅尔滕斯先后替补</div>
+            <h3>【丽锦嗨时尚独家】桑巴军团悲情对决 杀马特天王重伤泪飙</h3>
+            <div class="table-view-des">全场都是香蕉黄，这是一场精彩的南美黄衣军团对决，看的人心惊胆战，也赏心悦目。桑巴帅哥们与各式亮瞎眼的发型对熬夜看比赛的伪球迷妹纸来说绝对是球场上的最大靓点！</div>
             <div class="table-view-cell-footer">
               <span class="icon icon-comment"></span><span>135</span>
             </div>
