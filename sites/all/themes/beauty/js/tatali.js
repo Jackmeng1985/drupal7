@@ -37,6 +37,7 @@ var tatali = function(type, id, template_name, target) {
           var fullweibo = '';
           var weibo_content = dpam.weibo_point.text;
           var created_at = dpam.weibo_point.created_at;
+          var pic_urls = dpam.weibo_point.pic_urls;
 
           var url = 'http://weibo.com/' + id + '/' + mid_url;
 
@@ -48,7 +49,8 @@ var tatali = function(type, id, template_name, target) {
             author_name: author_name,
             author_location: author_location,
             weibo_content: weibo_content,
-            created: created
+            created: created,
+            pic_urls: pic_urls
           };
           items.push(item);
         });

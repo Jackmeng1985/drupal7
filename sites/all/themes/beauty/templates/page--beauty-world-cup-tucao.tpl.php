@@ -29,6 +29,9 @@ $base_path = base_path();
               <div class="media-body">
                 <h4>@{{value.author_name}}  ：</h4>
                 <div class="table-view-des">{{value.weibo_content}}</div>
+                {{each value.pic_urls as pic}}
+                  <img src="{{pic.thumbnail_pic}}">
+                {{/each}}
                 <div class="table-view-footer"><span class="submit">{{value.created}}</span><span class="source">新浪微博</span></div>
               </div>
             </a>
