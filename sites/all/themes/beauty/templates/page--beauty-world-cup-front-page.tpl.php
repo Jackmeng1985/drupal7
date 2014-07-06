@@ -87,7 +87,7 @@ $base_path = base_path();
   <body>
     <div class="content">
       <div class="banner">
-        <a href="/world_cup/detail"><img src="<?php print $base_path . $directory; ?>/images/banner1.png" alt=""></a>
+        <a href="/world_cup/detail"><img src="<?php print $base_path . $directory; ?>/images/banner1.jpg" alt=""></a>
         <div class="banner-title">
           <span class="pull-left">【丽锦嗨时尚独家】桑巴军团悲情对决 杀马特天王重伤泪飙</span>
         </div>
