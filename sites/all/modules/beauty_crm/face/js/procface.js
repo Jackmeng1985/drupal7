@@ -363,11 +363,10 @@ function initializeFaceData(face_url){
 
 function savePicture (){
   var canvas = document.getElementById('face');
-  var share_data = canvas.toDataURL();
-  $.post('/world_cup/hair/share', {'image': share_data}, function(data) {
-    var url = data.url;
-    window.location.href = url;
-  }, 'json');
+  var share_data = canvas.toDataURL('image/jpg');
+  var link = document.getElementById('share');
+  link.href = share_data;
+  link.download = 'hair_' + Date.now() + '.jpg';
 }
 
 
@@ -411,7 +410,7 @@ function savePicture (){
 
         //drawcanvas();
         getMergedImage(face_url, hair_url, window.faceposition,window.hairposition, window.hairscale); //put hair sytle on top of face
-        
+
         $("#loading").hide();
         c=document.getElementById("face");
         c.addEventListener(startEvent, touchStart, false);
