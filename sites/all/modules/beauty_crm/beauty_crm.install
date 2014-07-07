@@ -207,6 +207,58 @@ function beauty_crm_schema() {
     ),  
     'primary key' => array('wid')
   );   
+ 
+ $schema['beauty_weixin_user'] = array(
+    'description' => '微信用户表',
+    'fields' => array(
+      'wxuid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => '微信用户 ID',
+      ),  
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'uid',
+      ),         
+      'phone' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '电话.',
+      ), 
+    'openid' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'openid.',
+      ),        
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'size' => 'tiny',          
+        'description' => '用户 状态.',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '创建时间.',
+        ),
+      'data' => array(
+        'type' => 'blob',
+        'not null' => TRUE,
+        'serialize' => TRUE,
+        'description' => '其它数据',
+      ),         
+    ),  
+    'primary key' => array('wxuid')
+  ); 
   
   return $schema;
 }

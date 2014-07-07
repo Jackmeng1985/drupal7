@@ -10,6 +10,7 @@ include_once dirname(__FILE__) . '/includes/beauty_crm_entity_beauty_shop.inc';
 include_once dirname(__FILE__) . '/includes/beauty_crm_entity_beauty_barber.inc';
 include_once dirname(__FILE__) . '/includes/beauty_crm_entity_beauty_hairstyle.inc';
 include_once dirname(__FILE__) . '/includes/beauty_crm_entity_beauty_works.inc';
+include_once dirname(__FILE__) . '/includes/beauty_crm_entity_beauty_weixin_user.inc';
 
 function beauty_crm_entity_info() {
   $return = array(
@@ -158,6 +159,42 @@ function beauty_crm_entity_info() {
       ),
       'access callback' => 'beauty_crm_entity_access_callback',
       'creation callback' => 'beauty_works_create',
+    ),   
+    'beauty_weixin_user' => array(
+      'label' => '微信用户',
+      'base table' => 'beauty_weixin_user',
+      'uri callback' => 'entity_class_uri',
+      'fieldable' => TRUE,
+      'module' => 'beauty_crm',
+      'entity keys' => array(
+        'id' => 'wxuid',
+        'label' => 'phone',
+      ),
+      'bundles' => array(
+        'beauty_weixin_user' => array(
+          'label' => '微信用户',
+          'admin' => array(
+            'path' => 'admin/beauty-crm/building/beauty_weixin_user',
+            'access arguments' => array('administer users'),
+          ),
+        ),
+      ),
+      'view modes' => array(
+        'full' => array(
+          'label' => t('Full content'),
+          'custom settings' => FALSE,
+        )
+      ),
+      // the following coder is for entity api module
+      'entity class' => 'Entity',
+      'controller class' => 'EntityAPIController',
+      'admin ui' => array(
+          'path' => 'admin/beauty-crm/content/beauty_weixin_user',
+          'file' => 'includes/beauty_crm.entity.admin.inc',
+          'controller class' => 'EntityDefaultUIController' // content controller doesn't work well
+      ),
+      'access callback' => 'beauty_crm_entity_access_callback',
+      'creation callback' => 'beauty_weixin_user_create',
     ),      
   );
   return $return;

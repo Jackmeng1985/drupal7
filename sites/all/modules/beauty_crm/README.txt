@@ -28,3 +28,15 @@ CREATE TABLE IF NOT EXISTS `beauty_works` (
   `data` longblob COMMENT '其它数据',
   PRIMARY KEY (`wid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 
+
+
+CREATE TABLE {beauty_weixin_user} (
+`wxuid` INT NOT NULL auto_increment COMMENT '微信用户 ID', 
+`uid` INT NOT NULL DEFAULT 0 COMMENT 'uid', 
+`phone` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '电话.', 
+`openid` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'openid.', 
+`status` TINYINT unsigned NOT NULL DEFAULT 1 COMMENT '用户 状态.', 
+`created` INT NOT NULL DEFAULT 0 COMMENT '创建时间.', 
+`data` BLOB NOT NULL COMMENT '其它数据', 
+PRIMARY KEY (`wxuid`)
+) ENGINE = InnoDB DEFAULT CHARACTER SET utf8;
