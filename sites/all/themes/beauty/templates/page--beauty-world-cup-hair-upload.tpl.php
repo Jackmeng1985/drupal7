@@ -1,4 +1,4 @@
-<?php 
+<?php
 $base_path = base_path();
 /*<?php print $base_path . $directory; ?>/*/
 ?>
@@ -28,6 +28,12 @@ $base_path = base_path();
 }
 </style>
 <div class="content">
+  <?php if(isset($_SESSION['thumb_face_file_path'])): ?>
+    <div class="image-history" style="margin: 20px;">
+      <img src="<?php print image_style_url('thumbnail', str_replace(DRUPAL_ROOT . '/sites/default/files/', 'public://', $_SESSION['thumb_face_file_path'])); ?>">
+      <div><a href="<?php print url('world_cup/hair/adjustment/' . arg(3)); ?>" class="btn btn-positive" style="width: 100px;">使用历史照片</a></div>
+    </div>
+  <?php endif; ?>
   <div class="page-upload">
     <form id="image_upload" action="" method="post" enctype="multipart/form-data" >
       <input id="photo" class="btn btn-upload" value="拍照" disabled="disabled" />
