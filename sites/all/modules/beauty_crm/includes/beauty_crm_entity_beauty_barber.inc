@@ -104,7 +104,7 @@ class BeautyBarberUIController extends EntityDefaultUIController {
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', $this->entityType);
 
-    if (isset($_GET['shop'])) {
+    if (isset($_GET['shop']) && is_numeric($_GET['shop']) && $_GET['shop'] != 0) {
         $query->propertyCondition('sid', $_GET['shop'], '=');
     }
     // Add all conditions to query.
