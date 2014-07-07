@@ -59,3 +59,8 @@ function beauty_preprocess_html(&$vars) {
         array_splice($vars['theme_hook_suggestions'], 0, 0, 'html__mobile');        
     }
 }
+
+function beauty_add_normal_js() {
+   beauty_add_js(base_path() . 'misc/jquery.js');
+   beauty_add_js(base_path() . 'misc/drupal.js');    
+}
