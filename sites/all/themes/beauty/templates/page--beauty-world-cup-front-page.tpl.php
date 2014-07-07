@@ -20,7 +20,7 @@ $base_path = base_path();
     <script>
       tatali('weibo', 1457, 'weibo-content', 'comment');
       tatali('youku', 1462, 'video-content', 'video');
-      tatali('news', 1473, 'bulletin-content', 'bulletin');
+      //tatali('news', 1473, 'bulletin-content', 'bulletin');
     </script>
     <script id='weibo-content' type="text/html">
       <ul class="table-view">
@@ -120,6 +120,25 @@ $base_path = base_path();
       <div class="card">
         <span id="bulletin" class="control-content active">
           <!-- 快报 -->
+          <ul class="table-view">
+              <li class="table-view-cell media">
+                  <a href="/world_cup/detail/1">
+                    <div class="media-object pull-left">
+                      <img  src="<?php print $base_path . $directory; ?>/images/banner1.jpg">
+                    </div>
+                    <div class="media-body">
+                      <h4>【丽锦嗨时尚独家】桑巴军团悲情对决 杀马特天王重伤泪飙</h4>
+                      <div class="table-view-des">
+                        全场都是香蕉黄，这是一场精彩的南美黄衣军团对决，看的人心惊胆战，也赏心悦目。桑巴帅哥们与各式亮瞎眼的发型对熬夜看比赛的伪球迷妹纸来说绝对是球场上的最大靓点！
+                      </div>
+                      <div class="table-view-footer">
+                        <span class="subbmit">2017-07-05 08:30:05</span>
+                        <span class="tag">丽锦快评</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+          </ul>
         </span>
         <span id="video" class="control-content">
           <!-- 视频 -->
