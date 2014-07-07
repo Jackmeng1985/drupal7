@@ -27,7 +27,7 @@ $base_path = base_path();
             <a href="#" title="">@丽锦快评 </a>
           </div>
           <div class="pull-right">
-            <span class="icon icon-comment"></span>135
+            <span class="icon icon-comment"></span>
           </div>
         </div>
         <div class="page-content-body">
