@@ -104,6 +104,9 @@ class BeautyBarberUIController extends EntityDefaultUIController {
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', $this->entityType);
 
+    if (isset($_GET['shop'])) {
+        $query->propertyCondition('sid', $_GET['shop'], '=');
+    }
     // Add all conditions to query.
     foreach ($conditions as $key => $value) {
       $query->propertyCondition($key, $value);
@@ -131,5 +134,31 @@ class BeautyBarberUIController extends EntityDefaultUIController {
       '#empty' => t('None.'),
     );
     return $render;
-  }    
+  }
+  /**
+   * Builds the entity overview form.
+   */
+  public function overviewForm($form, &$form_state) {
+     
+    $query = db_select('beauty_shop', 'b');
+    $query->addField('b', 'sid');
+    $query->addField('b', 'name');
+    $query->orderBy('created', 'desc');
+    $result = $query->execute();
+     foreach ($result as $row) {
+         $options[$row->sid] = $row->name;
+     }
+    $form['header'] = array(
+        '#title' => '门店',
+        '#type' => 'select',
+        '#options' => array('请选择') + $options,
+        '#default_value' => isset($_GET['shop']) ? $_GET['shop'] : 0,
+        '#attributes' => array(
+           'id' => 'beauty_shop',
+           'onChange' => 'javascript:window.location.href="/admin/beauty-crm/content/beauty_barber?shop=" + jQuery("#beauty_shop").val();',
+        )
+    );
+    $return = parent::overviewForm($form, $form_state);
+    return $return;
+  }  
 }
