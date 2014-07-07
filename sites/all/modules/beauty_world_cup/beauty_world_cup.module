@@ -51,6 +51,7 @@ function beauty_world_cup_theme() {
 }
 
 function beauty_world_cup_pages_hair() {
+    beauty_add_normal_js();
     $termid = arg(2);
     $query = db_select('beauty_hairstyle', 'bh');
     if (is_numeric($termid)) {
