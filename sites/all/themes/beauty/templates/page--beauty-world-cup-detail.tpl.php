@@ -16,28 +16,26 @@ $base_path = base_path();
   <body>
     <div class="content">
       <div class="banner">
-        <img src="<?php print $base_path . $directory; ?>/images/banner1.jpg" alt="">
-        <div class="banner-title">【丽锦嗨时尚独家】桑巴军团悲情对决 杀马特天王>重伤泪飙</div>
+        <img src="<?php print $base_path . $directory; ?>/images/banner2.jpg" alt="">
+        <div class="banner-title">【丽锦嗨时尚独家】真心跪了！梅西球迷，你们太强了！</div>
       </div>
       <!-- end banner content -->
       <div class="page-content">
         <div class="page-content-header">
           <div class="pull-left">
-            <span class="submit">2017-07-05 08:30:05</span>
+            <span class="submit">2017-07-07 15:00:00</span>
             <a href="#" title="">@丽锦快评 </a>
           </div>
           <div class="pull-right">
-            <span class="icon icon-comment"></span>135
+            <span class="icon icon-comment"></span>
           </div>
         </div>
         <div class="page-content-body">
-          <p>7月5日04：00巴西-哥伦比亚    巴西队2：1淘汰哥伦比亚</p>
-          <p>全场都是香蕉黄，这是一场精彩的南美黄衣军团对决，看的人心惊胆战，也赏心悦目。桑巴帅哥们与各式亮瞎眼的发型对熬夜看比赛的伪球迷妹纸来说绝对是球场上的最大靓点！</p>
-          <p>今天最抢眼的球员依然非杀马特天王内马尔莫属，这位过人狂魔以桑巴旋风般的盘带技巧和金黄斜冲的发型成为场上焦点，纵使被批像城乡结合部非主流青年，也高调到逆天。自从进了世界杯内马尔就各种被虐，被推，被撞、被踢、被踩、被撞飞，今天看到内马尔被重伤躺在担架上抬出场外，巴西队胜利的喜悦都冲淡了许多，多少女球迷的心碎成了渣渣。。。。。。</p>
-          <p>队长不能上，内马尔若再伤重缺席，接下来巴西对阵德国队将是一场艰苦鏖战。</p>
-          <img width=100% src="<?php print $base_path . $directory; ?>/images/image1.jpg">
-          <p>J罗，这个呆萌的小球星火了以后，已经很多客人点名要剪他的发型喽！</p>
-          <p>在巴西-哥伦比亚比赛中点球命中扳回一分，虽然难以逃脱哥伦比亚被淘汰的局面。不过他个人以6粒进球领跑射手榜，前途无量！</p>
+          <p>没有内马尔的洗剪吹，也没有C罗3场换了3个发型为自己造势，梅西之所以被称为球王靠的绝对是实力呀！这位低调的世界球星无论出现在哪里，都能萌化一群球迷的心。</p>
+          <p>而当国际足联遭遇梅西时，也调皮了一把，看完给梅西配的球童后，估计其他队员都感受到了来自这个世界的森森的敌意。尤其是罗本简直要哭晕在厕所。巴西人，你们这么势力，让别的球星如何与你们一起玩耍~</p>
+          <img width=100% src="<?php print $base_path . $directory; ?>/images/image2-1.jpg">
+          <p>说到梅西的发型，是小编最心水哒。帅气时尚的短发造型，充满活力，配上梅西精致的面庞，活脱脱给人一种小清新的感觉。而发型永远不是他的主题，仅仅是他精湛球技的陪衬，就这样都阻挡不了球迷们想模仿的心。甚至有球迷在脑袋上剪出梅西的面庞剪影，惟妙惟肖，给发型师跪了，这不是发型，绝对是艺术品。</p>
+          <img width=100% src="<?php print $base_path . $directory; ?>/images/image2-2.jpg">
         </div>
       </div>
     </div>
