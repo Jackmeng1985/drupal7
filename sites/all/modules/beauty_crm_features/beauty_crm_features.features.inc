@@ -59,3 +59,20 @@ function beauty_crm_features_image_default_styles() {
 
   return $styles;
 }
+
+/**
+ * Implements hook_node_info().
+ */
+function beauty_crm_features_node_info() {
+  $items = array(
+    'beauty_news' => array(
+      'name' => t('丽锦快讯'),
+      'base' => 'node_content',
+      'description' => t('丽锦快讯'),
+      'has_title' => '1',
+      'title_label' => t('标题'),
+      'help' => '',
+    ),
+  );
+  return $items;
+}
