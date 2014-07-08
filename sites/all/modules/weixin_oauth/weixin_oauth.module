@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Winxin oauth.
+ * Weixin oauth.
  */
 
 /**
@@ -28,7 +28,7 @@ function weixin_oauth_menu() {
     'title' => 'Weixin oauth settings',
     'description' => 'Configure the weixin AppId and AppSecret.',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('winxin_oauth_admin_settings'),
+    'page arguments' => array('weixin_oauth_admin_settings'),
     'access arguments' => array('administer weixin'),
     'file' => 'weixin_oauth.admin.inc',
   );
@@ -41,7 +41,7 @@ function weixin_oauth_menu() {
  */
 function weixin_oauth_permission() {
   return array(
-    'administer winxin' => t('Administer Weixin'),
+    'administer weixin' => t('Administer Weixin'),
     'description' => t('Configure Weixin.'),
   );
 }
@@ -81,20 +81,69 @@ function weixin_oauth_callback() {
 
     $access_token_uri = 'https://api.weixin.qq.com/sns/oauth2/access_token';
 
-    $http = drupal_http_request(url($access_token_uri, array('query' => $parameters)), $param_data);
-    $data = $http->data;
-    $data = drupal_json_decode($data);
-    $openid = $data->openid;
-    $access_token = $data->access_token;
+    $http = drupal_http_request($access_token_uri, $param_data);
+    $data = drupal_json_decode($http->data);
+    if (!isset($data['openid'])) {
+      return;
+    }
+    $openid = $data['openid'];
+    $access_token = $data['access_token'];
 
     $info_uri = 'https://api.weixin.qq.com/sns/userinfo';
-    $http = drupal_http_request(url($provider['info_uri'], array(
+    $http = drupal_http_request(url($info_uri, array(
       'query' => array(
         'access_token' => $access_token,
         'openid' => $openid,
         'lang' => 'zh_CN',))));
     $info = drupal_json_decode($http->data);
 
-    @todo 用户登陆
+    global $user;
+    $identity = 'weixin_' . $openid;
+    $account = user_external_load($identity);
+
+    if (!isset($account->uid)) {
+      $name = $info['nickname'];
+      $ac = user_load_by_name($name);
+      if ($ac) {
+        $separator = '_';
+        $i = 0;
+        do {
+          $i++;
+          $name = $info['nickname'] . $separator . $i;
+        } while (user_load_by_name($name));
+      }
+      $edit = array(
+        'name' => $name,
+        'status' => 1,
+      );
+      $account = user_save(NULL, $edit);
+      user_set_authmaps($account, array('authname_weixin_oauth' => $identity));
+      weixin_oauth_execute_user_save($account, $info);
+    }
+    weixin_oauth_execute_user_login($account);
+    drupal_goto('user');
+    //@todo 跳转到手机认证页面
   }
+}
+
+function weixin_oauth_execute_user_login($account) {
+  if (empty($account) OR !isset($account->uid)) {
+    return FALSE;
+  }
+  $form_state['uid'] = $account->uid;
+  user_login_submit(array(), $form_state);
+  return TRUE;
+}
+
+function weixin_oauth_execute_user_save($account, $info) {
+  $values = array(
+    'uid' => $account->uid,
+    'phone'=> 0,
+    'openid' => $info['openid'],
+    'status' => 1,
+    'created' => time(),
+    'data' => $info,
+  );
+  $weixin_user = beauty_weixin_user_create($values);
+  $weixin_user->save();
 }
