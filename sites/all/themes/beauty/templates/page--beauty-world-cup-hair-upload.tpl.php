@@ -37,7 +37,7 @@ $base_path = base_path();
   <div class="page-upload">
     <form id="image_upload" action="" method="post" enctype="multipart/form-data" >
       <input id="photo" class="btn btn-upload" value="拍照" disabled="disabled" />
-      <input type="file" name="file" id="file" accept="image/*" >
+      <input type="file" name="file" id="file" accept="image/*" capture="camera"  >
       <input id="submit" type="submit" name="submit" class="btn btn-upload" value="点击上传" style="display: none;">
       <img  id="loading" src="<?php print $base_path . $directory; ?>/images/GIF0112.gif" alt="" style="display: none;">
     </form>
