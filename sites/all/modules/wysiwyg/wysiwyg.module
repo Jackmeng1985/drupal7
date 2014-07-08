@@ -432,6 +432,9 @@ function wysiwyg_add_editor_settings($profile, $theme) {
     // drupal_to_js() does not properly convert numeric array keys, so we need
     // to use a string instead of the format id.
     if ($config) {
+      if ($config['language'] == 'zh-hans') {
+          $config['language'] = 'zh-cn';
+      }
       drupal_add_js(array('wysiwyg' => array('configs' => array($profile->editor => array('format' . $profile->format => $config)))), 'setting');
     }
     $formats[$profile->format] = TRUE;
