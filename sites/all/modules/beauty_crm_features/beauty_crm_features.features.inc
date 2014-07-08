@@ -25,7 +25,7 @@ function beauty_crm_features_image_default_styles() {
         'module' => 'image',
         'name' => 'image_scale',
         'data' => array(
-          'width' => 200,
+          'width' => 300,
           'height' => '',
           'upscale' => 0,
         ),
