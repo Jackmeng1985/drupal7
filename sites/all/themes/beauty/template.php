@@ -49,9 +49,13 @@ function beauty_preprocess_html(&$vars) {
     }
     if (strstr($_GET['q'], 'world_cup/hair') !== FALSE && (!arg(2) || is_numeric(arg(2))) ) {
         $needs_mobile_html_template = TRUE;
+    }  
+    if (strstr($_GET['q'], 'world_cup/news/detail') !== FALSE ) {
+        beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/segmented-controllers.js');
+        $needs_mobile_html_template = TRUE;
     }    
     if (strstr($_GET['q'], 'world_cup/hair/big')) {
-        beauty_add_js(drupal_get_path('theme', 'beauty_crm') . '/js/sliders.js');
+        beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/sliders.js');
         $needs_mobile_html_template = TRUE;
     }     
     if ($needs_mobile_html_template) {
