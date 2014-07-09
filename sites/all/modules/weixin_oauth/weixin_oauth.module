@@ -21,7 +21,7 @@ function weixin_oauth_menu() {
 
   $items['weixin/oauth/callback'] = array(
     'title' => 'Authentication callback',
-    'page callback' => 'weinxin_oauth_callback',
+    'page callback' => 'weixin_oauth_callback',
     'access callback' => 'user_is_anonymous',
     'type' => MENU_CALLBACK,
   );
