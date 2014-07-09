@@ -97,33 +97,38 @@ function weixin_oauth_callback() {
         'lang' => 'zh_CN',))));
     $info = drupal_json_decode($http->data);
 
-    global $user;
-    $identity = 'weixin_' . $openid;
-    $account = user_external_load($identity);
-
-    if (!isset($account->uid)) {
-      $name = $info['nickname'];
-      $ac = user_load_by_name($name);
-      if ($ac) {
-        $separator = '_';
-        $i = 0;
-        do {
-          $i++;
-          $name = $info['nickname'] . $separator . $i;
-        } while (user_load_by_name($name));
-      }
-      $edit = array(
-        'name' => $name,
-        'status' => 1,
-      );
-      $account = user_save(NULL, $edit);
-      user_set_authmaps($account, array('authname_weixin_oauth' => $identity));
-      weixin_oauth_execute_user_save($account, $info);
-    }
-    weixin_oauth_execute_user_login($account);
-    drupal_goto('user');
-    //@todo 跳转到手机认证页面
+    weixin_oauth_execute_user_create($info);
   }
+}
+
+function weixin_oauth_execute_user_create($info) {
+  global $user;
+  $openid = $info['openid'];
+  $identity = 'weixin_' . $openid;
+  $account = user_external_load($identity);
+
+  if (!isset($account->uid)) {
+    $name = $info['nickname'];
+    $ac = user_load_by_name($name);
+    if ($ac) {
+      $separator = '_';
+      $i = 0;
+      do {
+        $i++;
+        $name = $info['nickname'] . $separator . $i;
+      } while (user_load_by_name($name));
+    }
+    $edit = array(
+      'name' => $name,
+      'status' => 1,
+    );
+    $account = user_save(NULL, $edit);
+    user_set_authmaps($account, array('authname_weixin_oauth' => $identity));
+    weixin_oauth_execute_user_save($account, $info);
+  }
+  weixin_oauth_execute_user_login($account);
+  drupal_goto('user');
+  //@todo 跳转到手机认证页面
 }
 
 function weixin_oauth_execute_user_login($account) {
