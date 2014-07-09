@@ -11,7 +11,12 @@ function beauty_world_cup_menu() {
     'page callback' => 'beauty_world_cup_pages',
     'access callback' => true,
   );
-
+  $items['world_cup/news/detail/%'] = array(
+    'title' => '首页',
+    'page callback' => 'beauty_world_cup_page_news_detail',
+    'page arguments' => array(3),
+    'access callback' => true,
+  );
   $items['world_cup/hair'] = array(
     'title' => '发型库',
     'page callback' => 'beauty_world_cup_pages_hair',
@@ -27,7 +32,34 @@ function beauty_world_cup_menu() {
 }
 
 function beauty_world_cup_pages() {
-    return '';
+    $banner_news = db_select('node', 'n')
+            ->fields('n')
+            ->condition('sticky', 1, '=')
+            ->condition('type', 'beauty_news', '=')
+            ->condition('status', 1, '=')
+            ->orderBy('created', 'desc')
+            ->range(0,1)
+            ->execute()
+            ->fetchAllKeyed();
+    $frontpage_news = db_select('node', 'n')
+            ->fields('n')
+            ->condition('promote', 1, '=')
+            ->condition('sticky', 1, '<>')
+            ->condition('type', 'beauty_news', '=')
+            ->condition('status', 1, '=')
+            ->orderBy('created', 'desc')
+            ->range(0,3)
+            ->execute()
+            ->fetchAllKeyed();
+    return theme('beauty_world_cup_frontpage', array('banner_news' => $banner_news, 'frontpage_news' => $frontpage_news));
+}
+
+function beauty_world_cup_page_news_detail($nid) {
+    $news = node_load($nid);
+    if ($news->type <> 'beauty_news') {
+        return drupal_access_denied();
+    }
+    return theme('beauty_world_cup_news_detail', array('news' => $news));
 }
 
 /**
@@ -35,6 +67,18 @@ function beauty_world_cup_pages() {
  */
 function beauty_world_cup_theme() {
   return array(
+    'beauty_world_cup_frontpage' => array(
+      'template' => 'beauty-world-cup-frontpage',
+      'variables' => array('banner_news' => NULL, 'frontpage_news' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
+    ),      
+    'beauty_world_cup_news_detail' => array(
+      'template' => 'beauty-world-cup-news-detail',
+      'variables' => array('news' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
+    ), 
     'beauty_world_cup_hair' => array(
       'template' => 'beauty-world-cup-hair',
       'variables' => array('hairstyles' => NULL, 'tags' => NULL),
