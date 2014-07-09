@@ -5,6 +5,8 @@
  * Weixin oauth.
  */
 
+define('WEIXIN_RID', 4);
+
 /**
  * Implements hook_menu().
  */
@@ -118,9 +120,12 @@ function weixin_oauth_execute_user_create($info) {
         $name = $info['nickname'] . $separator . $i;
       } while (user_load_by_name($name));
     }
+    $roles = array();
+    $roles[WEIXIN_RID] = '微信用户';
     $edit = array(
       'name' => $name,
       'status' => 1,
+      'roles' => $roles,
     );
     $account = user_save(NULL, $edit);
     user_set_authmaps($account, array('authname_weixin_oauth' => $identity));
