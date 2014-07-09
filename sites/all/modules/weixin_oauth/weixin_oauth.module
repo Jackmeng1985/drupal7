@@ -43,8 +43,10 @@ function weixin_oauth_menu() {
  */
 function weixin_oauth_permission() {
   return array(
-    'administer weixin' => t('Administer Weixin'),
-    'description' => t('Configure Weixin.'),
+    'administer weixin' => array(
+      'title' => t('Administer Weixin'),
+      'description' => t('Configure Weixin.'),
+    ),
   );
 }
 
