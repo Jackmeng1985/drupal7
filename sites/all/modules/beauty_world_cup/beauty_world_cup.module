@@ -33,6 +33,11 @@ function beauty_world_cup_menu() {
     'page callback' => 'beauty_world_cup_page_hair_advantage',
     'access callback' => true,
   );
+  $items['world_cup/flip_card'] = array(
+    'title' => '首页',
+    'page callback' => 'beauty_world_cup_flip_card',
+    'access callback' => true,
+  );  
   return $items;
 }
 
@@ -65,6 +70,13 @@ function beauty_world_cup_page_news_detail($nid) {
         return drupal_access_denied();
     }
     return theme('beauty_world_cup_news_detail', array('news' => $news));
+}
+
+function beauty_world_cup_flip_card() {
+    beauty_add_normal_js();
+    beauty_add_js(drupal_get_path('module', 'beauty_world_cup') . '/js/flip_card.js');
+    beauty_add_css(drupal_get_path('module', 'beauty_world_cup') . '/css/flip_card.css');
+    return theme('beauty_world_cup_flip_card', array());
 }
 
 /**
@@ -102,6 +114,12 @@ function beauty_world_cup_theme() {
       'file' => 'theme.inc',
       'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
     ),
+    'beauty_world_cup_flip_card' => array(
+      'template' => 'beauty-world-cup-flip-card',
+      'variables' => array('vars' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
+    ),      
   );
 }
 
@@ -127,7 +145,7 @@ function beauty_world_cup_pages_hair() {
 }
 
 function beauty_world_cup_pages_hair_big(Entity $beauty_hairstyle) {
-
+    
     $barber = beauty_barber_load($beauty_hairstyle->bid);
     $shop = beauty_shop_load($beauty_barber->sid);
     return theme('beauty_world_cup_hair_big', array('hairstyle' => $beauty_hairstyle));
