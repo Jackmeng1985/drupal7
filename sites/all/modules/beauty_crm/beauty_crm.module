@@ -284,6 +284,14 @@ function beauty_crm_custom_theme(){
     }
 }
 
+function beauty_crm_language_init() {
+    global $language;
+    if (arg(0) == 'world_cup') {
+        $languages = language_list();
+        $language = $languages['en'];
+    }
+}
+
 /**
  * hook_theme
  */
