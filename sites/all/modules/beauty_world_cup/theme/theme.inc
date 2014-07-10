@@ -1,14 +1,14 @@
 <?php
 
 /**
- * 
+ *
  */
 function beauty_crm_preprocess_beauty_world_cup_hair(&$variables) {
-    
+
 }
 
 /**
- * 
+ *
  */
 function beauty_crm_preprocess_beauty_world_cup_hair_big(&$variables) {
     $hairstyle = $variables['hairstyle'];
@@ -17,15 +17,29 @@ function beauty_crm_preprocess_beauty_world_cup_hair_big(&$variables) {
 }
 
 /**
- * 
+ *
  */
 function beauty_world_cup_preprocess_beauty_world_cup_frontpage(&$variables) {
     $banner_news = $variables['banner_news'];
     $banner_news = node_load_multiple($banner_news);
     $variables['banner_news'] = current($banner_news);
-    
+
     $frontpage_news = $variables['frontpage_news'];
     $frontpage_news = node_load_multiple($frontpage_news);
     $variables['frontpage_news'] = $frontpage_news;
-    
+
+}
+
+/**
+ *
+ */
+function beauty_world_cup_preprocess_beauty_world_cup_hair_advantage(&$variables) {
+    $banner_video = $variables['banner_video'];
+    $banner_video = node_load_multiple($banner_video);
+    $variables['banner_video'] = current($banner_video);
+
+    $advantage_videos = $variables['advantage_videos'];
+    $advantage_videos = node_load_multiple($advantage_videos);
+    $variables['advantage_videos'] = $advantage_videos;
+
 }

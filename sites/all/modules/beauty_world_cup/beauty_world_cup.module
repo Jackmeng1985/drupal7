@@ -20,13 +20,18 @@ function beauty_world_cup_menu() {
   $items['world_cup/hair'] = array(
     'title' => '发型库',
     'page callback' => 'beauty_world_cup_pages_hair',
-    'access callback' => true,      
+    'access callback' => true,
   );
   $items['world_cup/hair/big/%beauty_hairstyle'] = array(
     'title' => '发型库',
     'page callback' => 'beauty_world_cup_pages_hair_big',
     'page arguments' => array(3),
-    'access callback' => true,      
+    'access callback' => true,
+  );
+  $items['world_cup/hair/advantage'] = array(
+    'title' => '剪个球星头',
+    'page callback' => 'beauty_world_cup_page_hair_advantage',
+    'access callback' => true,
   );
   return $items;
 }
@@ -72,13 +77,13 @@ function beauty_world_cup_theme() {
       'variables' => array('banner_news' => NULL, 'frontpage_news' => NULL),
       'file' => 'theme.inc',
       'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
-    ),      
+    ),
     'beauty_world_cup_news_detail' => array(
       'template' => 'beauty-world-cup-news-detail',
       'variables' => array('news' => NULL),
       'file' => 'theme.inc',
       'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
-    ), 
+    ),
     'beauty_world_cup_hair' => array(
       'template' => 'beauty-world-cup-hair',
       'variables' => array('hairstyles' => NULL, 'tags' => NULL),
@@ -91,7 +96,13 @@ function beauty_world_cup_theme() {
       'file' => 'theme.inc',
       'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
     ),
-  );    
+    'beauty_world_cup_hair_advantage' => array(
+      'template' => 'beauty-world-cup-hair-advantage',
+      'variables' => array('banner_video' => NULL, 'advantage_videos' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
+    ),
+  );
 }
 
 function beauty_world_cup_pages_hair() {
@@ -109,15 +120,38 @@ function beauty_world_cup_pages_hair() {
         $rows[] = $row->hid;
     }
     $hairstyles = beauty_hairstyle_load_multiple($rows);
-    
+
     $tags = taxonomy_get_tree(2); //TODO vid is required
-    
+
     return theme('beauty_world_cup_hair', array('hairstyles' => $hairstyles, 'tags' => $tags));
 }
 
 function beauty_world_cup_pages_hair_big(Entity $beauty_hairstyle) {
-    
+
     $barber = beauty_barber_load($beauty_hairstyle->bid);
     $shop = beauty_shop_load($beauty_barber->sid);
     return theme('beauty_world_cup_hair_big', array('hairstyle' => $beauty_hairstyle));
+}
+
+function beauty_world_cup_page_hair_advantage() {
+  $banner_video = db_select('node', 'n')
+    ->fields('n')
+    ->condition('sticky', 1, '=')
+    ->condition('type', 'beauty_video', '=')
+    ->condition('status', 1, '=')
+    ->orderBy('created', 'desc')
+    ->range(0,1)
+    ->execute()
+    ->fetchAllKeyed();
+  $advantage_videos = db_select('node', 'n')
+    ->fields('n')
+    ->condition('promote', 1, '=')
+    ->condition('sticky', 1, '<>')
+    ->condition('type', 'beauty_video', '=')
+    ->condition('status', 1, '=')
+    ->orderBy('created', 'desc')
+    ->execute()
+    ->fetchAllKeyed();
+
+  return theme('beauty_world_cup_hair_advantage', array('banner_video' => $banner_video, 'advantage_videos' => $advantage_videos));
 }

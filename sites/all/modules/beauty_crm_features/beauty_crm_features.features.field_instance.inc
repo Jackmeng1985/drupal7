@@ -512,10 +512,115 @@ function beauty_crm_features_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-beauty_video-field_video_thumb'
+  $field_instances['node-beauty_video-field_video_thumb'] = array(
+    'bundle' => 'beauty_video',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_video_thumb',
+    'label' => '视频缩略图',
+    'required' => 1,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => 'beauty_crm/beauty_video',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => -4,
+    ),
+  );
+
+  // Exported field_instance: 'node-beauty_video-field_video_url'
+  $field_instances['node-beauty_video-field_video_url'] = array(
+    'bundle' => 'beauty_video',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '丽锦视频地址',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_url',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_video_url',
+    'label' => '视频地址',
+    'required' => 1,
+    'settings' => array(
+      'attributes' => array(
+        'class' => '',
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => 'default',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 1,
+      'rel_remove' => 'default',
+      'title' => 'none',
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => FALSE,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => -3,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
   t('test');
+  t('丽锦视频地址');
   t('作品');
   t('作品标签');
   t('加工后头型');
@@ -526,6 +631,8 @@ function beauty_crm_features_field_default_field_instances() {
   t('美发师头像');
   t('美发师职称');
   t('美发店');
+  t('视频地址');
+  t('视频缩略图');
 
   return $field_instances;
 }
