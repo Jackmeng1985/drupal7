@@ -79,7 +79,16 @@ function beauty_auth_code_send($form, &$form_state) {
       ))
     ->execute();
 
-  $msg = '您正在进行手机号认证，请输入验证码' . $auth_code . '。【丽锦美业】';
+  db_merge('beauty_weixin_user')
+    ->key(array(
+        'uid' => $user->uid,
+      ))
+    ->fields(array(
+        'phone' => $tel,
+      ))
+    ->execute();
+
+  $msg = '您正在进行手机号认证，请输入验证码' . $auth_code . '。';
   $res = beauty_send_msg($tel, $msg);
   if ($res) {
     drupal_set_message('验证码已发送，请注意查收');
@@ -138,9 +147,9 @@ function beauty_send_msg($tel, $msg) {
   $action_uri = 'http://125.208.3.91:8888/sms.aspx';
   $query = array(
     'action' => 'send',
-    'userid' => '6370',
-    'account' => 'lijinyzm',
-    'password' => 'lijinyzm',
+    'userid' => '6378',
+    'account' => '营销',
+    'password' => 'yingxiao',
     'mobile' => $tel,
     'content' => $msg,
   );
