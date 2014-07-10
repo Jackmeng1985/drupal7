@@ -1,0 +1,4 @@
+name = Beauty Verify
+description = Beauty Telephone message verify.
+core = 7.x
+dependencies[] = beauty_crm

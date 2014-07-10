@@ -1,0 +1,170 @@
+<?php
+
+/**
+ * @file
+ *
+ * 短信验证用户手机号码
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function beauty_verify_menu() {
+  $items['telephone/verify'] = array(
+    'title' => '短信验证',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('beauty_telephone_verify'),
+    'access callback' => 'user_is_need_verify',
+  );
+  return $items;
+}
+
+function user_is_need_verify() {
+  if (user_is_logged_in()) {
+    return !beauty_verify_exsit();
+  }
+  return FALSE;
+}
+
+function beauty_telephone_verify($form, &$form_state) {
+  $form['info'] = array(
+    '#markup' => '恭喜您中奖，中奖用户需通过短信验证一下手机号，此手机号将作为您中奖的身份凭证。',
+  );
+  $form['phone_number'] = array(
+    '#type' => 'textfield',
+    '#title' => '手机号',
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#default_value' => beauty_verify_get_tel(),
+  );
+  $form['send_auth'] = array(
+    '#type' => 'submit',
+    '#value' => '发送验证码',
+    '#submit' => array('beauty_auth_code_send'),
+  );
+  $form['auth_code'] = array(
+    '#type' => 'textfield',
+    '#title' => '验证码',
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#default_value' => '',
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => '验证手机',
+    '#submit' => array('beauty_auth_code_verify_submit'),
+    '#validate' => array('beauty_auth_code_verify_validate'),
+  );
+  return $form;
+}
+
+/* 发送验证码 */
+function beauty_auth_code_send($form, &$form_state) {
+  global $user;
+  $tel = trim($form_state['values']['phone_number']);
+  $auth_code = user_password(6);
+
+  db_merge('beauty_verify')
+    ->key(array(
+        'uid' => $user->uid,
+      ))
+    ->fields(array(
+        'phone_number' => $tel,
+        'auth_code' => $auth_code,
+        'changed' => time(),
+      ))
+    ->execute();
+
+    $msg = '您正在进行手机号认证，请输入验证码' . $auth_code . '。【丽锦美业】';
+  $res = beauty_send_msg($tel, $msg);
+  if ($res) {
+    drupal_set_message('验证码已发送，请注意查收');
+  }
+}
+
+/* 验证码验证 */
+function beauty_auth_code_verify_validate($form, &$form_state) {
+  global $user;
+  $auth_code = trim($form_state['values']['auth_code']);
+  $res = beauty_verify_auth_code($user->uid, $auth_code);
+  if(!$res) {
+    form_set_error('auth_code', '验证码不正确，请重新输入');
+  }
+}
+
+/* 存储验证码，更新验证状态 */
+function beauty_auth_code_verify_submit($form, &$form_state) {
+  global $user;
+  db_update('beauty_verify')
+    ->fields(array(
+      'auth_status' => 1,
+    ))
+    ->condition('uid', $user->uid)
+    ->execute();
+
+  drupal_set_message('验证成功，感谢您的参与。');
+  drupal_goto('user');
+}
+
+/* 验证码验证函数 */
+function beauty_verify_auth_code($uid, $auth_code) {
+  return (bool) db_select('beauty_verify', 'bv')
+    ->fields('bv', array('uid'))
+    ->condition('uid', $uid)
+    ->where('LOWER(auth_code) = :auth_code', array(':auth_code' => strtolower($auth_code)))
+    ->range(0, 1)
+    ->execute()
+    ->fetchField();
+}
+
+/* 是否已经通过验证 */
+function beauty_verify_exsit() {
+  global $user;
+  return (bool) db_select('beauty_verify', 'bv')
+    ->fields('bv', array('uid'))
+    ->condition('uid', $user->uid)
+    ->condition('auth_status', 1)
+    ->range(0, 1)
+    ->execute()
+    ->fetchField();
+}
+
+/* 发送短信验证码 */
+function beauty_send_msg($tel, $msg) {
+  $action_uri = 'http://125.208.3.91:8888/sms.aspx';
+  $query = array(
+    'action' => 'send',
+    'userid' => '6370',
+    'account' => 'lijinyzm',
+    'password' => 'lijinyzm',
+    'mobile' => $tel,
+    'content' => $msg,
+  );
+
+  $url = url($action_uri, array('query' => $query));
+  $result = file_get_contents($url);
+  $xml = simplexml_load_string($result);
+  $data = drupal_json_decode(drupal_json_encode($xml));
+
+  return $data['taskID'];
+}
+
+/* 获取验证手机号 */
+function beauty_verify_get_tel() {
+  global $user;
+  $result = db_select('beauty_verify', 'bv')
+    ->fields('bv', array('uid', 'phone_number'))
+    ->condition('uid', $user->uid)
+    ->range(0, 1)
+    ->execute()
+    ->fetchAll();
+
+  if ($result) {
+    $user_info = array(
+      'uid' => $result[0]->uid,
+      'phone_number' => $result[0]->phone_number,
+    );
+    return $user_info['phone_number'];
+  }
+  return '';
+}
