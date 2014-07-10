@@ -58,6 +58,9 @@ function beauty_preprocess_html(&$vars) {
         beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/sliders.js');
         $needs_mobile_html_template = TRUE;
     }     
+    if (strstr($_GET['q'], 'world_cup/flip_card')) {
+        $needs_mobile_html_template = TRUE;
+    }         
     if ($needs_mobile_html_template) {
         beauty_add_css(drupal_get_path('theme', 'beauty') . '/css/ratchet.css');
         array_splice($vars['theme_hook_suggestions'], 0, 0, 'html__mobile');        
