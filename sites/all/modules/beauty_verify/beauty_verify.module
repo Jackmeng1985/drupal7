@@ -60,6 +60,10 @@ function beauty_telephone_verify($form, &$form_state) {
 
 /* 发送验证码 */
 function beauty_auth_code_send($form, &$form_state) {
+  if (beauty_auth_time_limit()) {
+    drupal_set_message('距离上次发送验证码还不足一分钟');
+    return;
+  }
   global $user;
   $tel = trim($form_state['values']['phone_number']);
   $auth_code = user_password(6);
@@ -75,7 +79,7 @@ function beauty_auth_code_send($form, &$form_state) {
       ))
     ->execute();
 
-    $msg = '您正在进行手机号认证，请输入验证码' . $auth_code . '。【丽锦美业】';
+  $msg = '您正在进行手机号认证，请输入验证码' . $auth_code . '。【丽锦美业】';
   $res = beauty_send_msg($tel, $msg);
   if ($res) {
     drupal_set_message('验证码已发送，请注意查收');
@@ -145,7 +149,6 @@ function beauty_send_msg($tel, $msg) {
   $result = file_get_contents($url);
   $xml = simplexml_load_string($result);
   $data = drupal_json_decode(drupal_json_encode($xml));
-
   return $data['taskID'];
 }
 
@@ -167,4 +170,22 @@ function beauty_verify_get_tel() {
     return $user_info['phone_number'];
   }
   return '';
+}
+
+/* 验证上次验证是否超过一分钟 */
+function beauty_auth_time_limit() {
+  global $user;
+  $result = db_select('beauty_verify', 'bv')
+    ->fields('bv', array('uid', 'changed'))
+    ->condition('uid', $user->uid)
+    ->range(0, 1)
+    ->execute()
+    ->fetchAll();
+
+  if ($result) {
+    $changed = $result[0]->changed;
+    return time() - $changed < 60;
+  }
+
+  return FALSE;
 }
