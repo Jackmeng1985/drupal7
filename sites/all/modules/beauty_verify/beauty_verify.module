@@ -79,6 +79,15 @@ function beauty_auth_code_send($form, &$form_state) {
       ))
     ->execute();
 
+  db_merge('beauty_weixin_user')
+    ->key(array(
+        'uid' => $user->uid,
+      ))
+    ->fields(array(
+        'phone' => $tel,
+      ))
+    ->execute();
+
   $msg = '您正在进行手机号认证，请输入验证码' . $auth_code . '。';
   $res = beauty_send_msg($tel, $msg);
   if ($res) {
