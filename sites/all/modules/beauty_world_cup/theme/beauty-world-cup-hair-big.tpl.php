@@ -10,7 +10,7 @@
     </div>
     <!--<div class="slider-num"><span class="active-num">1</span>/<span class="count-num">60</span></div>-->
   </div>
-  <ul class="table-view">
+    <ul class="table-view" style="border-top:0px;border-bottom: 0px;">
     <li class="table-view-cell media" style="border-bottom:0px;">
       <a class="">
         <span class="media-object pull-left media-title">姓名</span>
