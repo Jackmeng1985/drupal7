@@ -64,7 +64,7 @@ function drawHairEyes(){
 
 function changeFaceScale(){ //change Face Canvas to 100% of screen
   c = document.getElementById('face');
-  c.width = window.cwidth;
+  c.width = window.cwidth * 0.8;
   c.height = window.cheight;
 }
 

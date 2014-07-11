@@ -22,10 +22,8 @@
 
 #face{
  position: absolute; 
- left:0px;
- top: 0px;
- border-style: solid;
-   
+ left:10%;
+ top: 7%;
 }
 
 #hairChange{
