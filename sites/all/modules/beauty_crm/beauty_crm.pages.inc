@@ -96,7 +96,7 @@ function beauty_crm_hair_picture_upload($hid) {
             $thumb = imagerotate($thumb, -90, 0);
         }
         // Output
-        imagejpeg($thumb, $thumb_face_file_path);
+        imagejpeg($thumb, $thumb_face_file_path, 100);
         //Destroy
         imagedestroy($thumb);
 
