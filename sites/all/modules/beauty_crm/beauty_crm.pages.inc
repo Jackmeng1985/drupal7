@@ -80,7 +80,7 @@ function beauty_crm_hair_picture_upload($hid) {
 
         //旋转方向
         $exif = exif_read_data($face_file_path);
-        if (!empty($exif['Orientation']) && ($exif['Orientation'] == 6 || $exif['Orientation'])) {
+        if (!empty($exif['Orientation']) && ($exif['Orientation'] == 6 || $exif['Orientation'] == 8)) {
             $percent = $w / $height;
         }
         $newwidth = $width * $percent;
