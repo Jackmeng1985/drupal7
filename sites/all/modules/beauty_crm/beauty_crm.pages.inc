@@ -80,7 +80,7 @@ function beauty_crm_hair_picture_upload($hid) {
 
         //旋转方向
         $exif = exif_read_data($face_file_path);
-        if (!empty($exif['Orientation']) && $exif['Orientation'] == 6) {
+        if (!empty($exif['Orientation']) && ($exif['Orientation'] == 6 || $exif['Orientation'])) {
             $percent = $w / $height;
         }
         $newwidth = $width * $percent;
@@ -95,6 +95,10 @@ function beauty_crm_hair_picture_upload($hid) {
         if (!empty($exif['Orientation']) && $exif['Orientation'] == 6) {
             $thumb = imagerotate($thumb, -90, 0);
         }
+        if (!empty($exif['Orientation']) && $exif['Orientation'] == 8) {
+            $thumb = imagerotate($thumb, 90, 0);
+        }        
+        
         // Output
         imagejpeg($thumb, $thumb_face_file_path, 100);
         //Destroy
