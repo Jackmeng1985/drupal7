@@ -65,6 +65,10 @@ function beauty_preprocess_html(&$vars) {
         beauty_add_css(drupal_get_path('theme', 'beauty') . '/css/ratchet.css');
         array_splice($vars['theme_hook_suggestions'], 0, 0, 'html__mobile');        
     }
+    
+    // 针对微信浏览器
+    $vars['head_title'] = explode('|', $vars['head_title']);
+    $vars['head_title'] = $vars['head_title'][0];
 }
 
 function beauty_add_normal_js() {
