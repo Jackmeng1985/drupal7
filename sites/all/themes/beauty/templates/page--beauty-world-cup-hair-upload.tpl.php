@@ -38,8 +38,7 @@ $base_path = base_path();
     <form id="image_upload" action="" method="post" enctype="multipart/form-data" >
       <input id="photo" class="btn btn-upload" value="拍照" disabled="disabled" />
       <input type="file" name="file" id="file" accept="image/*" capture="camera"  >
-      <input id="submit" type="submit" name="submit" class="btn btn-upload" value="点击上传" style="display: none;">
-      <img  id="loading" src="<?php print $base_path . $directory; ?>/images/GIF0112.gif" alt="" style="display: none;">
+      <input id="submit" type="submit" name="submit" class="btn btn-upload" value="开始脸型识别" style="display: none;">
     </form>
   </div>
 </div>
@@ -51,9 +50,24 @@ $base_path = base_path();
         $('#submit').show();
       }
     });
+    var i = 0;
     $('#image_upload').submit(function() {
-         $('#submit').hide();
-         $('#loading').show();
+         $('#submit').val('脸型识别中...');
+         setInterval(function(){
+             i++
+             if (i > 4) i = 1;
+             switch (i) {
+                 case 1:
+                     $('#submit').val('脸型识别中.');
+                     break;
+                 case 2:
+                     $('#submit').val('脸型识别中..');
+                     break;
+                 case 3:
+                     $('#submit').val('脸型识别中...');
+                     break;                     
+             }
+         }, 1000);
     })
     var w = document.documentElement.clientWidth;
     var r = window.devicePixelRatio;
