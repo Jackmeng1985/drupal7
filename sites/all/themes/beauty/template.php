@@ -28,7 +28,10 @@ function beauty_preprocess_page(&$vars) {
         
         if (strstr($_GET['q'], 'world_cup/hair/big') !== FALSE) {
             $suggestion_template = 'page__beauty_world_cup_hair_big';
-        }             
+        }       
+        if (strstr($_GET['q'], 'world_cup/video') !== FALSE) {
+            $suggestion_template = 'page__beauty_world_cup_video';
+        }          
         array_splice($vars['theme_hook_suggestions'], 0, 0, $suggestion_template);
     }
 }
@@ -60,7 +63,10 @@ function beauty_preprocess_html(&$vars) {
     }     
     if (strstr($_GET['q'], 'world_cup/flip_card')) {
         $needs_mobile_html_template = TRUE;
-    }         
+    } 
+    if (strstr($_GET['q'], 'world_cup/video')) {
+        $needs_mobile_html_template = TRUE;
+    }    
     if ($needs_mobile_html_template) {
         beauty_add_css(drupal_get_path('theme', 'beauty') . '/css/ratchet.css');
         array_splice($vars['theme_hook_suggestions'], 0, 0, 'html__mobile');        
