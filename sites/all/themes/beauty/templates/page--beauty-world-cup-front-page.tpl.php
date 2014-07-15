@@ -1,26 +1,6 @@
-<?php
-$base_path = base_path();
-/*<?php print $base_path . $directory; ?>/*/
-?>
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>发型的优势</title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link href="<?php print $base_path . $directory; ?>/css/ratchet.css" rel="stylesheet">
-    <script src="<?php print $base_path . $directory; ?>/js/segmented-controllers.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="<?php print $base_path . $directory; ?>/js/mid2url.js"></script>
-    <script src="<?php print $base_path . $directory; ?>/js/template.js"></script>
-    <script src="<?php print $base_path . $directory; ?>/js/tatali.js"></script>
-    <script>
+   <script>
       tatali('weibo', 1457, 'weibo-content', 'comment');
       tatali('youku', 1462, 'video-content', 'video');
-      //tatali('news', 1473, 'bulletin-content', 'bulletin');
     </script>
     <script id='weibo-content' type="text/html">
       <ul class="table-view">
@@ -85,9 +65,5 @@ $base_path = base_path();
             </li>
         {{/each}}
       </ul>
-    </script>
-  </head>
-  <body>
+    </script>      
    <?php print($page['content']['system_main']['main']['#markup']);?>
-  </body>
-</html>

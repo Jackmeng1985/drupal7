@@ -20,13 +20,13 @@ Date.prototype.format = function(format) {
 }
 var tatali = function(type, id, template_name, target) {
   var url = 'http://hfx.choosebeauty.com.cn/mobile/views/classic.jsonp?args=' + id + '&page=0&callback=?';
-  $.getJSON(url, function(data) {
+  jQuery.getJSON(url, function(data) {
     var item;
     items = '';
     var items = new Array();
     switch(type) {
       case 'weibo':
-        $.each(data, function(i, e) {
+        jQuery.each(data, function(i, e) {
           var dpam = jQuery.parseJSON(e.field_displayparam.und[0].value);
           var author_image = dpam.weibo_point.user.avatar_hd;
           var author_name = dpam.weibo_point.user.name;
@@ -57,7 +57,7 @@ var tatali = function(type, id, template_name, target) {
       break;
 
       case 'youku':
-        $.each(data, function(i, e) {
+        jQuery.each(data, function(i, e) {
           var dpam = jQuery.parseJSON(e.field_displayparam.und[0].value);
           var m = parseInt(dpam.duration / 60) > 9 ? parseInt(dpam.duration / 60) : '0' + parseInt(dpam.duration / 60);
           var s = parseInt(dpam.duration % 60) > 9 ? parseInt(dpam.duration % 60) : '0' + parseInt(dpam.duration % 60);
@@ -67,7 +67,7 @@ var tatali = function(type, id, template_name, target) {
       break;
 
       case 'news':
-        $.each(data, function(i, e) {
+        jQuery.each(data, function(i, e) {
           var created_at = parseInt(e.field_created.und[0].value);
           var created = new Date(created_at);
           created = created.format('yyyy-MM-dd hh:mm:ss');

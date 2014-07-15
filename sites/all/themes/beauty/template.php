@@ -67,6 +67,15 @@ function beauty_preprocess_html(&$vars) {
     if (strstr($_GET['q'], 'world_cup/video')) {
         $needs_mobile_html_template = TRUE;
     }    
+    
+    if ($_GET['q'] == 'world_cup') {
+        beauty_add_normal_js();
+        beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/segmented-controllers.js');
+        beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/mid2url.js');
+        beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/template.js');
+        beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/tatali.js');
+        $needs_mobile_html_template = TRUE;
+    }    
     if ($needs_mobile_html_template) {
         beauty_add_css(drupal_get_path('theme', 'beauty') . '/css/ratchet.css');
         array_splice($vars['theme_hook_suggestions'], 0, 0, 'html__mobile');        
