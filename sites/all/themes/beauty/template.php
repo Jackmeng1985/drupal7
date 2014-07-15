@@ -69,7 +69,6 @@ function beauty_preprocess_html(&$vars) {
     }    
     
     if ($_GET['q'] == 'world_cup') {
-        beauty_add_normal_js();
         beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/segmented-controllers.js');
         beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/mid2url.js');
         beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/template.js');
