@@ -1,5 +1,5 @@
    <script>
-      tatali('weibo', 1457, 'weibo-content', 'comment');
+      tatali('weibo', 1742, 'weibo-content', 'comment');
       tatali('youku', 1462, 'video-content', 'video');
     </script>
     <script id='weibo-content' type="text/html">
@@ -65,5 +65,5 @@
             </li>
         {{/each}}
       </ul>
-    </script>      
+    </script>
    <?php print($page['content']['system_main']['main']['#markup']);?>
