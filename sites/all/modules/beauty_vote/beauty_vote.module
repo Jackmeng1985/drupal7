@@ -1,0 +1,119 @@
+<?php
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function beauty_vote_menu() {
+
+  $items['beauty_vote/vote/%/%'] = array(
+    'title' => 'Vote',
+    'page callback' => 'beauty_vote_vote',
+    'page arguments' => array(2, 3, 4),
+    'access callback' => 'beauty_vote_user_access',
+    'access arguments' => array('plus1 vote on node'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+function beauty_vote_theme() {
+   return array(
+    'beauty_vote_widget' => array(
+      'template' => 'beauty-vote-widget',
+      'variables' => array('entity_type' => NULL, 'entity_id' => NULL, 'score' => NULL, 'is_scored' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_vote') . '/theme',
+    ),       
+   );
+}
+
+function beauty_vote_vote($entity_type, $entity_id, $tag = NULL) {
+  global $user;
+  $tag = $tag ? $tag : 'beauty_vote_' . $entity_type . '_vote'; //tag
+  $vote_source = $user->uid ? $user->uid : ip_address();
+  
+  $voted = beauty_vote_get_votes($entity_type, $entity_id, $user->uid, $tag);
+  if (!$voted) {
+    $votes = array(
+      'entity_type' => $entity_type,
+      'entity_id' => $entity_id,
+      'value_type' => 'points',
+      'value' => 1,
+      'tag' => $tag ,
+      'vote_source' => $vote_source,
+    );
+    
+    drupal_alter('beauty_vote_source', $votes['vote_source']);
+    votingapi_set_votes($votes);
+    $criteria = array(
+      'entity_type' => $entity_type,
+      'entity_id' => $entity_id,
+      'function' => 'sum',
+      'tag' => $tag,
+    );
+    $results = votingapi_select_results($criteria);
+    $score = $results[0]['value'] ? $results[0]['value'] : 0;
+    
+    if (isset($_GET['json'])) {
+      // Return json to client side, taking into consideration entity type.
+      drupal_json_output(array('entity_type' => $entity_type, 'entity_id' => $entity_id, 'tag' => $tag, 'score' => $score, 'vote_type' => 'vote'));
+    }
+    else {
+      drupal_set_message(t('Thank you for your vote. ' .$score));
+    }
+  }    
+}
+
+function beauty_vote_get_votes($entity_type, $entity_id, $uid, $tag = NULL) {
+  $tag = $tag ? $tag : 'beauty_vote_' . $entity_type . '_vote'; //tag
+  
+  $criteria['entity_type'] = $entity_type;
+  $criteria['entity_id'] = $entity_id;
+  $criteria['value_type'] = 'points';
+  if ($uid == 0) {
+    $criteria['vote_source'] = ip_address();
+  }
+  else {
+    $criteria['vote_source'] = $uid;
+  }
+  if (isset($tag) && $tag != "") {
+    $criteria['tag'] = $tag;
+  }
+  
+  //Allow vote source to be altered by other modules
+  drupal_alter('beauty_vote_source', $criteria['vote_source']);
+  $results = votingapi_select_votes($criteria);
+  return count($results);
+}
+
+function beauty_vote_get_vote_widget($entity_type, $entity_id) {
+    global $user;
+    $tag = $tag ? $tag : 'beauty_vote_' . $entity_type . '_vote'; //tag    
+    beauty_add_css(drupal_get_path('module', 'beauty_vote') . '/css/beauty_vote.css');
+    beauty_add_js(drupal_get_path('module', 'beauty_vote') . '/js/beauty_vote.js');
+    return theme('beauty_vote_widget', array(
+        'entity_type' => $entity_type, 
+        'entity_id' => $entity_id, 
+        'score' => beauty_vote_get_sum_score($entity_type, $entity_id), 
+        'is_scored' => beauty_vote_get_votes($entity_type, $entity_id, $user->uid, $tag))
+            );
+}
+
+function beauty_vote_get_sum_score ($entity_type, $entity_id) {
+$tag = $tag ? $tag : 'beauty_vote_' . $entity_type . '_vote'; //tag    
+    $criteria = array(
+      'entity_type' => $entity_type,
+      'entity_id' => $entity_id,
+      'function' => 'sum',
+      'tag' => $tag,
+    );
+    $results = votingapi_select_results($criteria);    
+    $score = $results[0]['value'] ? $results[0]['value'] : 0;    
+    return $score;
+}

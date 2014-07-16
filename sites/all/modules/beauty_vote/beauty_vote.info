@@ -1,0 +1,6 @@
+name = Beauty Vote
+description = beauty vote module
+version = "7.x-1.0"
+package = beautyCRM
+core = 7.x
+files[] = beauty_vote.module
