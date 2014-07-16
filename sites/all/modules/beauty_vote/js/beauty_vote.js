@@ -9,7 +9,6 @@
             var v = $this.text();
             $this.text(parseInt(v) + 1);
             var ref = $this.attr('ref').split('|');
-            console.log(ref);
             $.get(Drupal.settings.basePath + 'beauty_vote/vote/' + ref[1] + '/' + ref[0]);
         });
     });
