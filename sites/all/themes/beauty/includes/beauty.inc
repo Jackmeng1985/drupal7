@@ -29,30 +29,30 @@ function beauty_add_js($data = NULL, $options = NULL) {
       // running the hook_url_outbound_alter() again here, extract the prefix
       // from url().
       url('', array('prefix' => &$prefix));
-//      $javascript = array(
-//        'settings' => array(
-//          'data' => array(
-//            array('basePath' => base_path()),
-//            array('pathPrefix' => empty($prefix) ? '' : $prefix),
-//          ),
-//          'type' => 'setting',
-//          'scope' => 'header',
-//          'group' => JS_LIBRARY,
-//          'every_page' => TRUE,
-//          'weight' => 0,
-//        ),
-//        'misc/drupal.js' => array(
-//          'data' => 'misc/drupal.js',
-//          'type' => 'file',
-//          'scope' => 'header',
-//          'group' => JS_LIBRARY,
-//          'every_page' => TRUE,
-//          'weight' => -1,
-//          'preprocess' => TRUE,
-//          'cache' => TRUE,
-//          'defer' => FALSE,
-//        ),
-//      );
+      $javascript = array(
+        'settings' => array(
+          'data' => array(
+            array('basePath' => base_path()),
+            array('pathPrefix' => empty($prefix) ? '' : $prefix),
+          ),
+          'type' => 'setting',
+          'scope' => 'header',
+          'group' => JS_LIBRARY,
+          'every_page' => TRUE,
+          'weight' => 0,
+        ),
+        'misc/drupal.js' => array(
+          'data' => 'misc/drupal.js',
+          'type' => 'file',
+          'scope' => 'header',
+          'group' => JS_LIBRARY,
+          'every_page' => TRUE,
+          'weight' => -1,
+          'preprocess' => TRUE,
+          'cache' => TRUE,
+          'defer' => FALSE,
+        ),
+      );
       // Register all required libraries.
       drupal_add_library('system', 'jquery', TRUE);
       drupal_add_library('system', 'jquery.once', TRUE);
