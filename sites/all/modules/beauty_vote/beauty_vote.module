@@ -15,8 +15,7 @@ function beauty_vote_menu() {
     'title' => 'Vote',
     'page callback' => 'beauty_vote_vote',
     'page arguments' => array(2, 3, 4),
-    'access callback' => 'beauty_vote_user_access',
-    'access arguments' => array('plus1 vote on node'),
+    'access callback' => true,
     'type' => MENU_CALLBACK,
   );
   return $items;

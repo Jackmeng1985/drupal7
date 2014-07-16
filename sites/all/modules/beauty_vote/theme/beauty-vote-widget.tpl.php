@@ -1,1 +1,1 @@
-<span class="vote-icon vote-icon-comment <?php if ($is_scored) print 'vote-icon-comment-orange'; ?> "><?php print $score;?></span>
+<span class="vote-icon vote-icon-comment <?php if ($is_scored) print 'vote-icon-comment-orange'; ?> " ref="<?php print $entity_id .'|'.$entity_type?>"><?php print $score;?></span>

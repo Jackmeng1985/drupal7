@@ -15,7 +15,7 @@
               <a href="<?php print url('world_cup/news/detail/' . $banner_news->nid); ?>">查看详情</a>
             </div>
             <div class="table-view-cell-footer">
-              <span class="icon icon-comment"></span><span></span>
+               <?php print $banner_news_vote;?>
             </div>
           </div>
         </li>

@@ -98,6 +98,7 @@ function beauty_world_cup_page_news_detail($nid) {
     if ($news->type <> 'beauty_news') {
         return drupal_access_denied();
     }
+    beauty_add_normal_js();
     return theme('beauty_world_cup_news_detail', array('news' => $news));
 }
 

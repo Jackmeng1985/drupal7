@@ -28,6 +28,11 @@ function beauty_world_cup_preprocess_beauty_world_cup_frontpage(&$variables) {
     $frontpage_news = node_load_multiple($frontpage_news);
     $variables['frontpage_news'] = $frontpage_news;
 
+    $variables['banner_news_vote'] = beauty_vote_get_vote_widget('node', $variables['banner_news']->nid);
+}
+
+function beauty_world_cup_preprocess_beauty_world_cup_news_detail(&$variables) {
+    $variables['banner_news_vote'] = beauty_vote_get_vote_widget('node', $variables['news']->nid);
 }
 
 /**

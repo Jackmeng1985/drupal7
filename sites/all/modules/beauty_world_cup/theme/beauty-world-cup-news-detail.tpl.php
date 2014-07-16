@@ -11,7 +11,7 @@
             <a href="#" title="">@丽锦快评 </a>
           </div>
           <div class="pull-right">
-            <span class="icon icon-comment"></span>
+            <?php print $banner_news_vote;?>
           </div>
         </div>
         <div class="page-content-body">
