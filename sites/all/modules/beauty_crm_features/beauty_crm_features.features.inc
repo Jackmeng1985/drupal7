@@ -107,3 +107,21 @@ function beauty_crm_features_node_info() {
   );
   return $items;
 }
+
+/**
+ * Implements hook_default_reply_bundle().
+ */
+function beauty_crm_features_default_reply_bundle() {
+  $items = array();
+  $items['comment'] = entity_import('reply_bundle', '{
+    "bundle" : "comment",
+    "name" : "comment",
+    "access" : "2",
+    "display" : "2",
+    "description" : "\\u8bc4\\u8bba",
+    "form" : "2",
+    "allow_reply" : "1",
+    "locked" : "0"
+  }');
+  return $items;
+}

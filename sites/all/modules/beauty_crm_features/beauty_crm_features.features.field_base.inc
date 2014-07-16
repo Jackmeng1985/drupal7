@@ -98,6 +98,64 @@ function beauty_crm_features_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_comments'
+  $field_bases['field_comments'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_comments',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'reply',
+    'settings' => array(
+      'access' => -1,
+      'allow_reply' => -1,
+      'bundle' => 'comment',
+      'display' => -1,
+      'form' => -1,
+    ),
+    'translatable' => 0,
+    'type' => 'reply',
+  );
+
+  // Exported field_base: 'field_communication_rate'
+  $field_bases['field_communication_rate'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_communication_rate',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'fivestar',
+    'settings' => array(
+      'axis' => 'vote',
+    ),
+    'translatable' => 0,
+    'type' => 'fivestar',
+  );
+
+  // Exported field_base: 'field_hairstyle_rate'
+  $field_bases['field_hairstyle_rate'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_hairstyle_rate',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'fivestar',
+    'settings' => array(
+      'axis' => 'vote',
+    ),
+    'translatable' => 0,
+    'type' => 'fivestar',
+  );
+
   // Exported field_base: 'field_hairstyle_tags'
   $field_bases['field_hairstyle_tags'] = array(
     'active' => 1,
@@ -293,6 +351,24 @@ function beauty_crm_features_field_default_field_bases() {
     'type' => 'image',
   );
 
+  // Exported field_base: 'field_service_rate'
+  $field_bases['field_service_rate'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_service_rate',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'fivestar',
+    'settings' => array(
+      'axis' => 'vote',
+    ),
+    'translatable' => 0,
+    'type' => 'fivestar',
+  );
+
   // Exported field_base: 'field_shop'
   $field_bases['field_shop'] = array(
     'active' => 1,
@@ -395,6 +471,33 @@ function beauty_crm_features_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'text',
+  );
+
+  // Exported field_base: 'field_text_rate'
+  $field_bases['field_text_rate'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_text_rate',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'text_long',
   );
 
   // Exported field_base: 'field_video_thumb'

@@ -88,6 +88,40 @@ function beauty_crm_features_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'beauty_barber-beauty_barber-field_comments'
+  $field_instances['beauty_barber-beauty_barber-field_comments'] = array(
+    'bundle' => 'beauty_barber',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'reply',
+        'settings' => array(),
+        'type' => 'reply_default',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'beauty_barber',
+    'field_name' => 'field_comments',
+    'label' => '评论',
+    'required' => 0,
+    'settings' => array(
+      'access' => -1,
+      'allow_reply' => -1,
+      'display' => -1,
+      'form' => -1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'reply',
+      'settings' => array(),
+      'type' => 'reply',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'beauty_barber-beauty_barber-field_shop'
   $field_instances['beauty_barber-beauty_barber-field_shop'] = array(
     'bundle' => 'beauty_barber',
@@ -616,6 +650,181 @@ function beauty_crm_features_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'reply-comment-field_communication_rate'
+  $field_instances['reply-comment-field_communication_rate'] = array(
+    'bundle' => 'comment',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'fivestar',
+        'settings' => array(
+          'expose' => TRUE,
+          'style' => 'average',
+          'text' => 'average',
+          'widget' => array(
+            'fivestar_widget' => 'sites/all/modules/fivestar/widgets/oxygen/oxygen.css',
+          ),
+        ),
+        'type' => 'fivestar_formatter_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'reply',
+    'field_name' => 'field_communication_rate',
+    'label' => '沟通',
+    'required' => 1,
+    'settings' => array(
+      'allow_clear' => 0,
+      'allow_ownvote' => 0,
+      'allow_revote' => 0,
+      'stars' => 5,
+      'target' => 'none',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'fivestar',
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'reply-comment-field_hairstyle_rate'
+  $field_instances['reply-comment-field_hairstyle_rate'] = array(
+    'bundle' => 'comment',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'fivestar',
+        'settings' => array(
+          'expose' => TRUE,
+          'style' => 'average',
+          'text' => 'average',
+          'widget' => array(
+            'fivestar_widget' => 'sites/all/modules/fivestar/widgets/oxygen/oxygen.css',
+          ),
+        ),
+        'type' => 'fivestar_formatter_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'reply',
+    'field_name' => 'field_hairstyle_rate',
+    'label' => '发型',
+    'required' => 1,
+    'settings' => array(
+      'allow_clear' => 0,
+      'allow_ownvote' => 0,
+      'allow_revote' => 0,
+      'stars' => 5,
+      'target' => 'none',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'fivestar',
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'reply-comment-field_service_rate'
+  $field_instances['reply-comment-field_service_rate'] = array(
+    'bundle' => 'comment',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'fivestar',
+        'settings' => array(
+          'expose' => TRUE,
+          'style' => 'average',
+          'text' => 'average',
+          'widget' => array(
+            'fivestar_widget' => 'sites/all/modules/fivestar/widgets/oxygen/oxygen.css',
+          ),
+        ),
+        'type' => 'fivestar_formatter_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'reply',
+    'field_name' => 'field_service_rate',
+    'label' => '服务',
+    'required' => 1,
+    'settings' => array(
+      'allow_clear' => 0,
+      'allow_ownvote' => 0,
+      'allow_revote' => 0,
+      'stars' => 5,
+      'target' => 'none',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'fivestar',
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'reply-comment-field_text_rate'
+  $field_instances['reply-comment-field_text_rate'] = array(
+    'bundle' => 'comment',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'reply',
+    'field_name' => 'field_text_rate',
+    'label' => '评价',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 3,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
@@ -625,14 +834,19 @@ function beauty_crm_features_field_default_field_instances() {
   t('作品标签');
   t('加工后头型');
   t('原始头型');
+  t('发型');
   t('图片');
+  t('服务');
   t('标签');
+  t('沟通');
   t('美发师');
   t('美发师头像');
   t('美发师职称');
   t('美发店');
   t('视频地址');
   t('视频缩略图');
+  t('评价');
+  t('评论');
 
   return $field_instances;
 }
