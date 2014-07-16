@@ -28,9 +28,9 @@ $base_path = base_path();
 }
 </style>
 <div class="content">
-  <?php if(isset($_SESSION['thumb_face_file_path'])): ?>
+  <?php if(isset($_SESSION['thumb_face_file_name'])): ?>
     <div class="image-history" style="margin: 20px;">
-      <img src="<?php print image_style_url('thumbnail', str_replace(DRUPAL_ROOT . '/sites/default/files/', 'public://', $_SESSION['thumb_face_file_path'])); ?>">
+      <img src="<?php print image_style_url('thumbnail', 'public://faces/'. $_SESSION['thumb_face_file_name']); ?>">
       <div><a href="<?php print url('world_cup/hair/adjustment/' . arg(3)); ?>" class="btn btn-positive" style="width: 100px;">使用历史照片</a></div>
     </div>
   <?php endif; ?>
