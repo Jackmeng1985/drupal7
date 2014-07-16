@@ -912,7 +912,7 @@ function reply_post($entity_id, $instance_id, $parent) {
   $entity_type = $instance->entity_type;
   $entity = entity_load($entity_type, array($entity_id));
   $entity = reset($entity);
-  $entity_url = '/' . $entity->type . '/' . $entity_id;
+  $entity_url = '/' . $entity_type . '/' . $entity_id;
   $build = array();
 
   if ($parent) {
@@ -952,7 +952,24 @@ function reply_menu_breadcrumb_alter(&$active_trail, $item) {
       $entity = reset($entity);
       $parent_path = drupal_get_path_alias($entity_type . '/' . $entity_id);
       $crumb['href'] = $parent_path;
-      $crumb['title'] = htmlspecialchars_decode($entity->title);
+      switch ($entity_type) {
+        case 'user':
+          $crumb['title'] = htmlspecialchars_decode($entity->name);
+          break;
+        case 'node':
+          $crumb['title'] = htmlspecialchars_decode($entity->title);
+          break;
+        default:
+          $title = $entity_id;
+          break;
+      }
+      // Let other modules change the breadcrumb title:
+      $context = array(
+        'entity' => $entity,
+        'entity_type' => $entity_type,
+        'reply_instance' => $instance,
+      );
+      $title = drupal_alter('reply_entity_crumb_title', $title, $context);
       $active_trail[$key] = $crumb;
     }
   }

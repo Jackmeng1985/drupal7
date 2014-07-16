@@ -21,7 +21,7 @@ Replies from users are administered in a content tab (similar to the existing Co
 Frequently Asked Questions:
 
 Q) How can I show author names on replies?
-A) Override reply.tpl.php with a version that outputs $username, e.g. 
+A) Override reply.tpl.php with a version that outputs $username, e.g.
 <div id="reply-<?php print $reply->id ?>" class="<?php print $classes ?>">
   <div class="reply-body"><?php print render($content) ?></div>
 
@@ -39,3 +39,15 @@ Q) Is there an easy way to return the reply count for a particular entity the re
 A) You can do the following:
 $instance = field_info_instance($entity_type, $field_name, $bundle_name);
 $count = count(reply_get_entity($entity_id, $entity_type, $instance['id']));
+
+3. Add a breadcrumb title for a custom entity that does not have 'title' attribute
+For unkown entities, or in case a title is missing the entity id will be used for populating the breadcrumb trail.
+
+<?php
+function mymodule_reply_entity_crumb_title_alter($title, $context) {
+  if ($context['entity_type'] == 'mytype') {
+    $title = $context['entity']->mytitlefieldfallback;
+  }
+}
+?>
+You can access the comment for which this breadcrumb is generated via $context['reply_instance'].
