@@ -89,6 +89,7 @@ function beauty_world_cup_pages() {
             ->range(0,3)
             ->execute()
             ->fetchAllKeyed();
+    beauty_add_normal_js();
     return theme('beauty_world_cup_frontpage', array('banner_news' => $banner_news, 'frontpage_news' => $frontpage_news));
 }
 
