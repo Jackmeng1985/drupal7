@@ -1,0 +1,68 @@
+diff --git a/sites/all/modules/reply/README.txt b/sites/all/modules/reply/README.txt
+index dde38f6..5e4e33d 100644
+--- a/sites/all/modules/reply/README.txt
++++ b/sites/all/modules/reply/README.txt
+@@ -21,7 +21,7 @@ Replies from users are administered in a content tab (similar to the existing Co
+ Frequently Asked Questions:
+ 
+ Q) How can I show author names on replies?
+-A) Override reply.tpl.php with a version that outputs $username, e.g. 
++A) Override reply.tpl.php with a version that outputs $username, e.g.
+ <div id="reply-<?php print $reply->id ?>" class="<?php print $classes ?>">
+   <div class="reply-body"><?php print render($content) ?></div>
+ 
+@@ -39,3 +39,15 @@ Q) Is there an easy way to return the reply count for a particular entity the re
+ A) You can do the following:
+ $instance = field_info_instance($entity_type, $field_name, $bundle_name);
+ $count = count(reply_get_entity($entity_id, $entity_type, $instance['id']));
++
++3. Add a breadcrumb title for a custom entity that does not have 'title' attribute
++For unkown entities, or in case a title is missing the entity id will be used for populating the breadcrumb trail.
++
++<?php
++function mymodule_reply_entity_crumb_title_alter($title, $context) {
++  if ($context['entity_type'] == 'mytype') {
++    $title = $context['entity']->mytitlefieldfallback;
++  }
++}
++?>
++You can access the comment for which this breadcrumb is generated via $context['reply_instance'].
+diff --git a/sites/all/modules/reply/reply.module b/sites/all/modules/reply/reply.module
+index d836eab..4a8d569 100644
+--- a/sites/all/modules/reply/reply.module
++++ b/sites/all/modules/reply/reply.module
+@@ -912,7 +912,7 @@ function reply_post($entity_id, $instance_id, $parent) {
+   $entity_type = $instance->entity_type;
+   $entity = entity_load($entity_type, array($entity_id));
+   $entity = reset($entity);
+-  $entity_url = '/' . $entity->type . '/' . $entity_id;
++  $entity_url = '/' . $entity_type . '/' . $entity_id;
+   $build = array();
+ 
+   if ($parent) {
+@@ -952,7 +952,24 @@ function reply_menu_breadcrumb_alter(&$active_trail, $item) {
+       $entity = reset($entity);
+       $parent_path = drupal_get_path_alias($entity_type . '/' . $entity_id);
+       $crumb['href'] = $parent_path;
+-      $crumb['title'] = htmlspecialchars_decode($entity->title);
++      switch ($entity_type) {
++        case 'user':
++          $crumb['title'] = htmlspecialchars_decode($entity->name);
++          break;
++        case 'node':
++          $crumb['title'] = htmlspecialchars_decode($entity->title);
++          break;
++        default:
++          $title = $entity_id;
++          break;
++      }
++      // Let other modules change the breadcrumb title:
++      $context = array(
++        'entity' => $entity,
++        'entity_type' => $entity_type,
++        'reply_instance' => $instance,
++      );
++      $title = drupal_alter('reply_entity_crumb_title', $title, $context);
+       $active_trail[$key] = $crumb;
+     }
+   }
