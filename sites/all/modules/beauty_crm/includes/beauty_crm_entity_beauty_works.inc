@@ -76,6 +76,9 @@ class BeautyWorksController extends EntityAPIController {
      * 
      */
     public function save($entity, DatabaseTransaction $transaction = NULL) {
+        if (isset($entity->field_harber)) {
+            $entity->bid = $entity->field_harber['und'][0]['target_id'];
+        }        
         $return = parent::save($entity, $transaction);
         return $return;
     }

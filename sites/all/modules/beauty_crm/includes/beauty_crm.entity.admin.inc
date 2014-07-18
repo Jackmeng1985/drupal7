@@ -335,13 +335,13 @@ function beauty_works_form($form_id, $form_state) {
     '#title' => '状态',
     '#default_value' => isset($beauty_works->status) ? $beauty_works->status : '',
   );     
-  
+
 
   // Add the field related form elements.
   $form_state['beauty_weixin_user'] = $beauty_works;
   field_attach_form('beauty_works', $beauty_works, $form, $form_state);
   
-  if($beauty_works->is_new && isset($_GET['bid'])) {
+  if(isset($beauty_works->is_new) && isset($_GET['bid'])) {
     $form['field_harber']['und']['#default_value'] = $_GET['bid'];
   }
   $form['actions'] = array(
