@@ -70,7 +70,7 @@
     }
     
     Drupal.beauty_flip_card.get_radom_card = function () {
-         var random = Math.floor(Math.random() * (12 + 1));
+         var random = Math.floor(Math.random() * 13) + 1;
          return random;
     }
     
