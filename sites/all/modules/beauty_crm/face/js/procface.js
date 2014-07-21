@@ -133,7 +133,7 @@ function calculateHairPosition(){
   //we first get the middle points between eyes of face.
 
   face_eye_center = [];
-  console.log(face_position);
+//  console.log(face_position);
   face_eye_center['x'] = (face_position.eye_right.x + face_position.eye_left.x)/2 ;
   face_eye_center['y'] = (face_position.eye_right.y + face_position.eye_left.y)/2 ;
  ////we then get the middle points between eyes of hairstyle.
@@ -378,7 +378,7 @@ function savePicture (){
 
        window.cwidth  = document.getElementsByTagName("body")[0].clientWidth  ;
        window.cheight =  document.getElementsByTagName("body")[0].clientHeight  ;
-       console.log( window.cwidth) ;
+//       console.log( window.cwidth) ;
         initializeCanvas();  //change canvas to proper width and height;
 
         t_face_position = [];
