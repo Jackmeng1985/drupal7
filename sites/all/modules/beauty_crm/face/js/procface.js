@@ -120,7 +120,6 @@ function loadImages(sources, callback) {
             if(++loadedImages >= numImages) {
               callback(images);
             }
-            images[src].onload = null;
           };
           images[src].src = sources[src];
         }
