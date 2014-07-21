@@ -90,7 +90,7 @@ function beauty_crm_hair_picture_upload($hid) {
         $source = imagecreatefromjpeg($face_file_path);
 
         // Resize
-        imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+        imageCopyreSampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
         if (!empty($exif['Orientation']) && $exif['Orientation'] == 6) {
             $thumb = imagerotate($thumb, -90, 0);
