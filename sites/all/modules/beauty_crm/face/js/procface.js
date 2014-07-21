@@ -120,6 +120,7 @@ function loadImages(sources, callback) {
             if(++loadedImages >= numImages) {
               callback(images);
             }
+            images[src].onload = null;
           };
           images[src].src = sources[src];
         }
@@ -381,7 +382,6 @@ function savePicture (){
        console.log( window.cwidth) ;
         initializeCanvas();  //change canvas to proper width and height;
 
-        face_url = '/sites/default/files/faces/'+ face_file;
         t_face_position = [];
         t_hair_position = [];
         t_face_position['x'] = 0;

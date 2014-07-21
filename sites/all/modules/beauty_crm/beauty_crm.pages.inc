@@ -32,8 +32,8 @@ function beauty_crm_hair_picture_adjustment(Entity $beauty_hairstyle) {
 
     list($style_width, $style_height) = getimagesize($hair_url);
 
-
-    $content = 'var face_file = "'. $_SESSION['thumb_face_file_name']. '";
+    $face_url = file_create_url('public://faces/'. $_SESSION['thumb_face_file_name']);
+    $content = 'var face_url = "'. $face_url . '";
 var face_position =  '.json_encode($face).';
 var face_width =  '.$face_width .';
 var face_height =  '.$face_height.';
