@@ -213,6 +213,9 @@ function getMergedImage(face_url, hair_url, face_position, hair_position, hair_s
 //       drawPointsOnHair(context);  //draw change points according to scale;
        context.clearRect(0, face_height, 2000, 2000);
        context.clearRect(face_width, 0, 2000, 2000);
+       
+       context.clearRect(0, 0, 2000, window.ctop);
+       context.clearRect(0, 0, window.cleft, 2000);
    });
  }
 
@@ -378,6 +381,8 @@ function savePicture (){
 
        window.cwidth  = document.getElementsByTagName("body")[0].clientWidth  ;
        window.cheight =  document.getElementsByTagName("body")[0].clientHeight  ;
+       window.ctop =  $('#face').css('top');
+       window.cleft =  $('#face').css('left');
 //       console.log( window.cwidth) ;
         initializeCanvas();  //change canvas to proper width and height;
 
