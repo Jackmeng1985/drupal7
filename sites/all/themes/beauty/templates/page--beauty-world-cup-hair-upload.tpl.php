@@ -34,6 +34,11 @@ $base_path = base_path();
       <div><a href="<?php print url('world_cup/hair/adjustment/' . arg(3)); ?>" class="btn btn-positive" style="width: 100px;">使用历史照片</a></div>
     </div>
   <?php endif; ?>
+     <?php if($beauty_message): ?>
+    <div class="messages beauty">
+        <?php print $beauty_message;?>
+    </div>
+    <?php endif;?>
   <div class="page-upload">
     <form id="image_upload" action="" method="post" enctype="multipart/form-data" >
       <input id="photo" class="btn btn-upload" value="拍照" disabled="disabled" />

@@ -37,6 +37,20 @@ function beauty_preprocess_page(&$vars) {
         }
         array_splice($vars['theme_hook_suggestions'], 0, 0, $suggestion_template);
     }
+    
+    foreach(drupal_get_messages('beauty') as  $messages) {
+        if (count($messages) > 1) {
+          $mess_str .= " <ul>\n";
+          foreach ($messages as $message) {
+            $mess_str .= '  <li>' . $message . "</li>\n";
+          }
+          $mess_str .= " </ul>\n";
+        }
+        else {
+          $mess_str .= $messages[0];
+        }
+    }
+    $vars['beauty_message'] = $mess_str;
 }
 
 /**
