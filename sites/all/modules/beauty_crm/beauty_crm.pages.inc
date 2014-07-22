@@ -17,9 +17,13 @@ function beauty_crm_hair_picture_adjustment(Entity $beauty_hairstyle) {
     $body = json_decode( $response['body']);
     $face_width = $body->img_width;
     $face_height = $body->img_height;
+    
+    if (!isset($body->face[0]->position)) {
+        drupal_set_message('大神，你亮瞎了我们的脸型识别系统，请再上传一张照片吧!', 'beauty');
+        drupal_goto('world_cup/hair/upload/' . $beauty_hairstyle->hid);
+    }    
+    
     $face = $body->face[0]->position;
-
-
     $face->eye_left->x = $face->eye_left->x * ($face_width  / 100);
     $face->eye_left->y = $face->eye_left->y * ($face_height  / 100);
     $face->eye_right->x = $face->eye_right->x * ($face_width  / 100);
