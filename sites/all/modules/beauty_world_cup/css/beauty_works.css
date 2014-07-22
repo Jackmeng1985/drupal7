@@ -1,0 +1,99 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2014-7-18, 16:15:47
+    Author     : mxj
+*/
+img{
+    border:0;
+}
+a{
+    text-decoration:none;
+}
+.page-stars{
+  border:3px solid black;
+ padding:0 10px;
+ overflow:hidden;
+ text-align:center;
+ }
+ 
+.page{
+width:50%;
+  float:left;
+}
+
+.page-top a{
+     display:block;
+     float:left;
+     padding-right:10px;
+     margin-bottom:10px;
+     text-align:center;
+   }
+.page-top a img{
+   width:100%;
+  margin-bottom:0;
+  display:block;
+  vertical-align:top;
+}
+.page-below p{
+    position:relative;
+    left:-10%;
+   }
+
+.page-detail{
+      border-bottom:6px solid black; 
+       border-right:6px solid black; 
+       border-left: 6px solid black;
+  }
+
+ .detail-below{
+      text-align:center;
+       padding-right:0;
+   padding-left:0;
+   
+ } 
+ 
+ .detail-below img{
+   margin-bottom:-5px;
+    width:100%;
+ }
+  .waps{ 
+    text-align:center; 
+  font-size:12px;
+  font-family:Arial, Helvetica, sans-serif;
+  position:absolute;
+  left:23%;
+  top:76%;
+  z-index:1;
+  width:70%;
+  height:30%;
+  }
+.con{
+    width:110%;
+    height:80%;
+background:rgba(255, 255, 255, 0.8) none repeat scroll 0 0 !important;
+/*实现FF背景透明，文字不透明*/
+filter:Alpha(opacity=80);
+background:#fff;
+/*实现IE背景透明*/
+}
+.con p{ 
+ padding-top:10%;
+  padding-bottom:5%;
+text-align:center;
+position:relative;
+line-height:1;
+}/*实现IE文字不透明*/
+.next{
+    width:30%;
+    height:30%;
+    float:right;
+    background: url(../images/next.jpg) no-repeat;
+    position:relative;
+    top:-70%;
+    left:10%;
+   
+}

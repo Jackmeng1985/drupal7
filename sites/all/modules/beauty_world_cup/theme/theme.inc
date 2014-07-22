@@ -16,6 +16,13 @@ function beauty_crm_preprocess_beauty_world_cup_hair_big(&$variables) {
     $variables['hairstyle_tag_name'] = $tag->name;
 }
 
+function beauty_world_cup_preprocess_beauty_world_cup_works(&$variables) {
+    $works = $variables['works'];
+    foreach ($works as $work) {
+     $rows[$work->wid] = beauty_vote_get_vote_widget('beauty_works', $work->wid); 
+    }
+    $variables['banner_news_vote']=$rows;
+   }
 /**
  *
  */

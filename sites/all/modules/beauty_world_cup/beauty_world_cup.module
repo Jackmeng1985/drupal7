@@ -25,6 +25,19 @@ function beauty_world_cup_menu() {
     'access callback' => true,
     'file' => 'beauty_world_cup.pages.inc',
   );
+   $items['world_cup/works'] = array(
+    'title' => '作品集',
+    'page callback' => 'beauty_world_cup_pages_works',
+    'access callback' => true,
+    'file' => 'beauty_world_cup.pages.inc',
+  );
+ $items['world_cup/works/detail/%'] = array(
+    'title' => '作品详情',
+    'page callback' => 'beauty_world_cup_pages_works_detail',
+    'page arguments' => array(3),
+    'access callback' => true,
+    'file' => 'beauty_world_cup.pages.inc',
+  );
   $items['world_cup/hair/big/%beauty_hairstyle'] = array(
     'title' => '发型库',
     'page callback' => 'beauty_world_cup_pages_hair_big',
@@ -74,6 +87,18 @@ function beauty_world_cup_theme() {
     'beauty_world_cup_hair' => array(
       'template' => 'beauty-world-cup-hair',
       'variables' => array('hairstyles' => NULL, 'tags' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
+    ),
+   'beauty_world_cup_works' => array(
+      'template' => 'beauty-world-cup-works',
+      'variables' => array('works' => NULL, 'tags' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
+    ),
+      'beauty_world_cup_works_detail' => array(
+      'template' => 'beauty-world-cup-works-detail',
+      'variables' => array('result' => NULL),
       'file' => 'theme.inc',
       'path' => drupal_get_path('module', 'beauty_world_cup') . '/theme',
     ),

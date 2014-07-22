@@ -37,6 +37,32 @@ function beauty_world_cup_pages_hair_big(Entity $beauty_hairstyle) {
     return theme('beauty_world_cup_hair_big', array('hairstyle' => $beauty_hairstyle));
 }
 
+function beauty_world_cup_pages_works() {
+    beauty_add_normal_js();   
+    beauty_add_css(drupal_get_path('module', 'beauty_world_cup') . '/css/beauty_works.css');
+       $query = db_select('beauty_works', 'bw');
+       $query->addField('bw', 'wid');
+    $query->orderBy('bw.created', 'desc');
+    $result = $query->execute();
+    foreach ($result as $row) {
+        $rows[] = $row->wid;
+    }
+    $works = beauty_works_load_multiple($rows);
+
+
+    return theme('beauty_world_cup_works',  array('works' => $works, 'tags' => NULL));
+}
+function beauty_world_cup_pages_works_detail($wid) {
+    beauty_add_normal_js(); 
+          beauty_add_css(drupal_get_path('module', 'beauty_world_cup') . '/css/beauty_works.css');
+     $query = db_select('beauty_works', 'bw');
+       $query->addField('bw', 'wid');
+       $query->condition("bw.wid",$wid,"=");
+       $result = $query->execute()->fetchAssoc();
+        
+       $result = beauty_works_load($result['wid']);
+    return theme('beauty_world_cup_works_detail',  array('result' => $result));
+}
 function beauty_world_cup_page_hair_advantage() {
   $banner_video = db_select('node', 'n')
     ->fields('n')
