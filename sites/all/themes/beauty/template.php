@@ -70,6 +70,9 @@ function beauty_preprocess_html(&$vars) {
     if (strstr($_GET['q'], 'world_cup/hair') !== FALSE && (!arg(2) || is_numeric(arg(2))) ) {
         $needs_mobile_html_template = TRUE;
     }
+    if (strstr($_GET['q'], 'world_cup/works') !== FALSE) {
+        $needs_mobile_html_template = TRUE;
+    }      
     if (strstr($_GET['q'], 'world_cup/news/detail') !== FALSE ) {
         beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/segmented-controllers.js');
         $needs_mobile_html_template = TRUE;
