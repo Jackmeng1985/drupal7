@@ -125,7 +125,7 @@ function loadImages(sources, callback) {
         }
 }
 
-
+    
 function calculateHairPosition(){
   t_hair_position = [];
   t_hair_position['x'] = 0;
@@ -133,7 +133,7 @@ function calculateHairPosition(){
   //we first get the middle points between eyes of face.
 
   face_eye_center = [];
-  console.log(face_position);
+//  console.log(face_position);
   face_eye_center['x'] = (face_position.eye_right.x + face_position.eye_left.x)/2 ;
   face_eye_center['y'] = (face_position.eye_right.y + face_position.eye_left.y)/2 ;
  ////we then get the middle points between eyes of hairstyle.
@@ -207,12 +207,15 @@ function getMergedImage(face_url, hair_url, face_position, hair_position, hair_s
   loadImages(sources, function(images) {
        context.drawImage(images.face, face_position['x'],face_position['y'],face_width,face_height);;
 
-       faceimgTargetData = context.getImageData(face_position['x'],face_position['y'],face_width, face_height);
+//       faceimgTargetData = context.getImageData(face_position['x'],face_position['y'],face_width, face_height);
        context.drawImage(images.hair, hair_position['x'],hair_position['y'],images.hair.width * hair_scale,images.hair.height * hair_scale);
-       hairimgTargetData = context.getImageData(hair_position['x'],hair_position['y'],images.hair.width * hair_scale,images.hair.height * hair_scale);
+//       hairimgTargetData = context.getImageData(hair_position['x'],hair_position['y'],images.hair.width * hair_scale,images.hair.height * hair_scale);
 //       drawPointsOnHair(context);  //draw change points according to scale;
        context.clearRect(0, face_height, 2000, 2000);
        context.clearRect(face_width, 0, 2000, 2000);
+       
+       context.clearRect(0, 0, 2000, window.ctop);
+       context.clearRect(0, 0, window.cleft, 2000);
    });
  }
 
@@ -378,10 +381,11 @@ function savePicture (){
 
        window.cwidth  = document.getElementsByTagName("body")[0].clientWidth  ;
        window.cheight =  document.getElementsByTagName("body")[0].clientHeight  ;
-       console.log( window.cwidth) ;
+       window.ctop =  $('#face').css('top');
+       window.cleft =  $('#face').css('left');
+//       console.log( window.cwidth) ;
         initializeCanvas();  //change canvas to proper width and height;
 
-        face_url = '/sites/default/files/faces/'+ face_file;
         t_face_position = [];
         t_hair_position = [];
         t_face_position['x'] = 0;

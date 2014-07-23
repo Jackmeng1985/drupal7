@@ -56,7 +56,7 @@ function weixin_oauth_permission() {
 function weixin_oauth_redirect() {
   $parameters = array(
     'appid' => variable_get('weixin_appid', ''),
-    'redirect_uri' => url('weixin/oauth/callback', array('absolute' => TRUE)),
+    'redirect_uri' => url('weixin/oauth/callback', array('absolute' => TRUE, 'query' => array('destination' => isset($_GET['dest']) ? $_GET['dest'] : 'user'))),
     'response_type' => 'code',
     'scope' => 'snsapi_userinfo',
   );
@@ -134,7 +134,7 @@ function weixin_oauth_execute_user_create($info) {
     weixin_oauth_execute_user_save($account, $info);
   }
   weixin_oauth_execute_user_login($account);
-  drupal_goto('user');
+  drupal_goto();
   //@todo 跳转到手机认证页面
 }
 

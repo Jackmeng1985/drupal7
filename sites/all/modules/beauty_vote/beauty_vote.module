@@ -96,12 +96,13 @@ function beauty_vote_get_vote_widget($entity_type, $entity_id) {
     $tag = $tag ? $tag : 'beauty_vote_' . $entity_type . '_vote'; //tag    
     beauty_add_css(drupal_get_path('module', 'beauty_vote') . '/css/beauty_vote.css');
     beauty_add_js(drupal_get_path('module', 'beauty_vote') . '/js/beauty_vote.js');
+    beauty_add_js(array('beauty_vote'=> array('user_is_anonymous' => user_is_anonymous(), 'weixin_url' => url('weixin/oauth', array('query' => array('dest' => current_path()))))), 'setting');
     return theme('beauty_vote_widget', array(
         'entity_type' => $entity_type, 
         'entity_id' => $entity_id, 
         'score' => beauty_vote_get_sum_score($entity_type, $entity_id), 
         'is_scored' => beauty_vote_get_votes($entity_type, $entity_id, $user->uid, $tag))
-            );
+    );
 }
 
 function beauty_vote_get_sum_score ($entity_type, $entity_id) {

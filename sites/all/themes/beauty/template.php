@@ -18,22 +18,39 @@ function beauty_preprocess_page(&$vars) {
         else {
             $suggestion_template = 'page__beauty_' . str_replace('/', '_', $_GET['q']);
         }
-        
+
         if (strstr($_GET['q'], 'world_cup/hair/adjustment') !== FALSE) {
             $suggestion_template = 'page__beauty_world_cup_hair_adjustment';
         }
         if (strstr($_GET['q'], 'world_cup/hair/upload') !== FALSE) {
             $suggestion_template = 'page__beauty_world_cup_hair_upload';
-        }        
-        
+        }
+
         if (strstr($_GET['q'], 'world_cup/hair/big') !== FALSE) {
             $suggestion_template = 'page__beauty_world_cup_hair_big';
-        }       
+        }
         if (strstr($_GET['q'], 'world_cup/video') !== FALSE) {
             $suggestion_template = 'page__beauty_world_cup_video';
-        }          
+        }
+        if (strstr($_GET['q'], 'world_cup/barber') !== FALSE) {
+            $suggestion_template = 'page__beauty_world_cup_barber';
+        }
         array_splice($vars['theme_hook_suggestions'], 0, 0, $suggestion_template);
     }
+    
+    foreach(drupal_get_messages('beauty') as  $messages) {
+        if (count($messages) > 1) {
+          $mess_str .= " <ul>\n";
+          foreach ($messages as $message) {
+            $mess_str .= '  <li>' . $message . "</li>\n";
+          }
+          $mess_str .= " </ul>\n";
+        }
+        else {
+          $mess_str .= $messages[0];
+        }
+    }
+    $vars['beauty_message'] = $mess_str;
 }
 
 /**
@@ -52,25 +69,22 @@ function beauty_preprocess_html(&$vars) {
     }
     if (strstr($_GET['q'], 'world_cup/hair') !== FALSE && (!arg(2) || is_numeric(arg(2))) ) {
         $needs_mobile_html_template = TRUE;
-    }  
-    if (strstr($_GET['q'], 'world_cup/works') !== FALSE) {
-        $needs_mobile_html_template = TRUE;
-    }      
+    }
     if (strstr($_GET['q'], 'world_cup/news/detail') !== FALSE ) {
         beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/segmented-controllers.js');
         $needs_mobile_html_template = TRUE;
-    }    
+    }
     if (strstr($_GET['q'], 'world_cup/hair/big')) {
         beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/sliders.js');
         $needs_mobile_html_template = TRUE;
-    }     
+    }
     if (strstr($_GET['q'], 'world_cup/flip_card')) {
         $needs_mobile_html_template = TRUE;
-    } 
+    }
     if (strstr($_GET['q'], 'world_cup/video')) {
         $needs_mobile_html_template = TRUE;
-    }    
-    
+    }
+
     if ($_GET['q'] == 'world_cup') {
 //        beauty_add_normal_js();
         beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/segmented-controllers.js');
@@ -78,12 +92,12 @@ function beauty_preprocess_html(&$vars) {
         beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/template.js');
         beauty_add_js(drupal_get_path('theme', 'beauty') . '/js/tatali.js');
         $needs_mobile_html_template = TRUE;
-    }    
+    }
     if ($needs_mobile_html_template) {
         beauty_add_css(drupal_get_path('theme', 'beauty') . '/css/ratchet.css');
-        array_splice($vars['theme_hook_suggestions'], 0, 0, 'html__mobile');        
+        array_splice($vars['theme_hook_suggestions'], 0, 0, 'html__mobile');
     }
-    
+
     // 针对微信浏览器
     $vars['head_title'] = explode('|', $vars['head_title']);
     $vars['head_title'] = $vars['head_title'][0];
@@ -91,5 +105,5 @@ function beauty_preprocess_html(&$vars) {
 
 function beauty_add_normal_js() {
    beauty_add_js('misc/jquery.js');
-   beauty_add_js('misc/drupal.js');  
+   beauty_add_js('misc/drupal.js');
 }

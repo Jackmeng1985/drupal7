@@ -17,9 +17,13 @@ function beauty_crm_hair_picture_adjustment(Entity $beauty_hairstyle) {
     $body = json_decode( $response['body']);
     $face_width = $body->img_width;
     $face_height = $body->img_height;
+    
+    if (!isset($body->face[0]->position)) {
+        drupal_set_message('大神，你亮瞎了我们的脸型识别系统，请再上传一张照片吧!', 'beauty');
+        drupal_goto('world_cup/hair/upload/' . $beauty_hairstyle->hid);
+    }    
+    
     $face = $body->face[0]->position;
-
-
     $face->eye_left->x = $face->eye_left->x * ($face_width  / 100);
     $face->eye_left->y = $face->eye_left->y * ($face_height  / 100);
     $face->eye_right->x = $face->eye_right->x * ($face_width  / 100);
@@ -32,8 +36,8 @@ function beauty_crm_hair_picture_adjustment(Entity $beauty_hairstyle) {
 
     list($style_width, $style_height) = getimagesize($hair_url);
 
-
-    $content = 'var face_file = "'. $_SESSION['thumb_face_file_name']. '";
+    $face_url = file_create_url('public://faces/'. $_SESSION['thumb_face_file_name']);
+    $content = 'var face_url = "'. $face_url . '";
 var face_position =  '.json_encode($face).';
 var face_width =  '.$face_width .';
 var face_height =  '.$face_height.';
@@ -45,18 +49,18 @@ var hair_eye_right = '.drupal_json_encode($face_points['EyeRight']).';
 
 var hair_width = '.$style_width.';
 var hair_height = '.$style_height.';';
-
+    
+    beauty_add_normal_js();
     beauty_add_js($content, 'inline');
-    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/jquery-1.9.1.min.js');
     beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/point.js');
     beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/grid.js');
-    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/Matrix22.js');
+//    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/Matrix22.js');
     beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/util.js');
-    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/billinearinterpolation.js');
+//    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/billinearinterpolation.js');
     beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/configuration.js');
-    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/AffineDeformation.js');
-    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/BinlinearInterpolation.js');
-    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/deformation.js');
+//    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/AffineDeformation.js');
+//    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/BinlinearInterpolation.js');
+//    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/deformation.js');
     beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/procface.js');
     beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/WeixinApi.js');
     return  ' ';
@@ -90,7 +94,7 @@ function beauty_crm_hair_picture_upload($hid) {
         $source = imagecreatefromjpeg($face_file_path);
 
         // Resize
-        imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+        imageCopyreSampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
         if (!empty($exif['Orientation']) && $exif['Orientation'] == 6) {
             $thumb = imagerotate($thumb, -90, 0);

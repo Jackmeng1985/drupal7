@@ -1,6 +1,10 @@
 (function($) {
     $(document).ready(function() {
         $('.vote-icon-comment').click(function(){
+            if (Drupal.settings.beauty_vote.user_is_anonymous ) {
+                window.location.href = Drupal.settings.beauty_vote.weixin_url;
+                return;
+            }
             var $this = $(this);
             if ($this.hasClass('vote-icon-comment-orange')) {
                 return;

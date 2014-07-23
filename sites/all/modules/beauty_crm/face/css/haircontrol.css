@@ -28,6 +28,20 @@
 
 #hairChange{
  position: absolute; 
+ left:10%;
+ top: 7%;
+ display: none;
+}
+
+#hairStyle{
+ position: absolute; 
+ left:10%;
+ top: 7%;
+ display: none;
+}
+
+#hairChange{
+ position: absolute; 
  left:800px;
  top: 0px;
  border: 1px;
