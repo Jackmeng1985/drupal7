@@ -134,3 +134,12 @@ function beauty_world_cup_flip_card() {
     beauty_add_css(drupal_get_path('module', 'beauty_world_cup') . '/css/flip_card.css');
     return theme('beauty_world_cup_flip_card', array());
 }
+
+function beauty_world_cup_page_barber($barber_id) {
+    $barber = beauty_barber_load($barber_id);
+    $instance = field_info_instance('beauty_barber', 'field_comments', 'beauty_barber');
+    $comments_uri = '/reply/add/' . $barber_id . '/' . $instance['id'] . '/0';
+    $shop_id = $barber->field_shop['und'][0]['target_id'];
+    $shop = beauty_shop_load($shop_id);
+    return theme('beauty_world_cup_barber', array('barber' => $barber, 'comments_uri' => $comments_uri, 'shop' => $shop));
+}
