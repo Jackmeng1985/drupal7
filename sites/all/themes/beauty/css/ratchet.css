@@ -1626,7 +1626,7 @@ select {
 .page-hair-adjustment {
   height: 100%;
   overflow: hidden;
-  position: relative; }
+  }
   .page-hair-adjustment img {
     width: 100%;
     vertical-align: top;
