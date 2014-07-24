@@ -3,8 +3,8 @@
 function beauty_crm_hair_picture_adjustment(Entity $beauty_hairstyle) {
     include_once dirname(__FILE__) . '/face/facepp_sdk.php';
 
-    beauty_add_css(drupal_get_path('module', 'beauty_crm'). '/face/css/haircontrol.css');
-    beauty_add_css(drupal_get_path('module', 'beauty_crm'). '/face/css/jquery.mobile-1.3.2.min.css');
+//    beauty_add_css(drupal_get_path('module', 'beauty_crm'). '/face/css/haircontrol.css');
+//    beauty_add_css(drupal_get_path('module', 'beauty_crm'). '/face/css/jquery.mobile-1.3.2.min.css');
 
 
 
@@ -52,12 +52,12 @@ var hair_height = '.$style_height.';';
     
     beauty_add_normal_js();
     beauty_add_js($content, 'inline');
-    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/point.js');
-    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/grid.js');
+//    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/point.js');
+//    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/grid.js');
 //    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/Matrix22.js');
-    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/util.js');
+//    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/util.js');
 //    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/billinearinterpolation.js');
-    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/configuration.js');
+//    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/configuration.js');
 //    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/AffineDeformation.js');
 //    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/BinlinearInterpolation.js');
 //    beauty_add_js(drupal_get_path('module', 'beauty_crm'). '/face/js/deformation.js');
