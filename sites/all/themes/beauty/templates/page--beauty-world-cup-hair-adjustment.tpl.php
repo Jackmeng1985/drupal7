@@ -7,14 +7,11 @@ $base_path = base_path();
   <a class="tab-item scaledown" href="#">缩小</a>
   <a class="tab-item" href="<?php print url('world_cup/hair'); ?>">更多发型</a>
 </nav>
-<div class="content">
-  <div class="page-hair-adjustment">
-      <img  id="loading" src="<?php print $base_path . $directory; ?>/images/GIF0111.gif" alt="" style="display: block;">
-       <canvas id="face" width="600" height = "600"> </canvas>
-       <canvas id ="hairChange" width="448" height="733" > </canvas>
-       <canvas id="hairStyle" width="448" height="733"></canvas>
+<div class="content" style="height:500px;">
+    <div class="page-hair-adjustment" style="height:500px;">
+       <canvas id="face" width="600" height = "600" style=" position: absolute;left:10%;top: 7%;"> </canvas>
+    </div>
   </div>
-</div>
 <?php print($page['content']['system_main']['main']['#markup']);?>
 <script>
   WeixinApi.ready(function(Api) {
@@ -36,7 +33,7 @@ $base_path = base_path();
           $.ajaxSetup({
               async : false
           });
-          $.post('/world_cup/hair/share', {'image': share_data}, function(data) {
+          $.post(Drupal.settings.basePath + 'world_cup/hair/share', {'image': share_data}, function(data) {
             wxData.imgUrl = data.url;
           }, 'json');
         },
