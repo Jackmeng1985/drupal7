@@ -42,7 +42,11 @@ $base_path = base_path();
   <div class="page-upload">
     <form id="image_upload" action="" method="post" enctype="multipart/form-data" >
       <input id="photo" class="btn btn-upload" value="拍照" disabled="disabled" />
+      <?php if (!$beauty->IsQQBrowser):?>
       <input type="file" name="file" id="file"  capture="camera"  >
+      <?php else:?>
+      <input type="file"  name="file" id="file" accept="image/*;capture=camera"> 
+      <?php endif;?>
       <input id="submit" type="submit" name="submit" class="btn btn-upload" value="开始脸型识别" style="display: none;">
     </form>
   </div>

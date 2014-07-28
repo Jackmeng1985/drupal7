@@ -50,6 +50,7 @@ function beauty_preprocess_page(&$vars) {
           $mess_str .= $messages[0];
         }
     }
+    $vars['beauty'] = beauty_get_vars('page', $vars);
     $vars['beauty_message'] = $mess_str;
 }
 
@@ -110,3 +111,26 @@ function beauty_add_normal_js() {
    beauty_add_js('misc/jquery.js');
    beauty_add_js('misc/drupal.js');
 }
+
+function beauty_get_vars($hook, $vars) {
+    $cache = &drupal_static(__FUNCTION__, array()); 
+    if (empty($cache[$hook])) {
+        switch ($hook) {
+            case 'page':
+                $cache[$hook] = beauty_get_vars_page($vars);
+                break;
+            default:
+                break;
+        }
+    }
+    return isset($cache[$hook]) ? $cache[$hook] : FALSE;
+}
+
+
+function beauty_get_vars_page() {
+    $beauty = new stdClass();
+    $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
+    $beauty->IsQQBrowser = strstr($ua, 'mqqbrowser') !== FALSE;
+    return $beauty;
+}
+
