@@ -54,8 +54,8 @@ function beauty_add_js($data = NULL, $options = NULL) {
         ),
       );
       // Register all required libraries.
-      drupal_add_library('system', 'jquery', TRUE);
-      drupal_add_library('system', 'jquery.once', TRUE);
+      beauty_add_library('system', 'jquery', TRUE);
+      beauty_add_library('system', 'jquery.once', TRUE);
     }
 
     switch ($options['type']) {
@@ -338,4 +338,125 @@ function beauty_get_css($css = NULL, $skip_alter = FALSE) {
   }
 
   return drupal_render($styles);
+}
+
+function beauty_add_library($module, $name, $every_page = NULL) {
+  $added = &drupal_static(__FUNCTION__, array());
+
+  // Only process the library if it exists and it was not added already.
+  if (!isset($added[$module][$name])) {
+    if ($library = beauty_get_library($module, $name)) {
+      // Add all components within the library.
+      $elements['#attached'] = array(
+        'library' => $library['dependencies'],
+        'js' => $library['js'],
+        'css' => $library['css'],
+      );
+      $added[$module][$name] = beauty_process_attached($elements, JS_LIBRARY, TRUE, $every_page);
+    }
+    else {
+      // Requested library does not exist.
+      $added[$module][$name] = FALSE;
+    }
+  }
+
+  return $added[$module][$name];
+}
+
+function beauty_get_library($module, $name = NULL) {
+  $libraries = &drupal_static(__FUNCTION__, array());
+
+  if (!isset($libraries[$module])) {
+    // Retrieve all libraries associated with the module.
+    $module_libraries = module_invoke($module, 'library');
+    if (empty($module_libraries)) {
+      $module_libraries = array();
+    }
+    // Allow modules to alter the module's registered libraries.
+    drupal_alter('library', $module_libraries, $module);
+
+    foreach ($module_libraries as $key => $data) {
+      if (is_array($data)) {
+        // Add default elements to allow for easier processing.
+        $module_libraries[$key] += array('dependencies' => array(), 'js' => array(), 'css' => array());
+        foreach ($module_libraries[$key]['js'] as $file => $options) {
+          $module_libraries[$key]['js'][$file]['version'] = $module_libraries[$key]['version'];
+        }
+      }
+    }
+    $libraries[$module] = $module_libraries;
+  }
+  if (isset($name)) {
+    if (!isset($libraries[$module][$name])) {
+      $libraries[$module][$name] = FALSE;
+    }
+    return $libraries[$module][$name];
+  }
+  return $libraries[$module];
+}
+
+
+function beauty_process_attached($elements, $group = JS_DEFAULT, $dependency_check = FALSE, $every_page = NULL) {
+  // Add defaults to the special attached structures that should be processed differently.
+  $elements['#attached'] += array(
+    'library' => array(),
+    'js' => array(),
+    'css' => array(),
+  );
+
+  // Add the libraries first.
+  $success = TRUE;
+  foreach ($elements['#attached']['library'] as $library) {
+    if (beauty_add_library($library[0], $library[1], $every_page) === FALSE) {
+      $success = FALSE;
+      // Exit if the dependency is missing.
+      if ($dependency_check) {
+        return $success;
+      }
+    }
+  }
+  unset($elements['#attached']['library']);
+
+  // Add both the JavaScript and the CSS.
+  // The parameters for drupal_add_js() and drupal_add_css() require special
+  // handling.
+  foreach (array('js', 'css') as $type) {
+    foreach ($elements['#attached'][$type] as $data => $options) {
+      // If the value is not an array, it's a filename and passed as first
+      // (and only) argument.
+      if (!is_array($options)) {
+        $data = $options;
+        $options = NULL;
+      }
+      // In some cases, the first parameter ($data) is an array. Arrays can't be
+      // passed as keys in PHP, so we have to get $data from the value array.
+      if (is_numeric($data)) {
+        $data = $options['data'];
+        unset($options['data']);
+      }
+      // Apply the default group if it isn't explicitly given.
+      if (!isset($options['group'])) {
+        $options['group'] = $group;
+      }
+      // Set the every_page flag if one was passed.
+      if (isset($every_page)) {
+        $options['every_page'] = $every_page;
+      }
+      call_user_func('beauty_add_' . $type, $data, $options);
+    }
+    unset($elements['#attached'][$type]);
+  }
+
+  // Add additional types of attachments specified in the render() structure.
+  // Libraries, JavaScript and CSS have been added already, as they require
+  // special handling.
+  foreach ($elements['#attached'] as $callback => $options) {
+    if (function_exists($callback)) {
+      foreach ($elements['#attached'][$callback] as $args) {
+        call_user_func_array($callback, $args);
+      }
+    }
+  }
+
+  return $success;
 }

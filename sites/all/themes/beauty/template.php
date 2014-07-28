@@ -108,8 +108,7 @@ function beauty_preprocess_html(&$vars) {
 }
 
 function beauty_add_normal_js() {
-   beauty_add_js('misc/jquery.js');
-   beauty_add_js('misc/drupal.js');
+    
 }
 
 function beauty_get_vars($hook, $vars) {
