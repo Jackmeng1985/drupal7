@@ -1,0 +1,6 @@
+name = beauty crm pages
+description = beauty crm pages
+version = "7.x-1.0"
+package = beautyCRM
+core = 7.x
+files[] = beauty_crm_pages.module

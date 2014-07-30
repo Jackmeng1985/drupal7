@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */ 
+function beauty_crm_pages_menu() {
+  // Note: we can't dynamically append destination to querystring.
+  // Do so at theme layer. Fix in D7?
+  $items['login'] = array(
+    'title' => '登陆页面',
+    'page callback' => 'beauty_crm_pages_login',
+    'access callback' => true,
+    'file' => 'beauty_crm_pages.pages.inc',
+  );
+  $items['shoplist'] = array(
+    'title' => '美发店列表',
+    'page callback' => 'beauty_crm_pages_shoplist',
+    'access callback' => true,
+    'file' => 'beauty_crm_pages.pages.inc',
+  );
+  $items['shopindex'] = array(
+    'title' => '美发店',
+    'page callback' => 'beauty_crm_pages_shopindex',
+    'access callback' => true,
+    'file' => 'beauty_crm_pages.pages.inc',
+  );
+   $items['barberindex'] = array(
+    'title' => '美发师',
+    'page callback' => 'beauty_crm_pages_barberindex',
+    'access callback' => true,
+    'file' => 'beauty_crm_pages.pages.inc',
+  );
+ $items['index'] = array(
+    'title' => '首页',
+    'page callback' => 'beauty_crm_pages_index',
+    'access callback' => true,
+    'file' => 'beauty_crm_pages.pages.inc',
+  );
+  $items['changestyle'] = array(
+    'title' => '换发型',
+    'page callback' => 'beauty_crm_pages_changestyle',
+    'access callback' => true,
+    'file' => 'beauty_crm_pages.pages.inc',
+  );
+  $items['usertabs'] = array(
+    'title' => '会员信息',
+    'page callback' => 'beauty_crm_pages_usertabs',
+    'access callback' => true,
+    'file' => 'beauty_crm_pages.pages.inc',
+  );
+ return $items;
+}
+
+/**
+ * HOOK_theme
+ */
+function beauty_crm_pages_theme() {
+  return array(
+    'beauty_crm_pages_login' => array(
+      'template' => 'beauty-crm-pages-login',
+      'variables' => array('banner_news' => NULL, 'frontpage_news' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
+    ),
+    'beauty_crm_pages_shoplist' => array(
+      'template' => 'beauty-crm-pages-shoplist',
+      'variables' => array('news' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
+    ),
+    'beauty_crm_pages_shopindex' => array(
+      'template' => 'beauty-crm-pages-shopindex',
+      'variables' => array('hairstyles' => NULL, 'tags' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
+    ),
+   'beauty_crm_pages_barberindex' => array(
+      'template' => 'beauty-crm-pages-barberindex',
+      'variables' => array('barbers' => NULL,'rowworks'=>NULL,'rowshops'=>NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
+    ),
+      'beauty_crm_pages_index' => array(
+      'template' => 'beauty-crm-pages-index',
+      'variables' => array('hairstyles' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
+    ),
+    'beauty_crm_pages_changestyle' => array(
+      'template' => 'beauty-crm-pages-changestyle',
+      'variables' => array('hairstyles' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
+    ),
+    'beauty_crm_pages_usertabs' => array(
+      'template' => 'beauty-crm-pages-usertabs',
+      'variables' => array('banner_video' => NULL, 'advantage_videos' => NULL),
+      'file' => 'theme.inc',
+      'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
+    ),
+  );
+}
+
