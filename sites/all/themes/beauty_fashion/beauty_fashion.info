@@ -1,0 +1,7 @@
+name=beauty fashion
+description=beauty fashion template
+screenshot  = screenshot.jpg  
+version=1.x
+core=7.x
+engine=phptemplate
+stylesheets[all][]=css/style.css
