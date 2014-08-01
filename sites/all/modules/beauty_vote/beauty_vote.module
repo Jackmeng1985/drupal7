@@ -32,9 +32,9 @@ function beauty_vote_theme() {
    );
 }
 
-function beauty_vote_vote($entity_type, $entity_id, $tag = NULL) {
+function beauty_vote_vote($entity_type, $entity_id) {
   global $user;
-  $tag = $tag ? $tag : 'beauty_vote_' . $entity_type . '_vote'; //tag
+  $tag = beauty_vote_get_tag($entity_type);      
   $vote_source = $user->uid ? $user->uid : ip_address();
   
   $voted = beauty_vote_get_votes($entity_type, $entity_id, $user->uid, $tag);
@@ -70,7 +70,7 @@ function beauty_vote_vote($entity_type, $entity_id, $tag = NULL) {
 }
 
 function beauty_vote_get_votes($entity_type, $entity_id, $uid, $tag = NULL) {
-  $tag = $tag ? $tag : 'beauty_vote_' . $entity_type . '_vote'; //tag
+  $tag = beauty_vote_get_tag($entity_type);      
   
   $criteria['entity_type'] = $entity_type;
   $criteria['entity_id'] = $entity_id;
@@ -93,7 +93,7 @@ function beauty_vote_get_votes($entity_type, $entity_id, $uid, $tag = NULL) {
 
 function beauty_vote_get_vote_widget($entity_type, $entity_id) {
     global $user;
-    $tag = $tag ? $tag : 'beauty_vote_' . $entity_type . '_vote'; //tag    
+    $tag = beauty_vote_get_tag($entity_type);      
     beauty_add_css(drupal_get_path('module', 'beauty_vote') . '/css/beauty_vote.css');
     beauty_add_js(drupal_get_path('module', 'beauty_vote') . '/js/beauty_vote.js');
     beauty_add_js(array('beauty_vote'=> array('user_is_anonymous' => user_is_anonymous(), 'weixin_url' => url('weixin/oauth', array('query' => array('dest' => current_path()))))), 'setting');
@@ -106,7 +106,7 @@ function beauty_vote_get_vote_widget($entity_type, $entity_id) {
 }
 
 function beauty_vote_get_sum_score ($entity_type, $entity_id) {
-$tag = $tag ? $tag : 'beauty_vote_' . $entity_type . '_vote'; //tag    
+    $tag = beauty_vote_get_tag($entity_type);       
     $criteria = array(
       'entity_type' => $entity_type,
       'entity_id' => $entity_id,
@@ -116,4 +116,8 @@ $tag = $tag ? $tag : 'beauty_vote_' . $entity_type . '_vote'; //tag
     $results = votingapi_select_results($criteria);    
     $score = $results[0]['value'] ? $results[0]['value'] : 0;    
     return $score;
+}
+
+function beauty_vote_get_tag($entity_type) {
+   return 'beauty_vote_' . $entity_type . '_vote';    
 }
