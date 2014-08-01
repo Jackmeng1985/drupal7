@@ -17,23 +17,31 @@ function beauty_crm_pages_login() {
     return theme('beauty_crm_pages_login', array('hairstyles' => $hairstyles, 'tags' => $tags));
 }
 
-function beauty_crm_pages_shoplist() {
-     beauty_add_css(drupal_get_path('module', 'beauty_crm_pages') . '/css/style.css');
-    
-    return theme('beauty_crm_pages_shoplist', array('hairstyle' => $beauty_hairstyle));
+function beauty_crm_pages_shops() {
+    beauty_add_css(drupal_get_path('module', 'beauty_crm_pages') . '/css/style.css');
+    $query = db_select('beauty_shop', 'bs');
+    $query->addField('bs', 'sid');
+    $query->orderBy('bs.sid', 'asc');
+    //$query->range(0, 10);
+    $result = $query->execute();
+    foreach ($result as $row) {
+        $rows[] = $row->sid;
+    }
+    $shops = beauty_shop_load_multiple($rows);
+    return theme('beauty_crm_pages_shops', array('shops' => $shops));
 }
 
-function beauty_crm_pages_shopindex() {
-    beauty_fashion_add_normal_js();   
+function beauty_crm_pages_shop($sid) {
+    beauty_fashion_add_normal_js();
     beauty_add_css(drupal_get_path('module', 'beauty_crm_pages') . '/css/style.css');
     beauty_add_js(drupal_get_path('module', 'beauty_crm_pages') . '/js/merchants.js');
     beauty_add_js(drupal_get_path('module', 'beauty_crm_pages') . '/js/util/getWH.js');
-     beauty_add_js(drupal_get_path('module', 'beauty_crm_pages') . '/js/util/getLocation.js');
-      
-
-    return theme('beauty_crm_pages_shopindex',  array('works' => $works, 'tags' => NULL));
+    beauty_add_js(drupal_get_path('module', 'beauty_crm_pages') . '/js/util/getLocation.js');
+  
+    $shop = beauty_shop_load_multiple(array($sid));
+    return theme('beauty_crm_pages_shop',  array('works' => $works, 'tags' => NULL,'shop' => $shop));
 }
-function beauty_crm_pages_barberindex() {
+function beauty_crm_pages_barbers() {
     beauty_fashion_add_normal_js(); 
      beauty_add_css(drupal_get_path('module', 'beauty_crm_pages') . '/css/style.css');
      beauty_add_js(drupal_get_path('module', 'beauty_crm_pages').'/js/index.js');
@@ -47,7 +55,7 @@ function beauty_crm_pages_barberindex() {
     $query->addField('bs','sid');
     $query->addField('bw', 'wid');
    $query->orderBy('bb.created', 'desc');
-       $query->range(0,3);
+      // $query->range(0,3);
     $result = $query->execute();
     foreach ($result as $row) {
         $rows[] = $row->bid;
@@ -62,9 +70,9 @@ function beauty_crm_pages_barberindex() {
    //$shops= beauty_shop_load_multiple($rowshops);
    
    //print_r($works);die();
-    return theme('beauty_crm_pages_barberindex',  array('barbers' => $barbers,'rowworks'=>$rowworks,'rowshops'=>$rowshops));
+    return theme('beauty_crm_pages_barbers',  array('barbers' => $barbers,'rowworks'=>$rowworks,'rowshops'=>$rowshops));
 }
-function beauty_crm_pages_index() {
+function beauty_crm_pages_homepage() {
     beauty_fashion_add_normal_js(); 
     beauty_add_js(drupal_get_path('module', 'beauty_crm_pages').'/js/index.js');
     beauty_add_css(drupal_get_path('module', 'beauty_crm_pages') . '/css/style.css');
@@ -74,7 +82,7 @@ function beauty_crm_pages_index() {
      $query = db_select('beauty_hairstyle', 'bh');
     $query->addField('bh', 'hid');
        $query->orderBy('bh.hid', 'desc');
-       $query->range(0,2);
+       //$query->range(0,2);
        $result = $query->execute();
     foreach ($result as $row) {
         $rows[] = $row->hid;
@@ -83,7 +91,7 @@ function beauty_crm_pages_index() {
     $hairstyles = beauty_hairstyle_load_multiple($rows);
    // print_r($hairstyles);die();
 
-  return theme('beauty_crm_pages_index', array('hairstyles' => $hairstyles ));
+  return theme('beauty_crm_pages_homepage', array('hairstyles' => $hairstyles ));
 }
 
 function beauty_crm_pages_changestyle() {

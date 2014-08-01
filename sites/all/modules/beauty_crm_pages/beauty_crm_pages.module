@@ -12,27 +12,28 @@ function beauty_crm_pages_menu() {
     'access callback' => true,
     'file' => 'beauty_crm_pages.pages.inc',
   );
-  $items['shoplist'] = array(
+  $items['shops'] = array(
     'title' => '美发店列表',
-    'page callback' => 'beauty_crm_pages_shoplist',
+    'page callback' => 'beauty_crm_pages_shops',
     'access callback' => true,
     'file' => 'beauty_crm_pages.pages.inc',
   );
-  $items['shopindex'] = array(
+  $items['shop/%'] = array(
     'title' => '美发店',
-    'page callback' => 'beauty_crm_pages_shopindex',
+    'page callback' => 'beauty_crm_pages_shop',
+    'page arguments' => array(1),
     'access callback' => true,
     'file' => 'beauty_crm_pages.pages.inc',
   );
-   $items['barberindex'] = array(
+   $items['barbers'] = array(
     'title' => '美发师',
-    'page callback' => 'beauty_crm_pages_barberindex',
+    'page callback' => 'beauty_crm_pages_barbers',
     'access callback' => true,
     'file' => 'beauty_crm_pages.pages.inc',
   );
- $items['index'] = array(
+ $items['homepage'] = array(
     'title' => '首页',
-    'page callback' => 'beauty_crm_pages_index',
+    'page callback' => 'beauty_crm_pages_homepage',
     'access callback' => true,
     'file' => 'beauty_crm_pages.pages.inc',
   );
@@ -62,26 +63,26 @@ function beauty_crm_pages_theme() {
       'file' => 'theme.inc',
       'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
     ),
-    'beauty_crm_pages_shoplist' => array(
-      'template' => 'beauty-crm-pages-shoplist',
+    'beauty_crm_pages_shops' => array(
+      'template' => 'beauty-crm-pages-shops',
       'variables' => array('news' => NULL),
       'file' => 'theme.inc',
       'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
     ),
-    'beauty_crm_pages_shopindex' => array(
-      'template' => 'beauty-crm-pages-shopindex',
+    'beauty_crm_pages_shop' => array(
+      'template' => 'beauty-crm-pages-shop',
       'variables' => array('hairstyles' => NULL, 'tags' => NULL),
       'file' => 'theme.inc',
       'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
     ),
-   'beauty_crm_pages_barberindex' => array(
-      'template' => 'beauty-crm-pages-barberindex',
+   'beauty_crm_pages_barbers' => array(
+      'template' => 'beauty-crm-pages-barbers',
       'variables' => array('barbers' => NULL,'rowworks'=>NULL,'rowshops'=>NULL),
       'file' => 'theme.inc',
       'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
     ),
-      'beauty_crm_pages_index' => array(
-      'template' => 'beauty-crm-pages-index',
+      'beauty_crm_pages_homepage' => array(
+      'template' => 'beauty-crm-pages-homepage',
       'variables' => array('hairstyles' => NULL),
       'file' => 'theme.inc',
       'path' => drupal_get_path('module', 'beauty_crm_pages') . '/theme',
