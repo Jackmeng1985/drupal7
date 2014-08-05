@@ -12,16 +12,5 @@
        </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
   <?php print $page; ?>
-    <div class="siteNav">
-        <div class="left">
-            <a href="#" class="go2back"></a>
-        </div>
-        <div class="right">
-            <a href="#" class="go2home"></a>
-        </div>
-        <div class="center" style="display:none;">
-            <a href="#" class="customBtn"></a>
-        </div>
-    </div>
    </body>
 </html>
