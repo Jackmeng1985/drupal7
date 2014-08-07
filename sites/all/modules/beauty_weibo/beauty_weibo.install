@@ -7,6 +7,14 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function beauty_weibo_uninstall() {
+  variable_del('weibo_appkey');
+  variable_del('weibo_appsecret');
+}
+
+/**
  * Implements hook_schema().
  */
 function beauty_weibo_schema() {
