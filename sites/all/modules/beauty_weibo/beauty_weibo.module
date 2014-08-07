@@ -107,17 +107,92 @@ function beauty_weibo_callback() {
 }
 
 function beauty_weibo_api() {
+
+    if (isset($_SESSION['weibo']['idstr'])) {
+        $mid = beauty_weibo_api_get_midstr($_SESSION['weibo']['idstr']);
+        $reposts_result = beauty_weibo_api_get_reposts($mid);
+        
+        foreach ($reposts_result['reposts'] as $repost) {
+            $record = new stdClass;
+            $record->rwid = $mid;
+            $record->wid = $repost['id']; // id <> mid ?
+            $record->text = beauty_weibo_api_replace4byte($repost['text']);
+            $record->source = $repost['source'];
+            $record->reposts_count = $repost['reposts_count'];
+            $record->comments_count = $repost['comments_count'];
+            $record->uid = $repost['user']['id'];
+            $record->name = $repost['user']['name'];
+            $record->location = $repost['user']['location'];
+            $record->url = $repost['user']['url'];
+            $record->profile_image_url = $repost['user']['profile_image_url'];
+            $record->gender = $repost['user']['gender'];
+            $record->followers_count = $repost['user']['followers_count'];
+            $record->friends_count = $repost['user']['friends_count'];
+            $record->favourites_count = $repost['user']['favourites_count'];
+            $record->following = (int)$repost['user']['following'];
+            $record->verified = (int)$repost['user']['verified'];
+            $record->created = $repost['user']['name'];
+            $record->created = strtotime($repost['created_at']);
+            $record->data = $repost;
+            drupal_write_record('beauty_weibo_repost', $record);
+        }       
+        drupal_goto('weibo/reposts/' .$mid);
+    }
+    return drupal_get_form('beauty_weibo_api_form_post_crawler');
+}
+
+function beauty_weibo_api_get_reposts($mid) {
+    $cache = &drupal_static(__FUNCTION__, array());
+    if (isset($cache['mid'])) {
+        return $cache['mid'];
+    }
+    
     $api = 'https://api.weibo.com/2/statuses/repost_timeline.json';
     $param = array(
         'access_token' => $_SESSION['weibo']['access_token'],
-        'id' => beauty_weibo_62_to_10('Bh00K41kJ'),
-        'count' => 20
-        
+        'id' => $mid,
+        'count' => 200
     );
-    $s = file_get_contents($api .'?' . drupal_http_build_query($param));
-    dsm($s);
-    dsm($param);
-    return print $_SESSION['weibo']['access_token'];
+    $result_json = file_get_contents($api .'?' . drupal_http_build_query($param));
+    $result = drupal_json_decode($result_json);    
+    if ($result['total_number'] > 200) {
+        
+    }
+    return $result;
+}
+
+function beauty_weibo_api_get_midstr($midstr) {
+    $mid_api = 'http://api.t.sina.com.cn/queryid.json';
+
+    $mid_json = file_get_contents($mid_api . '?mid=' . $midstr . '&isBase62=1&type=2');
+    $mid_json = drupal_json_decode($mid_json);
+    return $mid_json['id'];
+}
+
+function beauty_weibo_api_form_post_crawler() {
+    $form = array();
+    $form['strid'] = array(
+        '#type' => 'textfield',
+        '#title' => '微博字符串id',
+        '#default_value' => isset($_SESSION['weibo']['idstr']) ? $_SESSION['weibo']['idstr'] : '',
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => '提交',
+    );    
+    return $form;
+}
+
+function beauty_weibo_api_form_post_crawler_submit($form, $form_state) {
+    $_SESSION['weibo']['idstr'] = $form_state['values']['strid'];
+}
+
+function beauty_weibo_api_replace4byte($string) {
+    return preg_replace('%(?:
+          \xF0[\x90-\xBF][\x80-\xBF]{2}      # planes 1-3
+        | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
+        | \xF4[\x80-\x8F][\x80-\xBF]{2}      # plane 16
+    )%xs', '', $string);    
 }
 
 /**
@@ -129,38 +204,3 @@ function beauty_weibo_custom_theme(){
     }
 }
 
-
-/** 
- * 10进制转为62进制 
- *  
- * @param integer $n 10进制数值 
- * @return string 62进制 
- */ 
-function beauty_weibo_10_to_62($n) {  
-    $base = 62;  
-    $index = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';  
-    $ret = '';  
-    for($t = floor(log10($n) / log10($base)); $t >= 0; $t --) {  
-        $a = floor($n / pow($base, $t));  
-        $ret .= substr($index, $a, 1);  
-        $n -= $a * pow($base, $t);  
-    }  
-    return $ret;  
-}
-
-/** 
- * 62进制转为10进制 
- * 
- * @param integer $n 62进制 
- * @return string 10进制 
- */ 
-function beauty_weibo_62_to_10($s) {  
-    $base = 62;  
-    $index = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';  
-    $ret = 0;  
-    $len = strlen($s) - 1;  
-    for($t = 0; $t <= $len; $t ++) {  
-        $ret += strpos($index, substr($s, $t, 1)) * pow($base, $len - $t);  
-    }  
-    return $ret;
-}

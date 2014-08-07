@@ -165,13 +165,7 @@ function beauty_weibo_schema() {
         'not null' => TRUE,
         'default' => 0,
         'description' => '收藏数.',
-      ),             
-      'favourites_count' => array(
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => '收藏数.',
-      ),                        
+      ),                                   
       'following' => array(
         'type' => 'int',
         'not null' => TRUE,
