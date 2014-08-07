@@ -1,0 +1,7 @@
+name = beauty weibo 
+description = beauty weibo
+version = "7.x-1.0"
+package = beautyCRM
+core = 7.x
+files[] = beauty_weibo.module
+files[] = beauty_weibo.install
