@@ -88,6 +88,9 @@ function beauty_weibo_callback() {
     $http = drupal_http_request(url($access_token_uri, array('query' => $parameters)), $param_data);
     $data = drupal_json_decode($http->data);
 
-    $access_token = $data->access_token;
+    $access_token = $data['access_token'];
+
+    //打印access token以方便调试
+    print $access_token;
   }
 }
