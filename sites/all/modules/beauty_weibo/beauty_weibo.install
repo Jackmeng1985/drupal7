@@ -10,5 +10,186 @@
  * Implements hook_schema().
  */
 function beauty_weibo_schema() {
-    
+ $schema['beauty_weibo'] = array(
+    'description' => '微博.',  
+    'fields' => array(
+      'wid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'big',
+        'description' => '微博 ID.',
+      ),
+      'wuid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'big',
+        'description' => '微博 用户 ID.',
+      ),
+      'wuname' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '微博用户名.',
+      ),   
+      'wtext' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '微博内容.',
+      ),      
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '抓取时间.',
+      ),        
+    ),
+    'primary key' => array('wid')     
+ );
+ $schema['beauty_weibo_repost'] = array(
+    'description' => '微博转发.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => '微博转发序列 ID.',
+      ),
+      'rwid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'big',
+        'description' => '转发的微博 ID.',
+      ),
+      'wid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'big',
+        'description' => '微博 ID.',
+      ), 
+      'text' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '微博内容.',
+      ),            
+      'source' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '微博来源.',
+      ),
+      'reposts_count' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '转发数.',
+      ),        
+      'comments_count' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '评论数.',
+      ),     
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'big',
+        'description' => '用户ID.',
+      ), 
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '名字.',
+      ),         
+      'location' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '地理位置.',
+      ),     
+      'url' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '微博url.',
+      ),  
+     'profile_image_url' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '用户头像url.',
+      ),        
+     'gender' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '性别.',
+      ),
+      'followers_count' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '粉丝数.',
+      ),         
+      'friends_count' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '朋友数.',
+      ),             
+      'favourites_count' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '收藏数.',
+      ),             
+      'favourites_count' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '收藏数.',
+      ),                        
+      'following' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '是否关注.',
+      ),   
+      'verified' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '是否验证用户.',
+      ),    
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '转发时间.',
+      ),   
+      'data' => array(
+        'type' => 'blob',
+        'not null' => TRUE,
+        'serialize' => TRUE,
+        'description' => '其它数据',
+      ),           
+    ),
+    'primary key' => array('id')
+  );
+ return $schema;
 }
