@@ -14,23 +14,23 @@ function beauty_weibo_menu() {
   $items['weibo/oauth'] = array(
     'title' => 'Weibo Redirect',
     'page callback' => 'beauty_weibo_redirect',
-    'access arguments' => array('access weibo api'),      
+    'access arguments' => array('access weibo api'),
     'type' => MENU_CALLBACK,
   );
 
   $items['weibo/oauth/callback'] = array(
     'title' => 'Authentication callback',
     'page callback' => 'beauty_weibo_callback',
-    'access arguments' => array('access weibo api'), 
+    'access arguments' => array('access weibo api'),
     'type' => MENU_CALLBACK,
   );
-  
+
  $items['weibo/api'] = array(
     'title' => 'Weibo api',
     'page callback' => 'beauty_weibo_api',
-    'access arguments' => array('access weibo api'),      
+    'access arguments' => array('access weibo api'),
     'type' => MENU_CALLBACK,
-  );  
+  );
 
   $items['admin/config/services/weibo'] = array(
     'title' => 'Weibo oauth settings',
@@ -57,7 +57,7 @@ function beauty_weibo_permission() {
     'access weibo api' => array(
       'title' => t('access weibo api.'),
       'description' => t('access weibo api.'),
-    ),      
+    ),
   );
 }
 
