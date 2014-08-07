@@ -1,8 +1,96 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+/**
+ * Implements hook_menu().
+ */
+function beauty_weibo_menu() {
+  $items = array();
+  $items['weibo/oauth'] = array(
+    'title' => 'Weibo Redirect',
+    'page callback' => 'beauty_weibo_redirect',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['weibo/oauth/callback'] = array(
+    'title' => 'Authentication callback',
+    'page callback' => 'beauty_weibo_callback',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/config/services/weibo'] = array(
+    'title' => 'Weibo oauth settings',
+    'description' => 'Configure the Weibo App Key and App Secret.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('beauty_weibo_admin_settings'),
+    'access arguments' => array('administer weibo'),
+    'file' => 'beauty_weibo.admin.inc',
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_permission().
+ */
+function beauty_weibo_permission() {
+  return array(
+    'administer weibo' => array(
+      'title' => t('Administer Weibo'),
+      'description' => t('Configure Weibo.'),
+    ),
+  );
+}
+
+/**
+ * Menu callback: Weibo Redirect.
+ */
+function beauty_weibo_redirect() {
+  $parameters = array(
+    'client_id' => variable_get('weibo_appkey', ''),
+    'redirect_uri' => url('weibo/oauth/callback', array('absolute' => TRUE)),
+    'response_type' => 'code',
+  );
+  $oauth_url = 'https://api.weibo.com/oauth2/authorize';
+  drupal_goto($oauth_url, array('query' => $parameters));
+}
+
+/**
+ * Menu callback: Weibo Callback.
+ */
+function beauty_weibo_callback() {
+  $request = $_REQUEST;
+
+  if (isset($request['code'])) {
+    $parameters = array(
+      'client_id' => variable_get('weibo_appkey', ''),
+      'client_secret' => variable_get('weibo_appsecret', ''),
+      'grant_type' => 'authorization_code',
+      'redirect_uri' => url('weibo/oauth/callback', array('absolute' => TRUE)),
+      'code' => $request['code'],
+    );
+
+    $param_data = array(
+      'method' => 'POST',
+      'data' => drupal_http_build_query($parameters),
+    );
+
+    $access_token_uri = 'https://api.weibo.com/oauth2/access_token';
+
+    $http = drupal_http_request(url($access_token_uri, array('query' => $parameters)), $param_data);
+    $data = drupal_json_decode($http->data);
+
+    $access_token = $data['access_token'];
+
+    //打印access token以方便调试
+    print $access_token;
+  }
+}
