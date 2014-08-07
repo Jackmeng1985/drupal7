@@ -14,23 +14,23 @@ function beauty_weibo_menu() {
   $items['weibo/oauth'] = array(
     'title' => 'Weibo Redirect',
     'page callback' => 'beauty_weibo_redirect',
-    'access arguments' => array('access weibo api'),      
+    'access arguments' => array('access weibo api'),
     'type' => MENU_CALLBACK,
   );
 
   $items['weibo/oauth/callback'] = array(
     'title' => 'Authentication callback',
     'page callback' => 'beauty_weibo_callback',
-    'access arguments' => array('access weibo api'), 
+    'access arguments' => array('access weibo api'),
     'type' => MENU_CALLBACK,
   );
-  
+
  $items['weibo/api'] = array(
     'title' => 'Weibo api',
     'page callback' => 'beauty_weibo_api',
-    'access arguments' => array('access weibo api'),      
+    'access arguments' => array('access weibo api'),
     'type' => MENU_CALLBACK,
-  );  
+  );
 
   $items['admin/config/services/weibo'] = array(
     'title' => 'Weibo oauth settings',
@@ -57,7 +57,7 @@ function beauty_weibo_permission() {
     'access weibo api' => array(
       'title' => t('access weibo api.'),
       'description' => t('access weibo api.'),
-    ),      
+    ),
   );
 }
 
@@ -112,7 +112,7 @@ function beauty_weibo_api() {
         'access_token' => $_SESSION['weibo']['access_token'],
         'id' => beauty_weibo_62_to_10('Bh00K41kJ'),
         'count' => 20
-        
+
     );
     $s = file_get_contents($api .'?' . drupal_http_build_query($param));
     dsm($s);
@@ -130,37 +130,46 @@ function beauty_weibo_custom_theme(){
 }
 
 
-/** 
- * 10进制转为62进制 
- *  
- * @param integer $n 10进制数值 
- * @return string 62进制 
- */ 
-function beauty_weibo_10_to_62($n) {  
-    $base = 62;  
-    $index = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';  
-    $ret = '';  
-    for($t = floor(log10($n) / log10($base)); $t >= 0; $t --) {  
-        $a = floor($n / pow($base, $t));  
-        $ret .= substr($index, $a, 1);  
-        $n -= $a * pow($base, $t);  
-    }  
-    return $ret;  
+/**
+ * 10进制转为62进制
+ *
+ * @param integer $n 10进制数值
+ * @return string 62进制
+ */
+function beauty_weibo_10_to_62($n) {
+    $base = 62;
+    $index = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $ret = '';
+    for($t = floor(log10($n) / log10($base)); $t >= 0; $t --) {
+        $a = floor($n / pow($base, $t));
+        $ret .= substr($index, $a, 1);
+        $n -= $a * pow($base, $t);
+    }
+    return $ret;
 }
 
-/** 
- * 62进制转为10进制 
- * 
- * @param integer $n 62进制 
- * @return string 10进制 
- */ 
-function beauty_weibo_62_to_10($s) {  
-    $base = 62;  
-    $index = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';  
-    $ret = 0;  
-    $len = strlen($s) - 1;  
-    for($t = 0; $t <= $len; $t ++) {  
-        $ret += strpos($index, substr($s, $t, 1)) * pow($base, $len - $t);  
-    }  
+/**
+ * 62进制转为10进制
+ *
+ * @param integer $n 62进制
+ * @return string 10进制
+ */
+function beauty_weibo_62_to_10($s) {
+    $base = 62;
+    $index = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $ret = 0;
+    $len = strlen($s) - 1;
+    for($t = 0; $t <= $len; $t ++) {
+        $ret += strpos($index, substr($s, $t, 1)) * pow($base, $len - $t);
+    }
     return $ret;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function beauty_weibo_views_api() {
+  return array(
+    'api' => 3,
+  );
 }
