@@ -14,7 +14,7 @@ function beauty_weibo_menu() {
   $items['weibo/oauth'] = array(
     'title' => 'Weibo Redirect',
     'page callback' => 'beauty_weibo_redirect',
-    'access callback' => 'user_is_anonymous',
+    'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
 
