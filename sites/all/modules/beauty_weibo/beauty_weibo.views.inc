@@ -98,18 +98,10 @@ function beauty_weibo_views_data() {
     ),
   );
 
-  //Table beauty_weibo_repost
-  $data['beauty_weibo_repost']['table']['group'] = t('Beauty Weibo Repost');
-
-  $data['beauty_weibo_repost']['table']['base'] = array(
-    'field' => 'id',
-    'title' => t('Beauty Weibo Repost'),
-  );
-
-  //微博转发序列ID
-  $data['beauty_weibo_repost']['id'] = array(
-    'title' => t('id'),
-    'help' => t('The weibo repost id.'),
+  //转发数
+  $data['beauty_weibo']['reposts_count'] = array(
+    'title' => t('Reposts count'),
+    'help' => t('Weibo reposts count.'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -122,10 +114,50 @@ function beauty_weibo_views_data() {
     ),
   );
 
+  //评论数
+  $data['beauty_weibo']['comments_count'] = array(
+    'title' => t('Comments count'),
+    'help' => t('Weibo comments count.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //Table beauty_weibo_repost
+  $data['beauty_weibo_repost']['table']['group'] = t('Beauty Weibo Repost');
+
+  $data['beauty_weibo_repost']['table']['base'] = array(
+    'field' => 'wid',
+    'title' => t('Beauty Weibo Repost'),
+  );
+
   //转发的微博ID
   $data['beauty_weibo_repost']['rwid'] = array(
-    'title' => t('Rwid'),
-    'help' => t('The repost weibo id.'),
+    'title' => t('Rweid'),
+    'help' => t('The reposted weibo id.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //转发的微博用户ID
+  $data['beauty_weibo_repost']['ruid'] = array(
+    'title' => t('Ruid'),
+    'help' => t('The reposted weibo user id.'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -145,6 +177,22 @@ function beauty_weibo_views_data() {
   $data['beauty_weibo_repost']['wid'] = array(
     'title' => t('Wid'),
     'help' => t('Weibo id.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //真实的转发的微博ID
+  $data['beauty_weibo_repost']['rrwid'] = array(
+    'title' => t('Wid'),
+    'help' => t('Real reposted weibo id.'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -262,10 +310,29 @@ function beauty_weibo_views_data() {
     ),
   );
 
-  //地理位置
-  $data['beauty_weibo_repost']['location'] = array(
-    'title' => t('Location'),
-    'help' => t('Weibo user location.'),
+  //地理位置 城市
+  $data['beauty_weibo_repost']['location_city'] = array(
+    'title' => t('Location city'),
+    'help' => t('Weibo user location city.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+
+  //地理位置 省份
+  $data['beauty_weibo_repost']['location_province'] = array(
+    'title' => t('Location Province'),
+    'help' => t('Weibo user location province.'),
     'field' => array(
       'handler' => 'views_handler_field',
       'click sortable' => TRUE,
@@ -374,6 +441,22 @@ function beauty_weibo_views_data() {
   $data['beauty_weibo_repost']['favourites_count'] = array(
     'title' => t('Favourites count'),
     'help' => t('Weibo favourites count.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //微博数
+  $data['beauty_weibo_repost']['statuses_count'] = array(
+    'title' => t('Statuses count'),
+    'help' => t('Weibos count.'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
