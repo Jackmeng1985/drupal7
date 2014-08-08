@@ -167,10 +167,6 @@ function beauty_weibo_api() {
 }
 
 function beauty_weibo_api_get_reposts($mid) {
-    $cache = &drupal_static(__FUNCTION__, array());
-    if (isset($cache['mid'])) {
-        return $cache['mid'];
-    }
 
     $api = 'https://api.weibo.com/2/statuses/repost_timeline.json';
     $param = array(

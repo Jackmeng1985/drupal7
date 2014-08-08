@@ -79,11 +79,6 @@ function beauty_weibo_schema() {
  $schema['beauty_weibo_repost'] = array(
     'description' => '微博转发.',
     'fields' => array(
-      'id' => array(
-        'type' => 'serial',
-        'not null' => TRUE,
-        'description' => '微博转发序列 ID.',
-      ),
       'rwid' => array(
         'type' => 'int',
         'not null' => TRUE,
