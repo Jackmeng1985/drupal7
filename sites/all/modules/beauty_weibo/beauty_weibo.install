@@ -80,6 +80,13 @@ function beauty_weibo_schema() {
         'size' => 'big',
         'description' => '微博 ID.',
       ), 
+      'rrwid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'big',
+        'description' => '真实的转发的微博 ID.',
+      ),         
       'text' => array(
         'type' => 'varchar',
         'length' => 255,
@@ -120,13 +127,20 @@ function beauty_weibo_schema() {
         'default' => '',
         'description' => '名字.',
       ),         
-      'location' => array(
+      'location_city' => array(
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
-        'description' => '地理位置.',
-      ),     
+        'description' => '地理位置 城市.',
+      ), 
+      'location_province' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '地理位置 省份.',
+      ),          
       'url' => array(
         'type' => 'varchar',
         'length' => 255,
@@ -191,7 +205,7 @@ function beauty_weibo_schema() {
         'description' => '其它数据',
       ),           
     ),
-    'primary key' => array('id')
+    'primary key' => array('rwid', 'wid')
   );
  return $schema;
 }

@@ -116,13 +116,17 @@ function beauty_weibo_api() {
             $record = new stdClass;
             $record->rwid = $mid;
             $record->wid = $repost['id']; // id <> mid ?
+            $record->rrwid = $repost['retweeted_status']['id'];
             $record->text = beauty_weibo_api_replace4byte($repost['text']);
             $record->source = $repost['source'];
             $record->reposts_count = $repost['reposts_count'];
             $record->comments_count = $repost['comments_count'];
             $record->uid = $repost['user']['id'];
             $record->name = $repost['user']['name'];
-            $record->location = $repost['user']['location'];
+            
+            $location = explode(' ', $repost['user']['location']);
+            $record->location_province = $location[0];
+            $record->location_city = isset($location[1]) ? $location[1] : '';
             $record->url = $repost['user']['url'];
             $record->profile_image_url = $repost['user']['profile_image_url'];
             $record->gender = $repost['user']['gender'];
