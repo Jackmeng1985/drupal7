@@ -136,6 +136,7 @@ function beauty_weibo_api() {
             $record->data = $repost;
             drupal_write_record('beauty_weibo_repost', $record);
         }       
+        unset($_SESSION['weibo']['idstr']);
         drupal_goto('weibo/reposts/' .$mid);
     }
     return drupal_get_form('beauty_weibo_api_form_post_crawler');
@@ -167,6 +168,14 @@ function beauty_weibo_api_get_midstr($midstr) {
     $mid_json = file_get_contents($mid_api . '?mid=' . $midstr . '&isBase62=1&type=2');
     $mid_json = drupal_json_decode($mid_json);
     return $mid_json['id'];
+}
+
+function beauty_weibo_api_get_mid($mid) {
+    $mid_api = 'http://api.t.sina.com.cn/querymid.json?id=';
+
+    $mid_json = file_get_contents($mid_api . '?mid=' . $mid);
+    $mid_json = drupal_json_decode($mid_json);
+    return $mid_json['mid'];
 }
 
 function beauty_weibo_api_form_post_crawler() {
