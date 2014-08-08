@@ -111,7 +111,7 @@ function beauty_weibo_api() {
     if (isset($_SESSION['weibo']['idstr'])) {
         $mid = beauty_weibo_api_get_midstr($_SESSION['weibo']['idstr']);
         $reposts_result = beauty_weibo_api_get_reposts($mid);
-        
+
         foreach ($reposts_result['reposts'] as $repost) {
             $record = new stdClass;
             $record->rwid = $mid;
@@ -139,7 +139,7 @@ function beauty_weibo_api() {
             $record->created = strtotime($repost['created_at']);
             $record->data = $repost;
             drupal_write_record('beauty_weibo_repost', $record);
-        }       
+        }
         unset($_SESSION['weibo']['idstr']);
         drupal_goto('weibo/reposts/' .$mid);
     }
@@ -151,7 +151,7 @@ function beauty_weibo_api_get_reposts($mid) {
     if (isset($cache['mid'])) {
         return $cache['mid'];
     }
-    
+
     $api = 'https://api.weibo.com/2/statuses/repost_timeline.json';
     $param = array(
         'access_token' => $_SESSION['weibo']['access_token'],
@@ -159,9 +159,9 @@ function beauty_weibo_api_get_reposts($mid) {
         'count' => 200
     );
     $result_json = file_get_contents($api .'?' . drupal_http_build_query($param));
-    $result = drupal_json_decode($result_json);    
+    $result = drupal_json_decode($result_json);
     if ($result['total_number'] > 200) {
-        
+
     }
     return $result;
 }
@@ -175,9 +175,9 @@ function beauty_weibo_api_get_midstr($midstr) {
 }
 
 function beauty_weibo_api_get_mid($mid) {
-    $mid_api = 'http://api.t.sina.com.cn/querymid.json?id=';
+    $mid_api = 'http://api.t.sina.com.cn/querymid.json';
 
-    $mid_json = file_get_contents($mid_api . '?mid=' . $mid);
+    $mid_json = file_get_contents($mid_api . '?id=' . $mid);
     $mid_json = drupal_json_decode($mid_json);
     return $mid_json['mid'];
 }
@@ -192,7 +192,7 @@ function beauty_weibo_api_form_post_crawler() {
     $form['submit'] = array(
         '#type' => 'submit',
         '#value' => '提交',
-    );    
+    );
     return $form;
 }
 
@@ -205,7 +205,7 @@ function beauty_weibo_api_replace4byte($string) {
           \xF0[\x90-\xBF][\x80-\xBF]{2}      # planes 1-3
         | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
         | \xF4[\x80-\x8F][\x80-\xBF]{2}      # plane 16
-    )%xs', '', $string);    
+    )%xs', '', $string);
 }
 
 /**
@@ -224,5 +224,6 @@ function beauty_weibo_custom_theme(){
 function beauty_weibo_views_api() {
   return array(
     'api' => 3,
+    'template path' => drupal_get_path('module', 'beauty_weibo') . '/themes',
   );
 }
