@@ -204,3 +204,12 @@ function beauty_weibo_custom_theme(){
     }
 }
 
+
+/**
+ * Implements hook_views_api().
+ */
+function beauty_weibo_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
