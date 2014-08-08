@@ -119,7 +119,7 @@ function beauty_weibo_api() {
         $weibo_record->wuname = $author_post['user']['name'];
         $weibo_record->wtext = beauty_weibo_api_replace4byte($author_post['text']);
         $weibo_record->created = strtotime($author_post['created_at']);
-        $weibo_record->reposts_count = $author_post['reposts_count '];
+        $weibo_record->reposts_count = $author_post['reposts_count'];
         $weibo_record->comments_count = $author_post['comments_count'];
         $weibo_record->data = $author_post;
         
@@ -178,9 +178,17 @@ function beauty_weibo_api_get_reposts($mid) {
     $result = drupal_json_decode($result_json);
     if ($result['total_number'] > 200) {
         $multi = $result['total_number'] / 200;
-        $i = ceil($i);
+        $multi = ceil($multi);
         for ($i = 1; $i < count($multi); $i++) {
-            
+            $param = array(
+                'access_token' => $_SESSION['weibo']['access_token'],
+                'id' => $mid,
+                'count' => 200,
+                'page' => $i + 1
+            );
+            $result_json = file_get_contents($api .'?' . drupal_http_build_query($param));
+            $result_for = drupal_json_decode($result_json);      
+            array_merge($result['reposts'], $result_for['reposts']);
         }
     }
     return $result;
