@@ -179,7 +179,7 @@ function beauty_weibo_api_get_reposts($mid) {
     if ($result['total_number'] > 200) {
         $multi = $result['total_number'] / 200;
         $multi = ceil($multi);
-        for ($i = 1; $i < count($multi); $i++) {
+        for ($i = 1; $i < $multi; $i++) {
             $param = array(
                 'access_token' => $_SESSION['weibo']['access_token'],
                 'id' => $mid,
@@ -188,7 +188,7 @@ function beauty_weibo_api_get_reposts($mid) {
             );
             $result_json = file_get_contents($api .'?' . drupal_http_build_query($param));
             $result_for = drupal_json_decode($result_json);      
-            array_merge($result['reposts'], $result_for['reposts']);
+            $result['reposts'] = array_merge($result['reposts'], $result_for['reposts']);
         }
     }
     return $result;
