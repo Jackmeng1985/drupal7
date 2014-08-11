@@ -4,16 +4,114 @@
  * Implements hook_views_data().
  */
 function beauty_weibo_views_data() {
-  //Table beauty_weibo
-  $data['beauty_weibo']['table']['group'] = t('Beauty Weibo');
+  //Table beauty_weibo_user
+  $data['beauty_weibo_user']['table']['group'] = t('Beauty Weibo User');
+  $data['beauty_weibo_user']['table']['base'] = array(
+    'field' => 'wuid',
+    'title' => t('Beauty Weibo User'),
+  );
 
-  $data['beauty_weibo']['table']['base'] = array(
+  //微博用户 ID
+  $data['beauty_weibo_user']['wuid'] = array(
+    'title' => t('Wuid'),
+    'help' => t('The weibo user id.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
+    ),
+  );
+
+  //微博用户名
+  $data['beauty_weibo_user']['wuname'] = array(
+    'title' => t('Wuname'),
+    'help' => t('Weibo user name.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+
+  //抓取时间
+  $data['beauty_weibo_user']['created'] = array(
+    'title' => t('Grabed time'),
+    'help' => t('Weibo user grabed time.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_date',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort_date',
+    ),
+  );
+
+  //微博用户描述
+  $data['beauty_weibo_user']['description'] = array(
+    'title' => t('Description'),
+    'help' => t('Weibo user description.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  //是否已抓取
+  $data['beauty_weibo_user']['status'] = array(
+    'title' => t('Is grabed'),
+    'help' => t('Weibo grabed status.'),
+    'field' => array(
+      'handler' => 'views_handler_field_boolean',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_boolean_operator',
+      'label' => t('Verified'),
+      'type' => 'yes-no',
+      'use equal' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //Table beauty_weibo_post
+  $data['beauty_weibo_post']['table']['group'] = t('Beauty Weibo Post');
+
+  $data['beauty_weibo_post']['table']['base'] = array(
     'field' => 'wid',
-    'title' => t('Beauty Weibo'),
+    'title' => t('Beauty Weibo Post'),
   );
 
   //微博 ID
-  $data['beauty_weibo']['wid'] = array(
+  $data['beauty_weibo_post']['wid'] = array(
     'title' => t('Wid'),
     'help' => t('The weibo id.'),
     'field' => array(
@@ -32,7 +130,7 @@ function beauty_weibo_views_data() {
   );
 
   //微博用户ID
-  $data['beauty_weibo']['wuid'] = array(
+  $data['beauty_weibo_post']['wuid'] = array(
     'title' => t('Wuid'),
     'help' => t('Weibo user id.'),
     'field' => array(
@@ -48,7 +146,7 @@ function beauty_weibo_views_data() {
   );
 
   //微博用户名
-  $data['beauty_weibo']['wuname'] = array(
+  $data['beauty_weibo_post']['wuname'] = array(
     'title' => t('Wuname'),
     'help' => t('Weibo user name.'),
     'field' => array(
@@ -67,7 +165,7 @@ function beauty_weibo_views_data() {
   );
 
   //微博内容
-  $data['beauty_weibo']['wtext'] = array(
+  $data['beauty_weibo_post']['wtext'] = array(
     'title' => t('Wtext'),
     'help' => t('Weibo content.'),
     'field' => array(
@@ -86,7 +184,7 @@ function beauty_weibo_views_data() {
   );
 
   //抓取时间
-  $data['beauty_weibo']['created'] = array(
+  $data['beauty_weibo_post']['created'] = array(
     'title' => t('Weibo Created'),
     'help' => t('Weibo created time.'),
     'field' => array(
@@ -102,7 +200,7 @@ function beauty_weibo_views_data() {
   );
 
   //转发数
-  $data['beauty_weibo']['reposts_count'] = array(
+  $data['beauty_weibo_post']['reposts_count'] = array(
     'title' => t('Reposts count'),
     'help' => t('Weibo reposts count.'),
     'field' => array(
@@ -118,7 +216,7 @@ function beauty_weibo_views_data() {
   );
 
   //评论数
-  $data['beauty_weibo']['comments_count'] = array(
+  $data['beauty_weibo_post']['comments_count'] = array(
     'title' => t('Comments count'),
     'help' => t('Weibo comments count.'),
     'field' => array(
@@ -127,6 +225,25 @@ function beauty_weibo_views_data() {
      ),
     'filter' => array(
       'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //是否已抓取
+  $data['beauty_weibo_post']['status'] = array(
+    'title' => t('Is grabed'),
+    'help' => t('Weibo grabed status.'),
+    'field' => array(
+      'handler' => 'views_handler_field_boolean',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_boolean_operator',
+      'label' => t('Verified'),
+      'type' => 'yes-no',
+      'use equal' => TRUE,
     ),
     'sort' => array(
       'handler' => 'views_handler_sort',
