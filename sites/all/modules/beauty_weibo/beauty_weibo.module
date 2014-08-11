@@ -118,6 +118,13 @@ function beauty_weibo_api() {
         $profile_url = $_SESSION['weibo']['profile_url'];
         unset($_SESSION['weibo']['profile_url']);
         $weibo_user = beauty_weibo_api_get_uid_by_profile_url($profile_url);
+        
+        $already_have = db_select('beauty_weibo_user', 'bwu')->fields('bwu', array('wuid'))->condition('wid', $weibo_user['id'], '=')->execute()->fetch();
+        if (!empty($already_have)) {
+            $e = new Exception('已经抓取了这个用户');
+            watchdog_exception('beauty', $e, '已经抓取了这个用户');
+            throw $e;            
+        }        
         $weibo_user_record = new stdClass;
         $weibo_user_record->wuid = $weibo_user['id'];
         $weibo_user_record->wuname = $weibo_user['name'];
@@ -319,6 +326,11 @@ function beauty_weibo_api_get_uid_by_profile_url($profile_url) {
         $user = beauty_weibo_api_get_user_by_uid($arg2);
     } elseif ($arg1 && empty($arg2)) {
         $user = beauty_weibo_api_get_uid_by_domain($arg1);
+    }
+    else {
+        $e = new Exception('你给的url不符合规范');
+        watchdog_exception('beauty', $e, '你给的url不符合规范');
+        throw $e;
     }
     return $user;
 }
