@@ -258,6 +258,7 @@ function beauty_weibo_api_get_posts($uid) {
     if ($result['total_number'] > 100) {
         $multi = $result['total_number'] / 100;
         $multi = ceil($multi);
+        $multi = $multi > 19 ? 19 : $multi; 
         for ($i = 1; $i < $multi; $i++) {
             $param = array(
                 'access_token' => $_SESSION['weibo']['access_token'],
