@@ -41,6 +41,12 @@ function beauty_weibo_menu() {
     'file' => 'beauty_weibo.admin.inc',
   );
 
+  $items['beauty/ajax/weibo_get_reposts'] = array(
+    'title' => 'ajax callback',
+    'page callback' => 'beauty_weibo_api_ajax_get_reposts',
+    'access arguments' => array('access weibo api'),
+    'type' => MENU_CALLBACK,      
+  );
   return $items;
 }
 
@@ -108,64 +114,77 @@ function beauty_weibo_callback() {
 
 function beauty_weibo_api() {
 
-    if (isset($_SESSION['weibo']['idstr'])) {
-        $id = beauty_weibo_api_get_midstr($_SESSION['weibo']['idstr']);
-        $reposts_result = beauty_weibo_api_get_reposts($id);
-        $author_post = beauty_weibo_api_get_author_post_by_reposts($id, $reposts_result['reposts']);
-
-        $weibo_record = new stdClass;
-        $weibo_record->wid = $author_post['id'];
-        $weibo_record->wuid = $author_post['user']['id'];
-        $weibo_record->wuname = $author_post['user']['name'];
-        $weibo_record->wtext = beauty_weibo_api_replace4byte($author_post['text']);
-        $weibo_record->created = strtotime($author_post['created_at']);
-        $weibo_record->reposts_count = $author_post['reposts_count'];
-        $weibo_record->comments_count = $author_post['comments_count'];
-        $weibo_record->data = $author_post;
-        
-        drupal_write_record('beauty_weibo', $weibo_record);
-        foreach ($reposts_result['reposts'] as $repost) {
-            $already_have = db_select('beauty_weibo_repost', 'bwr')->fields('bwr', array('wid'))->condition('wid', $repost['id'], '=')->execute()->fetch();
-            if (!empty($already_have)) {
-                continue;
-            }
-            
-            $repost_record = new stdClass;
-            $repost_record->rwid = $id;
-            $repost_record->ruid = $author_post['user']['id'];
-            $repost_record->wid = $repost['id']; // id <> mid ?
-            $repost_record->rrwid = $repost['retweeted_status']['id'];
-            $repost_record->text = beauty_weibo_api_replace4byte($repost['text']);
-            $repost_record->source = $repost['source'];
-            $repost_record->reposts_count = $repost['reposts_count'];
-            $repost_record->comments_count = $repost['comments_count'];
-            $repost_record->uid = $repost['user']['id'];
-            $repost_record->name = $repost['user']['name'];
-            
-            $location = explode(' ', $repost['user']['location']);
-            $repost_record->location_province = $location[0];
-            $repost_record->location_city = isset($location[1]) ? $location[1] : '';
-            
-            $repost_record->url = $repost['user']['url'];
-            $repost_record->profile_image_url = $repost['user']['profile_image_url'];
-            $repost_record->gender = $repost['user']['gender'];
-            $repost_record->followers_count = $repost['user']['followers_count'];
-            $repost_record->friends_count = $repost['user']['friends_count'];
-            $repost_record->favourites_count = $repost['user']['favourites_count'];
-            $repost_record->statuses_count = $repost['user']['statuses_count'];
-            $repost_record->following = (int)$repost['user']['following'];
-            $repost_record->verified = (int)$repost['user']['verified'];
-            $repost_record->created = $repost['user']['name'];
-            $repost_record->created = strtotime($repost['created_at']);
-            $repost_record->data = $repost;
-            drupal_write_record('beauty_weibo_repost', $repost_record);
-        }
-        unset($_SESSION['weibo']['idstr']);
-        drupal_goto('weibo/reposts/' .$id);
+    if (isset($_SESSION['weibo']['profile_url'])) {
+        $weibo_user = beauty_weibo_api_get_uid_by_profile_url($_SESSION['weibo']['profile_url']);
+        $weibo_user_record = new stdClass;
+        $weibo_user_record = new stdClass;
+        $weibo_user_record->wuid = $weibo_user['id'];
+        $weibo_user_record->wuname = $weibo_user['name'];
+        $weibo_user_record->created = time();
+        $weibo_user_record->description = beauty_weibo_api_replace4byte($weibo_user['description']);
+        $weibo_user_record->status = 1;
+        $weibo_user_record->data = $weibo_user;    
+        drupal_write_record('beauty_weibo_user', $weibo_user_record);
+        unset($_SESSION['weibo']['profile_url']);
     }
-    return drupal_get_form('beauty_weibo_api_form_post_crawler');
+    return drupal_get_form('beauty_weibo_api_form_user_crawler');
 }
 
+function beauty_weibo_api_ajax_get_reposts($id) {
+  
+//        $id = beauty_weibo_api_get_midstr($_SESSION['weibo']['idstr']);
+    $reposts_result = beauty_weibo_api_get_reposts($id);
+//    $author_post = beauty_weibo_api_get_author_post_by_reposts($id, $reposts_result['reposts']);
+//
+//    $weibo_record = new stdClass;
+//    $weibo_record->wid = $author_post['id'];
+//    $weibo_record->wuid = $author_post['user']['id'];
+//    $weibo_record->wuname = $author_post['user']['name'];
+//    $weibo_record->wtext = beauty_weibo_api_replace4byte($author_post['text']);
+//    $weibo_record->created = strtotime($author_post['created_at']);
+//    $weibo_record->reposts_count = $author_post['reposts_count'];
+//    $weibo_record->comments_count = $author_post['comments_count'];
+//    $weibo_record->data = $author_post;
+//
+//    drupal_write_record('beauty_weibo', $weibo_record);
+    foreach ($reposts_result['reposts'] as $repost) {
+        $already_have = db_select('beauty_weibo_repost', 'bwr')->fields('bwr', array('wid'))->condition('wid', $repost['id'], '=')->execute()->fetch();
+        if (!empty($already_have)) {
+            continue;
+        }
+
+        $repost_record = new stdClass;
+        $repost_record->rwid = $id;
+        $repost_record->ruid = $author_post['user']['id'];
+        $repost_record->wid = $repost['id']; // id <> mid ?
+        $repost_record->rrwid = $repost['retweeted_status']['id'];
+        $repost_record->text = beauty_weibo_api_replace4byte($repost['text']);
+        $repost_record->source = $repost['source'];
+        $repost_record->reposts_count = $repost['reposts_count'];
+        $repost_record->comments_count = $repost['comments_count'];
+        $repost_record->uid = $repost['user']['id'];
+        $repost_record->name = $repost['user']['name'];
+
+        $location = explode(' ', $repost['user']['location']);
+        $repost_record->location_province = $location[0];
+        $repost_record->location_city = isset($location[1]) ? $location[1] : '';
+
+        $repost_record->url = $repost['user']['url'];
+        $repost_record->profile_image_url = $repost['user']['profile_image_url'];
+        $repost_record->gender = $repost['user']['gender'];
+        $repost_record->followers_count = $repost['user']['followers_count'];
+        $repost_record->friends_count = $repost['user']['friends_count'];
+        $repost_record->favourites_count = $repost['user']['favourites_count'];
+        $repost_record->statuses_count = $repost['user']['statuses_count'];
+        $repost_record->following = (int) $repost['user']['following'];
+        $repost_record->verified = (int) $repost['user']['verified'];
+        $repost_record->created = $repost['user']['name'];
+        $repost_record->created = strtotime($repost['created_at']);
+        $repost_record->data = $repost;
+        drupal_write_record('beauty_weibo_repost', $repost_record);
+    }
+    drupal_json_output();
+}
 function beauty_weibo_api_get_reposts($mid) {
 
     $api = 'https://api.weibo.com/2/statuses/repost_timeline.json';
@@ -219,12 +238,48 @@ function beauty_weibo_api_get_author_post_by_reposts($id , $reposts) {
     return FALSE;
 }
 
-function beauty_weibo_api_form_post_crawler() {
+function beauty_weibo_api_get_uid_by_domain($domain) {
+    $api = 'https://api.weibo.com/2/users/domain_show.json';
+    $param = array(
+        'access_token' => $_SESSION['weibo']['access_token'],
+        'domain' => $domain,
+    );    
+    $result_json = file_get_contents($api .'?' . drupal_http_build_query($param));
+    $result = drupal_json_decode($result_json);
+    
+    return $result;
+}
+
+function beauty_weibo_api_get_user_by_uid($uid) {
+    $api = 'https://api.weibo.com/2/users/show.json';
+    $param = array(
+        'access_token' => $_SESSION['weibo']['access_token'],
+        'uid' => $uid,
+    );    
+    $result_json = file_get_contents($api .'?' . drupal_http_build_query($param));
+    $result = drupal_json_decode($result_json);
+    return $result;    
+}
+
+function beauty_weibo_api_get_uid_by_profile_url($profile_url) {
+    $url = parse_url($profile_url);
+    $url = $url['path'];
+    $arg1 = arg(1, $url);
+    $arg2 = arg(2, $url);
+    if ($arg1 == 'u' && !empty($arg2)) {
+        $user = beauty_weibo_api_get_user_by_uid($arg2);
+    } elseif ($arg1 && empty($arg2)) {
+        $user = beauty_weibo_api_get_uid_by_domain($arg1);
+    }
+    return $user;
+}
+
+function beauty_weibo_api_form_user_crawler() {
     $form = array();
-    $form['strid'] = array(
+    $form['profile_url'] = array(
         '#type' => 'textfield',
-        '#title' => '微博字符串id',
-        '#default_value' => isset($_SESSION['weibo']['idstr']) ? $_SESSION['weibo']['idstr'] : '',
+        '#title' => '微博profile url',
+        '#default_value' => isset($_SESSION['weibo']['profile_url']) ? $_SESSION['weibo']['profile_url'] : '',
     );
     $form['submit'] = array(
         '#type' => 'submit',
@@ -233,8 +288,8 @@ function beauty_weibo_api_form_post_crawler() {
     return $form;
 }
 
-function beauty_weibo_api_form_post_crawler_submit($form, $form_state) {
-    $_SESSION['weibo']['idstr'] = $form_state['values']['strid'];
+function beauty_weibo_api_form_user_crawler_submit($form, $form_state) {
+    $_SESSION['weibo']['profile_url'] = $form_state['values']['profile_url'];
 }
 
 function beauty_weibo_api_replace4byte($string) {
