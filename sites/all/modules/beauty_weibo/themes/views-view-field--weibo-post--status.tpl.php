@@ -23,7 +23,7 @@
  */
 ?>
 <?php
-  $mid = $row->beauty_weibo_post_wid;
+  $mid = $row->wid;
   if ($row->beauty_weibo_post_status == '0') {
     $output = l('抓取', '/beauty/ajax/weibo_get_reposts/' . $mid);
   }
