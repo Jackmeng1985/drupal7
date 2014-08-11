@@ -18,7 +18,54 @@ function beauty_weibo_uninstall() {
  * Implements hook_schema().
  */
 function beauty_weibo_schema() {
- $schema['beauty_weibo'] = array(
+$schema['beauty_weibo_user'] = array(
+    'description' => '微博用户.',  
+    'fields' => array(
+      'wuid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'big',
+        'description' => '微博 UID.',
+      ),
+      'wuname' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '微博用户名.',
+      ),      
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => '抓取时间.',
+      ),     
+      'description' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '描述.',
+      ),        
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',          
+        'description' => '是否已抓取微博.',
+      ),
+      'data' => array(
+        'type' => 'blob',
+        'not null' => TRUE,
+        'serialize' => TRUE,
+        'description' => '其它数据',
+      ),           
+    ),
+    'primary key' => array('wuid')     
+ );    
+ $schema['beauty_weibo_post'] = array(
     'description' => '微博.',  
     'fields' => array(
       'wid' => array(
@@ -66,7 +113,15 @@ function beauty_weibo_schema() {
         'not null' => TRUE,
         'default' => 0,
         'description' => '评论数.',
-      ),           
+      ),   
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',          
+        'description' => '是否已抓取微博.',
+      ),
       'data' => array(
         'type' => 'blob',
         'not null' => TRUE,
