@@ -25,10 +25,10 @@
 <?php
   $mid = $row->wid;
   if ($row->beauty_weibo_post_status == '0') {
-    $output = l('抓取', '/beauty/ajax/weibo_get_reposts/' . $mid);
+    $output = l('抓取', 'beauty/ajax/weibo_get_reposts/' . $mid);
   }
   else {
-    $output = l('查看', '/weibo/reposts/' . $mid);
+    $output = l('查看', 'weibo/reposts/' . $mid);
   }
   print $output;
 ?>
