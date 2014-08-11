@@ -148,7 +148,7 @@ function beauty_weibo_api() {
         }
         unset($_SESSION['weibo']['profile_url']);
     }
-    return drupal_get_form('beauty_weibo_api_form_user_crawler') .'<br/><br/><br/><br/>'. views_embed_view('weibo_user');
+    return drupal_render(drupal_get_form('beauty_weibo_api_form_user_crawler')) .'<br/><br/><br/><br/>'. views_embed_view('weibo_user');
 }
 
 function beauty_weibo_api_ajax_get_reposts($id) {
