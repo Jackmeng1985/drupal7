@@ -143,6 +143,9 @@ function beauty_weibo_views_data() {
     'sort' => array(
       'handler' => 'views_handler_sort',
     ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
+    ),
   );
 
   //微博用户名
