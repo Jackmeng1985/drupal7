@@ -125,6 +125,27 @@ function beauty_weibo_api() {
         $weibo_user_record->status = 1;
         $weibo_user_record->data = $weibo_user;    
         drupal_write_record('beauty_weibo_user', $weibo_user_record);
+        
+        $posts = beauty_weibo_api_get_posts($weibo_user['id']);
+        foreach ($posts as $post) {
+            $already_have = db_select('beauty_weibo_post', 'bwp')->fields('bwp', array('wid'))->condition('wid', $repost['id'], '=')->execute()->fetch();
+            if (!empty($already_have)) {
+                continue;
+            }
+            
+            $weibo_record = new stdClass;
+            $weibo_record->wid = $post['id'];
+            $weibo_record->wuid = $weibo_user['id'];
+            $weibo_record->wuname = $weibo_user['name'];
+            $weibo_record->wtext = beauty_weibo_api_replace4byte($post['text']);
+            $weibo_record->created = strtotime($post['created_at']);
+            $weibo_record->reposts_count = $post['reposts_count'];
+            $weibo_record->comments_count = $post['comments_count'];
+            $weibo_record->status = 0;
+            $weibo_record->data = $post;
+
+            drupal_write_record('beauty_weibo_post', $weibo_record);            
+        }
         unset($_SESSION['weibo']['profile_url']);
     }
     return drupal_get_form('beauty_weibo_api_form_user_crawler');
@@ -213,6 +234,34 @@ function beauty_weibo_api_get_reposts($mid) {
     return $result;
 }
 
+
+function beauty_weibo_api_get_posts($uid) {
+
+    $api = 'https://api.weibo.com/2/statuses/home_timeline.json';
+    $param = array(
+        'access_token' => $_SESSION['weibo']['access_token'],
+        'uid' => $uid,
+        'count' => 100
+    );
+    $result_json = file_get_contents($api .'?' . drupal_http_build_query($param));
+    $result = drupal_json_decode($result_json);
+    if ($result['total_number'] > 100) {
+        $multi = $result['total_number'] / 100;
+        $multi = ceil($multi);
+        for ($i = 1; $i < $multi; $i++) {
+            $param = array(
+                'access_token' => $_SESSION['weibo']['access_token'],
+                'uid' => $uid,
+                'count' => 100,
+                'page' => $i + 1
+            );
+            $result_json = file_get_contents($api .'?' . drupal_http_build_query($param));
+            $result_for = drupal_json_decode($result_json);      
+            $result['statuses'] = array_merge($result['statuses'], $result_for['statuses']);
+        }
+    }
+    return $result;
+}
 function beauty_weibo_api_get_midstr($midstr) {
     $mid_api = 'http://api.t.sina.com.cn/queryid.json';
 
