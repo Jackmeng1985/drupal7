@@ -158,6 +158,7 @@ function beauty_weibo_api() {
         //对数据进行排序，并抓取前十条
         $results = db_select('beauty_weibo_post', 'bwp')
             ->fields('bwp', array('wid', 'reposts_count'))
+            ->condition('wuid', $weibo_user['id'])
             ->orderBy('reposts_count', 'DESC')
             ->range(0, 10)
             ->execute()
