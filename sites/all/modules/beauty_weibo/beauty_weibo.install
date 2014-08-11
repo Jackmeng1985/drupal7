@@ -26,7 +26,7 @@ $schema['beauty_weibo_user'] = array(
         'not null' => TRUE,
         'default' => 0,
         'size' => 'big',
-        'description' => '微博 UID.',
+        'description' => '微博用户 UID.',
       ),
       'wuname' => array(
         'type' => 'varchar',
