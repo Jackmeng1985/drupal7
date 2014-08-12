@@ -633,6 +633,25 @@ function beauty_weibo_views_data() {
     ),
   );
 
+  //是否水军
+  $data['beauty_weibo_repost']['status'] = array(
+    'title' => '水军',
+    'help' => '是否是水军',
+    'field' => array(
+      'handler' => 'views_handler_field_boolean',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_boolean_operator',
+      'label' => '水军',
+      'type' => 'yes-no',
+      'use equal' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
   //转发时间
   $data['beauty_weibo_repost']['created'] = array(
     'title' => t('Weibo repost Created'),
