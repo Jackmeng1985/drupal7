@@ -25,7 +25,7 @@
 <?php
   $mid = $row->wid;
   if ($row->beauty_weibo_post_status == '0') {
-    $output = l('抓取', 'beauty/ajax/weibo_get_reposts/' . $mid);
+    $output = '<a class="ajax-reposts" mid=' .$mid . ' href="javascript:void(0)">抓取</a>';
   }
   else {
     $output = l('查看', 'weibo/reposts/' . $mid);
