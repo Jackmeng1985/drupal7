@@ -47,7 +47,14 @@ $schema['beauty_weibo_user'] = array(
         'not null' => TRUE,
         'default' => '',
         'description' => '描述.',
-      ),        
+      ),     
+      'key' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => '关键词.',
+      ),           
       'status' => array(
         'type' => 'int',
         'unsigned' => TRUE,
@@ -278,7 +285,15 @@ $schema['beauty_weibo_user'] = array(
         'not null' => TRUE,
         'default' => 0,
         'description' => '转发时间.',
-      ),   
+      ),  
+     'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',          
+        'description' => '是否是水军.',
+      ),       
       'data' => array(
         'type' => 'blob',
         'not null' => TRUE,
