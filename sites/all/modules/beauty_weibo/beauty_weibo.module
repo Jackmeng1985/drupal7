@@ -157,19 +157,6 @@ function beauty_weibo_api() {
 
             drupal_write_record('beauty_weibo_post', $weibo_record);
         }
-
-        //对数据进行排序，并抓取前十条
-        $results = db_select('beauty_weibo_post', 'bwp')
-            ->fields('bwp', array('wid', 'reposts_count'))
-            ->condition('wuid', $weibo_user['id'])
-            ->orderBy('reposts_count', 'DESC')
-            ->range(0, 10)
-            ->execute()
-            ->fetchAll();
-
-        foreach ($results as $result) {
-            beauty_weibo_api_ajax_get_reposts($result->wid);
-        }
     }
     return drupal_render(drupal_get_form('beauty_weibo_api_form_user_crawler')) .'<br/><br/><br/><br/>'. views_embed_view('weibo_user');
 }
@@ -224,7 +211,7 @@ function beauty_weibo_api_ajax_get_reposts($id) {
         $i++;
     }
     db_merge('beauty_weibo_post')->key(array('wid' => $id))->fields(array('status' => 1))->execute();
-    drupal_goto('weibo/reposts/' . $id);
+    drupal_json_output(array('status' => TRUE, 'message' => "成功抓取{$i}条数据"));die();
 }
 function beauty_weibo_api_get_reposts($mid) {
 
@@ -271,7 +258,7 @@ function beauty_weibo_api_get_posts($uid) {
     if ($result['total_number'] > 100) {
         $multi = $result['total_number'] / 100;
         $multi = ceil($multi);
-        $multi = $multi > 19 ? 19 : $multi; 
+        $multi = $multi > 19 ? 19 : $multi;
         for ($i = 1; $i < $multi; $i++) {
             $param = array(
                 'access_token' => $_SESSION['weibo']['access_token'],
@@ -411,4 +398,13 @@ function beauty_weibo_views_api() {
     'api' => 3,
     'template path' => drupal_get_path('module', 'beauty_weibo') . '/themes',
   );
+}
+
+/**
+ * Implements hook_init().
+ */
+function beauty_weibo_init() {
+    if (arg(0) == 'weibo' && arg(1) == 'posts' && is_numeric(arg(2))) {
+        drupal_add_js(drupal_get_path('module', 'beauty_weibo') . '/js/ajax_reposts.js');
+    }
 }
