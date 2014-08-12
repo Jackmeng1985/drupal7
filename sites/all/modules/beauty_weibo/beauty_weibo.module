@@ -219,7 +219,7 @@ function beauty_weibo_api_ajax_get_reposts($id) {
         $i++;
     }
     db_merge('beauty_weibo_post')->key(array('wid' => $id))->fields(array('status' => 1))->execute();
-    drupal_json_output(array('status' => TRUE, 'message' => "成功抓取{$i}条数据"));die();
+    drupal_goto('weibo/reposts/' . $id);
 }
 function beauty_weibo_api_get_reposts($mid) {
 
@@ -355,7 +355,7 @@ function beauty_weibo_api_form_user_crawler() {
     $form['key'] = array(
         '#type' => 'textarea',
         '#title' => '微博关键字',
-    );    
+    );
     $form['submit'] = array(
         '#type' => 'submit',
         '#value' => '提交',
