@@ -218,6 +218,8 @@ function beauty_weibo_api_ajax_get_reposts($id) {
         $repost_record->created = $repost['user']['name'];
         $repost_record->created = strtotime($repost['created_at']);
         $repost_record->data = $repost;
+        
+        $repost_record->status = beauty_weibo_api_get_navy($repost['user']);
         drupal_write_record('beauty_weibo_repost', $repost_record);
         $i++;
     }
@@ -307,6 +309,17 @@ function beauty_weibo_api_get_author_post_by_reposts($id , $reposts) {
         }
     }
     return FALSE;
+}
+
+function beauty_weibo_api_get_navy($weibo_user) {
+
+    if ($weibo_user['friends_count'] > $weibo_user['followers_count'] * 3) {
+        return 1;
+    } 
+    if ($weibo_user['statuses_count'] > 100 && $weibo_user['favourites_count '] == 0) {
+        return 1;
+    }
+    return 0;
 }
 
 function beauty_weibo_api_get_uid_by_domain($domain) {
