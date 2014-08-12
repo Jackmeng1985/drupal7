@@ -116,7 +116,9 @@ function beauty_weibo_api() {
 
     if (isset($_SESSION['weibo']['profile_url'])) {
         $profile_url = $_SESSION['weibo']['profile_url'];
+        $key = $_SESSION['weibo']['key'];
         unset($_SESSION['weibo']['profile_url']);
+        unset($_SESSION['weibo']['key']);
         $weibo_user = beauty_weibo_api_get_uid_by_profile_url($profile_url);
 
         $already_have = db_select('beauty_weibo_user', 'bwu')->fields('bwu', array('wuid'))->condition('wuid', $weibo_user['id'], '=')->execute()->fetch();
@@ -131,6 +133,7 @@ function beauty_weibo_api() {
         $weibo_user_record->created = time();
         $weibo_user_record->description = beauty_weibo_api_replace4byte($weibo_user['description']);
         $weibo_user_record->status = 1;
+        $weibo_user_record->key = $key;
         $weibo_user_record->data = $weibo_user;
         drupal_write_record('beauty_weibo_user', $weibo_user_record);
 
@@ -351,7 +354,7 @@ function beauty_weibo_api_form_user_crawler() {
     $form = array();
     $form['profile_url'] = array(
         '#type' => 'textfield',
-        '#title' => '微博profile url',
+        '#title' => '关注用户的微博地址',
     );
     $form['key'] = array(
         '#type' => 'textarea',
@@ -366,6 +369,7 @@ function beauty_weibo_api_form_user_crawler() {
 
 function beauty_weibo_api_form_user_crawler_submit($form, $form_state) {
     $_SESSION['weibo']['profile_url'] = $form_state['values']['profile_url'];
+    $_SESSION['weibo']['key'] = $form_state['values']['key'];
 }
 
 function beauty_weibo_api_replace4byte($string) {
