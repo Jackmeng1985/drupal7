@@ -263,7 +263,7 @@ function beauty_weibo_views_data() {
 
   //转发的微博ID
   $data['beauty_weibo_repost']['rwid'] = array(
-    'title' => t('Rweid'),
+    'title' => t('Rwid'),
     'help' => t('The reposted weibo id.'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
@@ -274,6 +274,9 @@ function beauty_weibo_views_data() {
     ),
     'sort' => array(
       'handler' => 'views_handler_sort',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
     ),
   );
 
