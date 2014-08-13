@@ -263,7 +263,7 @@ function beauty_weibo_views_data() {
 
   //转发的微博ID
   $data['beauty_weibo_repost']['rwid'] = array(
-    'title' => t('Rweid'),
+    'title' => t('Rwid'),
     'help' => t('The reposted weibo id.'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
@@ -274,6 +274,9 @@ function beauty_weibo_views_data() {
     ),
     'sort' => array(
       'handler' => 'views_handler_sort',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
     ),
   );
 
@@ -625,6 +628,25 @@ function beauty_weibo_views_data() {
     'filter' => array(
       'handler' => 'views_handler_filter_boolean_operator',
       'label' => t('Verified'),
+      'type' => 'yes-no',
+      'use equal' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //是否水军
+  $data['beauty_weibo_repost']['status'] = array(
+    'title' => '水军',
+    'help' => '是否是水军',
+    'field' => array(
+      'handler' => 'views_handler_field_boolean',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_boolean_operator',
+      'label' => '水军',
       'type' => 'yes-no',
       'use equal' => TRUE,
     ),
