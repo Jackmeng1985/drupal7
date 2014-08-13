@@ -113,52 +113,151 @@ function beauty_weibo_callback() {
 }
 
 function beauty_weibo_api() {
-
-    if (isset($_SESSION['weibo']['profile_url'])) {
-        $profile_url = $_SESSION['weibo']['profile_url'];
-        $key = $_SESSION['weibo']['key'];
-        unset($_SESSION['weibo']['profile_url']);
-        unset($_SESSION['weibo']['key']);
-        $weibo_user = beauty_weibo_api_get_uid_by_profile_url($profile_url);
-
-        $already_have = db_select('beauty_weibo_user', 'bwu')->fields('bwu', array('wuid'))->condition('wuid', $weibo_user['id'], '=')->execute()->fetch();
-        if (!empty($already_have)) {
-            $e = new Exception('已经抓取了这个用户');
-            watchdog_exception('beauty', $e, '已经抓取了这个用户');
-            throw $e;
-        }
-        $weibo_user_record = new stdClass;
-        $weibo_user_record->wuid = $weibo_user['id'];
-        $weibo_user_record->wuname = $weibo_user['name'];
-        $weibo_user_record->created = time();
-        $weibo_user_record->description = beauty_weibo_api_replace4byte($weibo_user['description']);
-        $weibo_user_record->status = 1;
-        $weibo_user_record->key = $key;
-        $weibo_user_record->data = $weibo_user;
-        drupal_write_record('beauty_weibo_user', $weibo_user_record);
-
-        $posts = beauty_weibo_api_get_posts($weibo_user['id']);
-        foreach ($posts['statuses'] as $post) {
-            $already_have = db_select('beauty_weibo_post', 'bwp')->fields('bwp', array('wid'))->condition('wid', $post['id'], '=')->execute()->fetch();
-            if (!empty($already_have)) {
-                continue;
-            }
-
-            $weibo_record = new stdClass;
-            $weibo_record->wid = $post['id'];
-            $weibo_record->wuid = $weibo_user['id'];
-            $weibo_record->wuname = $weibo_user['name'];
-            $weibo_record->wtext = beauty_weibo_api_replace4byte($post['text']);
-            $weibo_record->created = strtotime($post['created_at']);
-            $weibo_record->reposts_count = $post['reposts_count'];
-            $weibo_record->comments_count = $post['comments_count'];
-            $weibo_record->status = 0;
-            $weibo_record->data = $post;
-
-            drupal_write_record('beauty_weibo_post', $weibo_record);
-        }
-    }
     return drupal_render(drupal_get_form('beauty_weibo_api_form_user_crawler')) .'<br/><br/><br/><br/>'. views_embed_view('weibo_user');
+}
+
+function beauty_weibo_api_form_user_crawler() {
+    $form = array();
+    $form['profile_url'] = array(
+        '#type' => 'textfield',
+        '#title' => '关注用户的微博地址',
+    );
+    $form['key'] = array(
+        '#type' => 'textarea',
+        '#title' => '微博关键字',
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => '提交',
+    );
+    return $form;
+}
+
+function beauty_weibo_api_form_user_crawler_submit($form, $form_state) {
+    $_SESSION['weibo']['profile_url'] = $form_state['values']['profile_url'];
+    $_SESSION['weibo']['key'] = $form_state['values']['key'];
+    beauty_weibo_api_process_crawler_user();
+}
+
+function beauty_weibo_api_process_crawler_user() {
+    if (!isset($_SESSION['weibo']['profile_url'])) {
+        return;
+    }    
+    $profile_url = $_SESSION['weibo']['profile_url'];
+    $key = $_SESSION['weibo']['key'];
+    unset($_SESSION['weibo']['profile_url']);
+    unset($_SESSION['weibo']['key']);
+//    $weibo_user = beauty_weibo_api_get_uid_by_profile_url($profile_url);
+//
+//    $already_have = db_select('beauty_weibo_user', 'bwu')->fields('bwu', array('wuid'))->condition('wuid', $weibo_user['id'], '=')->execute()->fetch();
+//    if (!empty($already_have)) {
+//        $e = new Exception('已经抓取了这个用户');
+//        watchdog_exception('beauty', $e, '已经抓取了这个用户');
+//        throw $e;
+//    }
+//    $weibo_user_record = new stdClass;
+//    $weibo_user_record->wuid = $weibo_user['id'];
+//    $weibo_user_record->wuname = $weibo_user['name'];
+//    $weibo_user_record->created = time();
+//    $weibo_user_record->description = beauty_weibo_api_replace4byte($weibo_user['description']);
+//    $weibo_user_record->status = 1;
+//    $weibo_user_record->key = $key;
+//    $weibo_user_record->data = $weibo_user;
+//    drupal_write_record('beauty_weibo_user', $weibo_user_record);
+    $weibo_user = array('id' => 1, 'name' => 1);
+    $operations = array();
+    
+    $weibo_user_param = array('id' => $weibo_user['id'], 'name' => $weibo_user['name']);
+    $i = 1;
+    while ($i <= 20) {
+        $operations[] = array('batch_beauty_weibo_api_user_post_process', array($i, $weibo_user_param));
+        $i++;
+    }
+    $uid_desc = 1;
+    while ($uid_desc <= 20) {
+        $page = 1;
+        while ($page <= 10) {
+            $operations[] = array('batch_beauty_weibo_api_user_repost_process', array($uid_desc, $page));
+            $page++;
+        }
+        $uid_desc++;
+    }
+    
+    $uid = 123;
+    $batch = array(
+        'operations' => $operations,
+        'finished' => 'batch_beauty_weibo_finished',
+        'title' => '抓取数据',
+        'init_message' => '开始抓取数据',
+        'progress_message' => '正在处理 @current 一共 @total.',
+        'error_message' => '处理出错了.',
+//        'file' => drupal_get_path('module', 'batch_example') . '/batch_example.inc',
+    );
+    batch_set($batch);
+}
+
+function batch_beauty_weibo_api_user_post_process($page, $weibo_user, &$context) {
+  if (!isset($context['sandbox']['progress'])) {
+    $context['sandbox']['progress'] = 0;
+  }
+  // For this example, we decide that we can safely process
+  // 5 nodes at a time without a timeout.
+
+//    $posts = beauty_weibo_api_get_posts($weibo_user['id'], $page);
+//    foreach ($posts['statuses'] as $post) {
+//        $already_have = db_select('beauty_weibo_post', 'bwp')->fields('bwp', array('wid'))->condition('wid', $post['id'], '=')->execute()->fetch();
+//        if (!empty($already_have)) {
+//            continue;
+//        }
+//
+//        $weibo_record = new stdClass;
+//        $weibo_record->wid = $post['id'];
+//        $weibo_record->wuid = $weibo_user['id'];
+//        $weibo_record->wuname = $weibo_user['name'];
+//        $weibo_record->wtext = beauty_weibo_api_replace4byte($post['text']);
+//        $weibo_record->created = strtotime($post['created_at']);
+//        $weibo_record->reposts_count = $post['reposts_count'];
+//        $weibo_record->comments_count = $post['comments_count'];
+//        $weibo_record->status = 0;
+//        $weibo_record->data = $post;
+//
+//        drupal_write_record('beauty_weibo_post', $weibo_record);
+//    }   
+    // Store some result for post-processing in the finished callback.
+  sleep(2);
+    $context['results'][] = 1;
+    // Update our progress information.
+    $context['sandbox']['progress']++;
+    $context['message'] = t('正在抓取用户微博数据 第%number条', array('%number' => ($page - 1) * 100));
+  // Inform the batch engine that we are not finished,
+  // and provide an estimation of the completion level we reached.
+    $context['finished'] = 1;
+}
+
+function batch_beauty_weibo_api_user_repost_process($uid_desc, $page, &$context) {
+   $context['results'][] = 1;
+    sleep(2);
+    $context['sandbox']['progress']++;
+    $context['message'] = t('正在抓取用户第条%post微博的第%number条转发', array('%post' => $uid_desc, '%number' => ($page - 1) * 200));
+  // Inform the batch engine that we are not finished,
+  // and provide an estimation of the completion level we reached.
+    $context['finished'] = 1;    
+}
+
+function batch_beauty_weibo_finished($success, $results, $operations) {
+ if ($success) {
+    // Here we do something meaningful with the results.
+    $message = count($results) .' processed.';
+    $message .= theme('item_list', $results);  // D6 syntax
+    drupal_set_message($message);
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    $message = t('An error occurred while processing %error_operation with arguments: @arguments', array('%error_operation' => $error_operation[0], '@arguments' => print_r($error_operation[1], TRUE)));
+    drupal_set_message($message, 'error');
+  }    
 }
 
 function beauty_weibo_api_ajax_get_reposts($id) {
@@ -245,16 +344,27 @@ function beauty_weibo_api_get_reposts($mid) {
 }
 
 
-function beauty_weibo_api_get_posts($uid) {
-
+function beauty_weibo_api_get_posts($uid, $page = null) {
+    if (empty($page)) {
+       $page = 1; 
+    }
+    else {
+        $have_page_param = TRUE;
+    }
     $api = 'https://api.weibo.com/2/statuses/home_timeline.json';
     $param = array(
         'access_token' => $_SESSION['weibo']['access_token'],
         'uid' => $uid,
-        'count' => 100
+        'count' => 100,
+        'page' => $page
     );
     $result_json = file_get_contents($api .'?' . drupal_http_build_query($param));
     $result = drupal_json_decode($result_json);
+    
+    if ($have_page_param) {
+        return $result;
+    }
+    
     if ($result['total_number'] > 100) {
         $multi = $result['total_number'] / 100;
         $multi = ceil($multi);
@@ -350,27 +460,7 @@ function beauty_weibo_api_get_uid_by_profile_url($profile_url) {
     return $user;
 }
 
-function beauty_weibo_api_form_user_crawler() {
-    $form = array();
-    $form['profile_url'] = array(
-        '#type' => 'textfield',
-        '#title' => '关注用户的微博地址',
-    );
-    $form['key'] = array(
-        '#type' => 'textarea',
-        '#title' => '微博关键字',
-    );
-    $form['submit'] = array(
-        '#type' => 'submit',
-        '#value' => '提交',
-    );
-    return $form;
-}
 
-function beauty_weibo_api_form_user_crawler_submit($form, $form_state) {
-    $_SESSION['weibo']['profile_url'] = $form_state['values']['profile_url'];
-    $_SESSION['weibo']['key'] = $form_state['values']['key'];
-}
 
 function beauty_weibo_api_replace4byte($string) {
     return preg_replace('%(?:
