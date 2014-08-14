@@ -243,7 +243,7 @@ function batch_beauty_weibo_api_user_post_process($page, $weibo_user, &$context)
 function batch_beauty_weibo_api_user_repost_process($weibo_user, $uid_desc, $page, &$context) {
     $res = db_select('beauty_weibo_post', 'bwp')
             ->fields('bwp', array('wid'))
-            ->condition('wuid', $weibo_user['id'], '=')
+//            ->condition('wuid', $weibo_user['id'], '=')
             ->orderBy('reposts_count', 'DESC')
             ->range($uid_desc - 1, 1)->execute()->fetchField();
     $wid = $res[0];
