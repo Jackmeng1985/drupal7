@@ -44,14 +44,12 @@ $schema['beauty_weibo_user'] = array(
       'description' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => TRUE,
         'default' => ' ',
         'description' => '描述.',
       ),     
       'key' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => TRUE,
         'default' => '',
         'description' => '关键词.',
       ),           
