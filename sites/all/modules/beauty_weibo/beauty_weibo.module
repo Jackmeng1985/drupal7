@@ -168,7 +168,7 @@ function beauty_weibo_api_process_crawler_user() {
     $weibo_user_record->created = time();
     $weibo_user_record->description = beauty_weibo_api_replace4byte($weibo_user['description']);
     $weibo_user_record->status = 1;
-    $weibo_user_record->key = $key;
+    $weibo_user_record->keyworld = $key;
     $weibo_user_record->data = $weibo_user;
     drupal_write_record('beauty_weibo_user', $weibo_user_record);
     
