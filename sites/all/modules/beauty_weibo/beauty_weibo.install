@@ -45,7 +45,7 @@ $schema['beauty_weibo_user'] = array(
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
-        'default' => '',
+        'default' => ' ',
         'description' => '描述.',
       ),     
       'key' => array(
