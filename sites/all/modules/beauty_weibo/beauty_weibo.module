@@ -175,7 +175,6 @@ function beauty_weibo_api_process_crawler_user() {
     $operations = array();
 
     $weibo_user_param = array('id' => $weibo_user['id'], 'name' => $weibo_user['name']);
-    $weibo_user_param = array('id' => '3427028600', 'name' => '侣行OnTheRoad'); //因为目前高级接口没有申请下来。 这段代码用来做测试
     $page = 1;
     while ($page <= BEAUTY_WEIBO_POST_PER_USER) {
         $operations[] = array('batch_beauty_weibo_api_user_post_process', array($page, $weibo_user_param));
