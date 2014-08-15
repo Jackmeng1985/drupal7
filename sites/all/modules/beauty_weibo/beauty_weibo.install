@@ -43,7 +43,7 @@ $schema['beauty_weibo_user'] = array(
       ),     
       'description' => array(
         'type' => 'varchar',
-        'length' => 255,
+        'size' => 'normal',
         'default' => ' ',
         'description' => '描述.',
       ),     
@@ -96,7 +96,7 @@ $schema['beauty_weibo_user'] = array(
       ),   
       'wtext' => array(
         'type' => 'varchar',
-        'length' => 255,
+        'size' => 'normal',
         'not null' => TRUE,
         'default' => '',
         'description' => '微博内容.',
@@ -169,7 +169,7 @@ $schema['beauty_weibo_user'] = array(
       ),         
       'text' => array(
         'type' => 'varchar',
-        'length' => 255,
+        'size' => 'normal',
         'not null' => TRUE,
         'default' => '',
         'description' => '微博内容.',
