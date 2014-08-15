@@ -249,7 +249,9 @@ function batch_beauty_weibo_api_user_repost_process($weibo_user, $uid_desc, $pag
             ->orderBy('reposts_count', 'DESC')
             ->range($uid_desc - 1, 1)->execute()->fetchField();
     $wid = $res[0];
-
+    if (empty($wid)) {
+        return;
+    }
     $reposts_result = beauty_weibo_api_get_reposts($wid, $page);
 
     foreach ($reposts_result['reposts'] as $repost) {
