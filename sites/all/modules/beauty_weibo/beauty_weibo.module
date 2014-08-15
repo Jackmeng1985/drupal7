@@ -119,6 +119,9 @@ function beauty_weibo_callback() {
 }
 
 function beauty_weibo_api() {
+    if (!isset($_SESSION['weibo']['access_token'])) {
+        drupal_goto('weibo/oauth');
+    }
     return drupal_render(drupal_get_form('beauty_weibo_api_form_user_crawler')) .'<br/><br/><br/><br/>'. views_embed_view('weibo_user');
 }
 
@@ -171,7 +174,7 @@ function beauty_weibo_api_process_crawler_user() {
     $weibo_user_record->keyworld = $key;
     $weibo_user_record->data = $weibo_user;
     drupal_write_record('beauty_weibo_user', $weibo_user_record);
-    
+
     $operations = array();
 
     $weibo_user_param = array('id' => $weibo_user['id'], 'name' => $weibo_user['name']);
@@ -189,7 +192,7 @@ function beauty_weibo_api_process_crawler_user() {
         }
         $uid_desc++;
     }
-    
+
     $batch = array(
         'operations' => $operations,
         'finished' => 'batch_beauty_weibo_finished',
@@ -228,7 +231,7 @@ function batch_beauty_weibo_api_user_post_process($page, $weibo_user, &$context)
         $weibo_record->data = $post;
 
         drupal_write_record('beauty_weibo_post', $weibo_record);
-    }   
+    }
 
     $context['results'][] = 1;
     // Update our progress information.
@@ -246,9 +249,9 @@ function batch_beauty_weibo_api_user_repost_process($weibo_user, $uid_desc, $pag
             ->orderBy('reposts_count', 'DESC')
             ->range($uid_desc - 1, 1)->execute()->fetchField();
     $wid = $res[0];
-    
+
     $reposts_result = beauty_weibo_api_get_reposts($wid, $page);
-    
+
     foreach ($reposts_result['reposts'] as $repost) {
         $already_have = db_select('beauty_weibo_repost', 'bwr')->fields('bwr', array('wid'))->condition('wid', $repost['id'], '=')->execute()->fetch();
         if (!empty($already_have)) {
@@ -283,13 +286,13 @@ function batch_beauty_weibo_api_user_repost_process($weibo_user, $uid_desc, $pag
         $repost_record->created = $repost['user']['name'];
         $repost_record->created = strtotime($repost['created_at']);
         $repost_record->data = $repost;
-        
+
         $repost_record->status = beauty_weibo_api_get_navy($repost['user']);
         drupal_write_record('beauty_weibo_repost', $repost_record);
     }
-    
+
     if ($uid_desc == BEAUTY_WEIBO_FETCH_POST_PER_USER && $page == BEAUTY_WEIBO_FETCH_REPOST_PER_POST) {
-        db_merge('beauty_weibo_post')->key(array('wid' => $wid))->fields(array('status' => 1))->execute();    
+        db_merge('beauty_weibo_post')->key(array('wid' => $wid))->fields(array('status' => 1))->execute();
     }
     $context['results'][] = 1;
     $context['sandbox']['progress']++;
@@ -369,7 +372,7 @@ function beauty_weibo_api_ajax_get_reposts($id) {
 }
 function beauty_weibo_api_get_reposts($mid, $page = NULL) {
     if (empty($page)) {
-       $page = 1; 
+       $page = 1;
     }
     else {
         $have_page_param = TRUE;
