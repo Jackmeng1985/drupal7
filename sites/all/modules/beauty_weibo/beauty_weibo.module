@@ -37,7 +37,13 @@ function beauty_weibo_menu() {
     'access arguments' => array('access weibo api'),
     'type' => MENU_CALLBACK,
   );
-
+ $items['weibo/marking_comment'] = array(
+    'title' => 'Weibo api',
+    'page callback' => 'beauty_weibo_marking_comment',
+    'access arguments' => array('access weibo api'),
+    'type' => MENU_CALLBACK,
+    'file' => 'beauty_weibo.pages.inc',
+  );
   $items['admin/config/services/weibo'] = array(
     'title' => 'Weibo oauth settings',
     'description' => 'Configure the Weibo App Key and App Secret.',
@@ -409,6 +415,24 @@ function beauty_weibo_api_get_reposts($mid, $page = NULL) {
         }
     }
     return $result;
+}
+
+function beauty_weibo_api_marketing_comment($wid, $comment) {
+    $comment = drupal_substr($comment, 0, 140);
+    $api = 'https://api.weibo.com/2/comments/create.json';
+    $parameters = array(
+        'id' => $wid,
+        'comment' => urlencode($comment),
+        'access_token' => $_SESSION['weibo']['access_token'],
+    );
+    $param_data = array(
+      'headers' => array('Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'),
+      'method' => 'POST',
+      'data' => drupal_http_build_query($parameters),
+    );
+    $http =  drupal_http_request($api, $param_data);    
+    $json = drupal_json_decode($http->data);
+    return $json;    
 }
 
 
