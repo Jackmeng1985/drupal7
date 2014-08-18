@@ -37,7 +37,7 @@ function beauty_weibo_menu() {
     'access arguments' => array('access weibo api'),
     'type' => MENU_CALLBACK,
   );
- $items['weibo/marking_comment'] = array(
+ $items['weibo/marketing-comment'] = array(
     'title' => 'Weibo api',
     'page callback' => 'beauty_weibo_marketing_comment',
     'access arguments' => array('access weibo api'),

@@ -10,7 +10,7 @@ function beauty_weibo_marketing_comment($wid) {
     if (isset($_SESSION['weibo']['marketing_comment'])) {
         $comment = $_SESSION['weibo']['marketing_comment'];
         unset($_SESSION['weibo']['marketing_comment']);
-        $res  = beauty_weibo_api_marketing_comment($wid, $_SESSION['weibo']['marketing_comment']);
+        $res  = beauty_weibo_api_marketing_comment($wid, $comment);
         if (isset($res['error'])) {
             $e = new Exception("错误信息： {$res['error']} 错误代码： {$res['error_code']}");
             watchdog_exception('beauty', $e, "错误信息： {$res['error']} 错误代码： {$res['error_code']}");
@@ -42,5 +42,13 @@ function beauty_weibo_marking_comment_form() {
         '#title' => '要回复的内容',
         '#size' => 6
     );
+    $form['text'] = array(
+        '#type' => 'submit',
+        '#value' => '关注',
+    );    
     return $form;
+}
+
+function beauty_weibo_marking_comment_form_submit($form, $form_state) {
+    $_SESSION['weibo']['marketing_comment'] = $form_state['values']['text'];
 }
