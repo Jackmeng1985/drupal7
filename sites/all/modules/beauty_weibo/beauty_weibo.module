@@ -607,4 +607,10 @@ function beauty_weibo_init() {
     if (arg(0) == 'weibo' && arg(1) == 'posts' && is_numeric(arg(2))) {
         drupal_add_js(drupal_get_path('module', 'beauty_weibo') . '/js/ajax_reposts.js');
     }
+    if (arg(0) == 'weibo' && !isset($_SESSION['weibo']['expire_date'])) {
+        drupal_goto('weibo/oauth'/*, array('query' => array('dest' => current_path()))*/);
+    }
+    if (arg(0) == 'weibo' && $_SESSION['weibo']['expire_date'] < time()) {
+        drupal_goto('weibo/oauth'/*, array('query' => array('dest' => current_path()))*/);
+    }
 }
