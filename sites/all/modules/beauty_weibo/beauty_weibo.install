@@ -311,13 +311,20 @@ $schema['beauty_weibo_user'] = array(
         'size' => 'big',
         'description' => '微博 ID.',
       ),
+      'cuid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'big',
+        'description' => '评论发布的用户 ID.',
+      ),
       'wuid' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'size' => 'big',
-        'description' => '微博 用户 ID.',
-      ),
+        'description' => '转发 用户 ID.',
+      ),        
       'wuname' => array(
         'type' => 'varchar',
         'length' => 255,

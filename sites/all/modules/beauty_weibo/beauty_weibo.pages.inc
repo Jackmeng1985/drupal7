@@ -6,11 +6,29 @@
  * and open the template in the editor.
  */
 
-function beauty_weibo_marking_comment($wid) {
+function beauty_weibo_marketing_comment($wid) {
     if (isset($_SESSION['weibo']['marketing_comment'])) {
         $comment = $_SESSION['weibo']['marketing_comment'];
         unset($_SESSION['weibo']['marketing_comment']);
         $res  = beauty_weibo_api_marketing_comment($wid, $_SESSION['weibo']['marketing_comment']);
+        if (isset($res['error'])) {
+            $e = new Exception("错误信息： {$res['error']} 错误代码： {$res['error_code']}");
+            watchdog_exception('beauty', $e, "错误信息： {$res['error']} 错误代码： {$res['error_code']}");
+            throw $e;            
+        }
+        
+        $weibo_marketing_comment_record = new stdClass;
+        $weibo_marketing_comment_record->wid = $res['id'];
+        $weibo_marketing_comment_record->cuid = $res['user']['id'];
+        $weibo_marketing_comment_record->wuid = $res['status']['user']['id'];
+        $weibo_marketing_comment_record->wuname = $res['user']['name'];
+        $weibo_marketing_comment_record->wtext = beauty_weibo_api_replace4byte($res['text']);
+        $weibo_marketing_comment_record->created = strtotime($res['created_at']);
+        $weibo_marketing_comment_record->duid = $GLOBALS['user']->uid;
+        $weibo_marketing_comment_record->data = $res;
+
+        drupal_write_record('beauty_weibo_post', $weibo_marketing_comment_record);
+        drupal_set_message('成功评论');
         
     }
     return drupal_get_form('beauty_weibo_marking_comment_form');
