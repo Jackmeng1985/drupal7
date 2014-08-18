@@ -719,7 +719,7 @@ function beauty_weibo_views_data() {
     'title' => '微博用户名',
     'help' => '微博用户名',
     'field' => array(
-      'handler' => 'views_handler_field_string',
+      'handler' => 'views_handler_field',
       'click sortable' => TRUE,
      ),
     'filter' => array(
@@ -735,7 +735,7 @@ function beauty_weibo_views_data() {
     'title' => '微博内容',
     'help' => '微博内容',
     'field' => array(
-      'handler' => 'views_handler_field_string',
+      'handler' => 'views_handler_field',
       'click sortable' => TRUE,
      ),
     'filter' => array(
