@@ -126,9 +126,6 @@ function beauty_weibo_callback() {
 }
 
 function beauty_weibo_api() {
-    if (!isset($_SESSION['weibo']['access_token']) || empty($_SESSION['weibo']['access_token'])) {
-        drupal_goto('weibo/oauth');
-    }
     return drupal_render(drupal_get_form('beauty_weibo_api_form_user_crawler')) .'<br/><br/><br/><br/>'. views_embed_view('weibo_user');
 }
 
@@ -431,9 +428,9 @@ function beauty_weibo_api_marketing_comment($wid, $comment) {
       'method' => 'POST',
       'data' => drupal_http_build_query($parameters),
     );
-    $http =  drupal_http_request($api, $param_data);    
+    $http =  drupal_http_request($api, $param_data);
     $json = drupal_json_decode($http->data);
-    return $json;    
+    return $json;
 }
 
 function beauty_weibo_api_set_weibo_info() {
@@ -446,11 +443,11 @@ function beauty_weibo_api_set_weibo_info() {
       'method' => 'POST',
       'data' => drupal_http_build_query($parameters),
     );
-    $http =  drupal_http_request($api, $param_data);    
+    $http =  drupal_http_request($api, $param_data);
     $json = drupal_json_decode($http->data);
     $_SESSION['weibo']['expire_date'] = time() + $json['expire_in'];
     $_SESSION['weibo']['uid'] = $json['uid'];
-    return;       
+    return;
 }
 
 
