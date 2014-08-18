@@ -120,6 +120,7 @@ function beauty_weibo_callback() {
     $access_token = $data['access_token'];
 
     $_SESSION['weibo']['access_token'] = $access_token;
+    $_SESSION['weibo']['expire_date'] = time() + beauty_weibo_api_get_expire_in();
     drupal_goto('weibo/api');
   }
 }
@@ -433,6 +434,20 @@ function beauty_weibo_api_marketing_comment($wid, $comment) {
     $http =  drupal_http_request($api, $param_data);    
     $json = drupal_json_decode($http->data);
     return $json;    
+}
+
+function beauty_weibo_api_get_expire_in() {
+    $parameters = array(
+        'access_token' => $_SESSION['weibo']['access_token'],
+    );
+    $param_data = array(
+      'headers' => array('Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'),
+      'method' => 'POST',
+      'data' => drupal_http_build_query($parameters),
+    );
+    $http =  drupal_http_request($api, $param_data);    
+    $json = drupal_json_decode($http->data);
+    return $json['expire_in'];       
 }
 
 
