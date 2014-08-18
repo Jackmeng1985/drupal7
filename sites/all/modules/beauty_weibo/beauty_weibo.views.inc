@@ -671,5 +671,115 @@ function beauty_weibo_views_data() {
     ),
   );
 
+  //客服回复表
+  $data['beauty_weibo_marketing_comment']['table']['group'] = '客服回复';
+
+  $data['beauty_weibo_marketing_comment']['table']['base'] = array(
+    'field' => 'wid',
+    'title' => '客服回复',
+  );
+
+  //微博ID
+  $data['beauty_weibo_marketing_comment']['wid'] = array(
+    'title' => '微博ID',
+    'help' => '微博ID',
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
+    ),
+  );
+
+  //微博用户ID
+  $data['beauty_weibo_marketing_comment']['wuid'] = array(
+    'title' => '微博用户ID',
+    'help' => '微博用户ID',
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //微博用户名
+  $data['beauty_weibo_marketing_comment']['wuname'] = array(
+    'title' => '微博用户名',
+    'help' => '微博用户名',
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //微博内容
+  $data['beauty_weibo_marketing_comment']['wtext'] = array(
+    'title' => '微博内容',
+    'help' => '微博内容',
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //创建时间
+  $data['beauty_weibo_marketing_comment']['created'] = array(
+    'title' => '创建时间',
+    'help' => '创建时间',
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_date',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort_date',
+    ),
+  );
+
+  //Drupal用户ID
+  $data['beauty_weibo_marketing_comment']['duid'] = array(
+    'title' => 'Drupal用户ID',
+    'help' => 'Drupal用户ID',
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
+    ),
+  );
+
   return $data;
 }

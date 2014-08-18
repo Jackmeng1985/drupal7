@@ -19,7 +19,7 @@ function beauty_weibo_uninstall() {
  */
 function beauty_weibo_schema() {
 $schema['beauty_weibo_user'] = array(
-    'description' => '微博用户.',  
+    'description' => '微博用户.',
     'fields' => array(
       'wuid' => array(
         'type' => 'int',
@@ -34,31 +34,31 @@ $schema['beauty_weibo_user'] = array(
         'not null' => TRUE,
         'default' => '',
         'description' => '微博用户名.',
-      ),      
+      ),
       'created' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '抓取时间.',
-      ),     
+      ),
       'description' => array(
         'type' => 'varchar',
         'length' => 2000,
         'default' => ' ',
         'description' => '描述.',
-      ),     
+      ),
       'keyworld' => array(
         'type' => 'varchar',
         'length' => 255,
         'default' => '',
         'description' => '关键词.',
-      ),           
+      ),
       'status' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
-        'size' => 'tiny',          
+        'size' => 'tiny',
         'description' => '是否已抓取微博.',
       ),
       'data' => array(
@@ -66,12 +66,12 @@ $schema['beauty_weibo_user'] = array(
         'not null' => TRUE,
         'serialize' => TRUE,
         'description' => '其它数据',
-      ),           
+      ),
     ),
-    'primary key' => array('wuid')     
- );    
+    'primary key' => array('wuid')
+ );
  $schema['beauty_weibo_post'] = array(
-    'description' => '微博.',  
+    'description' => '微博.',
     'fields' => array(
       'wid' => array(
         'type' => 'int',
@@ -93,38 +93,38 @@ $schema['beauty_weibo_user'] = array(
         'not null' => TRUE,
         'default' => '',
         'description' => '微博用户名.',
-      ),   
+      ),
       'wtext' => array(
         'type' => 'varchar',
         'length' => 2000,
         'not null' => TRUE,
         'default' => '',
         'description' => '微博内容.',
-      ),      
+      ),
       'created' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '抓取时间.',
-      ),    
+      ),
       'reposts_count' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '转发数.',
-      ),        
+      ),
       'comments_count' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '评论数.',
-      ),   
+      ),
       'status' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
-        'size' => 'tiny',          
+        'size' => 'tiny',
         'description' => '是否已抓取微博.',
       ),
       'data' => array(
@@ -132,9 +132,9 @@ $schema['beauty_weibo_user'] = array(
         'not null' => TRUE,
         'serialize' => TRUE,
         'description' => '其它数据',
-      ),           
+      ),
     ),
-    'primary key' => array('wid')     
+    'primary key' => array('wid')
  );
  $schema['beauty_weibo_repost'] = array(
     'description' => '微博转发.',
@@ -152,28 +152,28 @@ $schema['beauty_weibo_user'] = array(
         'default' => 0,
         'size' => 'big',
         'description' => '转发的微博 用户ID.',
-      ),        
+      ),
       'wid' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'size' => 'big',
         'description' => '微博 ID.',
-      ), 
+      ),
       'rrwid' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'size' => 'big',
         'description' => '真实的转发的微博 ID.',
-      ),         
+      ),
       'text' => array(
         'type' => 'varchar',
         'length' => 2000,
         'not null' => TRUE,
         'default' => '',
         'description' => '微博内容.',
-      ),            
+      ),
       'source' => array(
         'type' => 'varchar',
         'length' => 255,
@@ -186,55 +186,55 @@ $schema['beauty_weibo_user'] = array(
         'not null' => TRUE,
         'default' => 0,
         'description' => '转发数.',
-      ),        
+      ),
       'comments_count' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '评论数.',
-      ),     
+      ),
       'uid' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'size' => 'big',
         'description' => '用户ID.',
-      ), 
+      ),
       'name' => array(
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
         'description' => '名字.',
-      ),         
+      ),
       'location_city' => array(
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
         'description' => '地理位置 城市.',
-      ), 
+      ),
       'location_province' => array(
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
         'description' => '地理位置 省份.',
-      ),          
+      ),
       'url' => array(
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
         'description' => '微博url.',
-      ),  
+      ),
      'profile_image_url' => array(
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
         'description' => '用户头像url.',
-      ),        
+      ),
      'gender' => array(
         'type' => 'varchar',
         'length' => 255,
@@ -247,62 +247,62 @@ $schema['beauty_weibo_user'] = array(
         'not null' => TRUE,
         'default' => 0,
         'description' => '粉丝数.',
-      ),         
+      ),
       'friends_count' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '朋友数.',
-      ),             
+      ),
       'favourites_count' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '收藏数.',
-      ),  
+      ),
       'statuses_count' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '微博数.',
-      ),       
+      ),
       'following' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '是否关注.',
-      ),   
+      ),
       'verified' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '是否验证用户.',
-      ),    
+      ),
       'created' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '转发时间.',
-      ),  
+      ),
      'status' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
-        'size' => 'tiny',          
+        'size' => 'tiny',
         'description' => '是否是水军.',
-      ),       
+      ),
       'data' => array(
         'type' => 'blob',
         'not null' => TRUE,
         'serialize' => TRUE,
         'description' => '其它数据',
-      ),           
+      ),
     ),
     'primary key' => array('wid')
   );
  $schema['beauty_weibo_marketing_comment'] = array(
-    'description' => '客服回复表.',  
+    'description' => '客服回复表.',
     'fields' => array(
       'wid' => array(
         'type' => 'int',
@@ -331,20 +331,20 @@ $schema['beauty_weibo_user'] = array(
         'not null' => TRUE,
         'default' => '',
         'description' => '微博用户名.',
-      ),   
+      ),
       'wtext' => array(
         'type' => 'varchar',
         'length' => 2000,
         'not null' => TRUE,
         'default' => '',
         'description' => '微博内容.',
-      ),      
+      ),
       'created' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'description' => '创建时间.',
-      ),    
+      ),
       'duid' => array(
         'type' => 'int',
         'not null' => TRUE,
@@ -356,9 +356,9 @@ $schema['beauty_weibo_user'] = array(
         'not null' => TRUE,
         'serialize' => TRUE,
         'description' => '其它数据',
-      ),           
+      ),
     ),
-    'primary key' => array('wid')     
- ); 
+    'primary key' => array('wid')
+ );
  return $schema;
 }
