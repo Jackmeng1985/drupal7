@@ -437,6 +437,7 @@ function beauty_weibo_api_marketing_comment($wid, $comment) {
 }
 
 function beauty_weibo_api_get_expire_in() {
+    $api = 'https://api.weibo.com/oauth2/get_token_info';
     $parameters = array(
         'access_token' => $_SESSION['weibo']['access_token'],
     );
