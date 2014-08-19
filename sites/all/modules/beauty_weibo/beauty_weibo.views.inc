@@ -260,6 +260,7 @@ function beauty_weibo_views_data() {
     'field' => 'uid',
     'title' => t('Beauty Weibo Repost'),
   );
+  $data['beauty_weibo_repost']['table']['entity type'] = 'beauty_weibo_repost';
 
   //转发的微博ID
   $data['beauty_weibo_repost']['rwid'] = array(

@@ -628,3 +628,21 @@ function beauty_weibo_init() {
         drupal_goto('weibo/oauth'/*, array('query' => array('dest' => current_path()))*/);
     }
 }
+
+/**
+ * Implements hook_entity_info().
+ */
+function beauty_weibo_entity_info() {
+  return array(
+    'beauty_weibo_repost' => array(
+      'label' => '微博转发',
+      'base table' => 'beauty_weibo_repost',
+      'load hook' => 'beauty_weibo_repost_load',
+      'entity keys' => array(
+        'id' => 'wid',
+        'label' => '微博',
+      ),
+    ),
+  );
+}
+
