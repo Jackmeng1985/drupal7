@@ -42,7 +42,7 @@ function beauty_weibo_marking_comment_form() {
         '#title' => '要回复的内容',
         '#size' => 6
     );
-    $form['text'] = array(
+    $form['submit'] = array(
         '#type' => 'submit',
         '#value' => '关注',
     );    
