@@ -257,7 +257,7 @@ function beauty_weibo_views_data() {
   $data['beauty_weibo_repost']['table']['group'] = t('Beauty Weibo Repost');
 
   $data['beauty_weibo_repost']['table']['base'] = array(
-    'field' => 'wid',
+    'field' => 'uid',
     'title' => t('Beauty Weibo Repost'),
   );
 
