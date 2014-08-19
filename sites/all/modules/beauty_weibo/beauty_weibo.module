@@ -145,7 +145,7 @@ function beauty_weibo_api_form_user_crawler() {
     );
     $form['submit'] = array(
         '#type' => 'submit',
-        '#value' => '关注',
+        '#value' => '确定',
     );
     return $form;
 }
