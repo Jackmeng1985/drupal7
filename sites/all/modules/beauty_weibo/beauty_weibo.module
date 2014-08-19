@@ -165,7 +165,7 @@ function beauty_weibo_api_process_crawler_user() {
     unset($_SESSION['weibo']['profile_url']);
     unset($_SESSION['weibo']['key']);
     $weibo_user = beauty_weibo_api_get_uid_by_profile_url($profile_url);
-    
+
     $_SESSION['weibo']['process_uid'] = $weibo_user['id'];
     $already_have = db_select('beauty_weibo_user', 'bwu')->fields('bwu', array('wuid'))->condition('wuid', (int)$weibo_user['id'], '=')->execute()->fetch();
     if (!empty($already_have)) {
@@ -224,6 +224,10 @@ function batch_beauty_weibo_api_user_post_process($page, $weibo_user, &$context)
     foreach ($posts['statuses'] as $post) {
         $already_have = db_select('beauty_weibo_post', 'bwp')->fields('bwp', array('wid'))->condition('wid', $post['id'], '=')->execute()->fetch();
         if (!empty($already_have)) {
+            continue;
+        }
+
+        if ($weibo_user['id'] != $post['user']['id']) {
             continue;
         }
 
@@ -438,9 +442,9 @@ function beauty_weibo_api_marketing_comment($wid, $comment) {
       'method' => 'POST',
       'data' => drupal_http_build_query($parameters),
     );
-    $http =  drupal_http_request($api, $param_data);    
+    $http =  drupal_http_request($api, $param_data);
     $json = drupal_json_decode($http->data);
-    return $json;    
+    return $json;
 }
 
 function beauty_weibo_api_set_weibo_info() {
@@ -453,11 +457,11 @@ function beauty_weibo_api_set_weibo_info() {
       'method' => 'POST',
       'data' => drupal_http_build_query($parameters),
     );
-    $http =  drupal_http_request($api, $param_data);    
+    $http =  drupal_http_request($api, $param_data);
     $json = drupal_json_decode($http->data);
     $_SESSION['weibo']['expire_date'] = time() + $json['expire_in'];
     $_SESSION['weibo']['uid'] = $json['uid'];
-    return;       
+    return;
 }
 
 
