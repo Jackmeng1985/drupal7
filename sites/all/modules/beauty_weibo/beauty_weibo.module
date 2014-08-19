@@ -646,3 +646,18 @@ function beauty_weibo_entity_info() {
   );
 }
 
+/**
+ * Implements hook_action_info().
+ */
+function beauty_weibo_action_info() {
+  return array(
+    'follow' => array(
+      'type' => 'beauty_weibo_repost',
+      'label' => t('批量关注'),
+      'behavior' => array('follow_user'),
+      'configurable' => FALSE,
+      'vbo_configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+  );
+}
