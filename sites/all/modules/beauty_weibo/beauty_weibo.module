@@ -165,7 +165,8 @@ function beauty_weibo_api_process_crawler_user() {
     unset($_SESSION['weibo']['profile_url']);
     unset($_SESSION['weibo']['key']);
     $weibo_user = beauty_weibo_api_get_uid_by_profile_url($profile_url);
-
+    
+    $_SESSION['weibo']['process_uid'] = $weibo_user['id'];
     $already_have = db_select('beauty_weibo_user', 'bwu')->fields('bwu', array('wuid'))->condition('wuid', (int)$weibo_user['id'], '=')->execute()->fetch();
     if (!empty($already_have)) {
         $e = new Exception('已经抓取了这个用户');
@@ -316,6 +317,9 @@ function batch_beauty_weibo_finished($success, $results, $operations) {
     $message = count($results) .' processed.';
     $message .= theme('item_list', $results);  // D6 syntax
     drupal_set_message($message);
+    $process_uid = $_SESSION['weibo']['process_uid'];
+    unset($_SESSION['weibo']['process_uid']);
+    drupal_goto('weibo/posts/' . $process_uid);
   }
   else {
     // An error occurred.
