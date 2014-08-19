@@ -27,7 +27,7 @@ function beauty_weibo_marketing_comment($wid) {
         $weibo_marketing_comment_record->duid = $GLOBALS['user']->uid;
         $weibo_marketing_comment_record->data = $res;
 
-        drupal_write_record('beauty_weibo_post', $weibo_marketing_comment_record);
+        drupal_write_record('beauty_weibo_marketing_comment', $weibo_marketing_comment_record);
         drupal_set_message('成功评论');
         
     }
