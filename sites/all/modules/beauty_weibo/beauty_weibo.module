@@ -341,6 +341,9 @@ function beauty_weibo_api_ajax_get_reposts($id) {
     }
     $i = 1;
     foreach ($reposts_result['reposts'] as $repost) {
+        if (beauty_weibo_api_get_navy($repost['user'])) {
+            continue;
+        }
         $already_have = db_select('beauty_weibo_repost', 'bwr')->fields('bwr', array('wid'))->condition('wid', $repost['id'], '=')->execute()->fetch();
         if (!empty($already_have)) {
             continue;
