@@ -323,7 +323,7 @@ function batch_beauty_weibo_finished($success, $results, $operations) {
     drupal_set_message($message);
     $process_uid = $_SESSION['weibo']['process_uid'];
     unset($_SESSION['weibo']['process_uid']);
-    drupal_goto('weibo/posts/' . $process_uid);
+    drupal_goto('weibo/reposts/user/' . $process_uid);
   }
   else {
     // An error occurred.
