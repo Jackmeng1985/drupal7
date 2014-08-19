@@ -696,7 +696,7 @@ function beauty_weibo_views_data() {
     'argument' => array(
       'handler' => 'views_handler_argument_numeric',
     ),
-
+  );
 
   //评论发布的用户 ID
   $data['beauty_weibo_marketing_comment']['cuid'] = array(
