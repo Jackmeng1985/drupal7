@@ -26,6 +26,6 @@
   $mid = beauty_weibo_api_get_mid($row->beauty_weibo_repost_wid);
   $uid = $row->uid;
   $url = 'http://weibo.com/' . $uid . '/' . $mid;
-  $output = l('回复', $url, array('attributes' => array('target' => '_blank')));
+  $output = l('查看', $url, array('attributes' => array('target' => '_blank')));
   print $output;
 ?>
