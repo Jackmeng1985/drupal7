@@ -29,6 +29,7 @@ function beauty_weibo_marketing_comment($wid) {
 
         drupal_write_record('beauty_weibo_marketing_comment', $weibo_marketing_comment_record);
         drupal_set_message('成功评论');
+        drupal_goto('weibo/comments/' . $_SESSION['weibo']['uid']);
         
     }
     return drupal_get_form('beauty_weibo_marking_comment_form');
