@@ -696,12 +696,31 @@ function beauty_weibo_views_data() {
     'argument' => array(
       'handler' => 'views_handler_argument_numeric',
     ),
+
+
+  //评论发布的用户 ID
+  $data['beauty_weibo_marketing_comment']['cuid'] = array(
+    'title' => '评论发布的用户 ID',
+    'help' => '评论发布的用户 ID',
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+     ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
+    ),
   );
 
-  //微博用户ID
+  //转发用户ID
   $data['beauty_weibo_marketing_comment']['wuid'] = array(
-    'title' => '微博用户ID',
-    'help' => '微博用户ID',
+    'title' => '转发用户 ID',
+    'help' => '转发用户 ID',
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
