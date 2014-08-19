@@ -139,8 +139,8 @@ function beauty_weibo_api_form_user_crawler() {
         '#title' => '请输入关注账号的微博地址(url)',
     );
     $form['key'] = array(
-        '#type' => 'textarea',
-        '#title' => '微博关键字',
+        '#type' => 'textfield',
+        '#title' => '标签',
         '#description' => '可以输入多个关键词，中间用空格分开',
     );
     $form['submit'] = array(
