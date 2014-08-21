@@ -651,13 +651,37 @@ function beauty_weibo_entity_info() {
  */
 function beauty_weibo_action_info() {
   return array(
-    'follow' => array(
+    'beauty_weibo_follow' => array(
       'type' => 'beauty_weibo_repost',
-      'label' => t('批量关注'),
+      'label' => '批量关注',
       'behavior' => array('follow_user'),
       'configurable' => FALSE,
       'vbo_configurable' => FALSE,
       'triggers' => array('any'),
     ),
   );
+}
+
+function beauty_weibo_follow(&$beauty_weibo_repost, $context) {
+  $uid = $beauty_weibo_repost->uid;
+  beauty_weibo_friendships_create($uid);
+}
+
+function beauty_weibo_friendships_create($uid) {
+  $url = 'https://api.weibo.com/2/friendships/create.json';
+  $params = array(
+    'access_token' => $_SESSION['weibo']['access_token'],
+    'uid' => $uid,
+  );
+
+  $param_data = array(
+    'headers' => array('Content-Type' => 'application/x-www-form-urlencoded'),
+    'method' => 'POST',
+    'data' => drupal_http_build_query($params),
+  );
+  $http = drupal_http_request($url, $param_data);
+  $data = drupal_json_decode($http->data);
+  if (isset($data['name'])) {
+    drupal_set_message('关注微博用户 '. $data['name'] .' 成功');
+  }
 }
