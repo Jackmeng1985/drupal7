@@ -159,7 +159,7 @@ function beauty_crm_entity_info() {
       ),
       'access callback' => 'beauty_crm_entity_access_callback',
       'creation callback' => 'beauty_works_create',
-    ),   
+    ),
     'beauty_weixin_user' => array(
       'label' => '微信用户',
       'base table' => 'beauty_weixin_user',
@@ -195,7 +195,7 @@ function beauty_crm_entity_info() {
       ),
       'access callback' => 'beauty_crm_entity_access_callback',
       'creation callback' => 'beauty_weixin_user_create',
-    ),      
+    ),
   );
   return $return;
 }
@@ -281,17 +281,9 @@ function beauty_crm_menu() {
 function beauty_crm_custom_theme(){
     if (arg(0) == 'world_cup') {
         return  'beauty';
-    }  
+    }
     if (arg(0) == 'user') {
         return 'rubik';
-    }
-}
-
-function beauty_crm_language_init() {
-    global $language;
-    if (arg(0) != 'admin') {
-        $languages = language_list();
-        $language = $languages['en'];
     }
 }
 
