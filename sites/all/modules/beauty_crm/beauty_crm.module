@@ -246,7 +246,7 @@ function beauty_crm_menu() {
         'title' => '首页',
         'page callback' => 'beauty_crm_edit_hair_picture',
         'page arguments' => array(4),
-        'access arguments' => array('administration pages'),
+        'access arguments' => TRUE,
         'file' => 'beauty_crm.admin.inc'
     );
 
