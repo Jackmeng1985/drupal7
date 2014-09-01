@@ -5,6 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+define('CUSTOM_ADMINISTRATOR_ROLE', 6);
 
 include_once dirname(__FILE__) . '/includes/beauty_crm_entity_beauty_shop.inc';
 include_once dirname(__FILE__) . '/includes/beauty_crm_entity_beauty_barber.inc';
@@ -301,4 +302,37 @@ function beauty_crm_theme() {
   );
 }
 
+/**
+ * 统计各类用户数量
+ */
+function beauty_crm_get_user_count() {
+  $admin_count = db_select('users_roles', 'ur')
+    ->fields('ur')
+    ->condition('rid', CUSTOM_ADMINISTRATOR_ROLE)
+    ->countQuery()
+    ->execute()
+    ->fetchField();
 
+  $shop_count = beauty_crm_get_user_count_by_table('beauty_shop');
+  $barber_count = beauty_crm_get_user_count_by_table('beauty_barber');
+  $weixin_count = beauty_crm_get_user_count_by_table('beauty_weixin_user');
+
+  $user_count = array(
+    'admin' => $admin_count,
+    'shop' => $shop_count,
+    'barber' => $barber_count,
+    'weixin' => $weixin_count,
+  );
+
+  return $user_count;
+}
+
+function beauty_crm_get_user_count_by_table($table) {
+  $result = db_select($table, 't')
+    ->fields('t')
+    ->countQuery()
+    ->execute()
+    ->fetchField();
+
+  return $result;
+}
