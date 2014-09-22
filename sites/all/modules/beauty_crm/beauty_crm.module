@@ -275,7 +275,7 @@ function beauty_crm_menu() {
     );
     $items['admin/beauty'] = array(
         'title' => '美发管理后台',
-        'delivery callback' => 'beauty_crm_admin',
+        'page callback' => 'beauty_crm_admin',
         'access arguments' => array('access administration pages'),
         'file' => 'beauty_crm.admin.inc'
     );    
