@@ -18,5 +18,13 @@ function beauty_crm_edit_hair_picture(Entity $beauty_hairstyle) {
 }
 
 function beauty_crm_admin() {
-    return 'hello';
+    $items = array();
+    
+    $items['dianpu'] = array(
+        'header_title' => '视频',
+        'header_info' => '视频数量(12)',
+        'body' => '店面活动(1) 美发作品(2) 工作花絮(3) ',
+        'footer' => '播放次数：545 点赞次数：516 分享次数：238 点击次数：1128 评论次数：198 收藏次数：211 评论次数：221 收藏次数：88'
+    );
+    return theme('beauty_crm_admin_page', array('items' => $items));
 }

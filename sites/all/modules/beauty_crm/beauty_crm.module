@@ -274,7 +274,7 @@ function beauty_crm_menu() {
         'file' => 'beauty_crm.pages.inc'
     );
     $items['admin/beauty'] = array(
-        'title' => '美发管理后台',
+        'title' => '管理员首页',
         'page callback' => 'beauty_crm_admin',
         'access arguments' => array('access administration pages'),
         'file' => 'beauty_crm.admin.inc'
@@ -305,6 +305,17 @@ function beauty_crm_theme() {
       'path' => drupal_get_path('module', 'beauty_crm') . '/theme',
       'file' => 'theme.inc'
     ),
+    'beauty_crm_admin_page' => array(
+      'variables' => array('items' => NULL),
+      'path' => drupal_get_path('module', 'beauty_crm') . '/theme',
+      'file' => 'theme.inc'
+    ),    
+    'beauty_crm_admin_page_item' => array(
+      'variables' => array('item' => NULL, 'item_key' => NULL),
+      'template' => 'beauty-crm-admin-page-item',
+      'path' => drupal_get_path('module', 'beauty_crm') . '/theme',
+      'file' => 'theme.inc'
+    ),         
   );
 }
 

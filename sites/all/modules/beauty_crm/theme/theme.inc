@@ -19,3 +19,15 @@ function beauty_crm_preprocess_beauty_crm_edit_hair_picture(&$variables) {
     list($variables['pic_origin_width'], $variables['pic_origin_height']) = getimagesize($variables['pic_origin_path']);
     
 }
+
+function theme_beauty_crm_admin_page($vars) {
+    $items = $vars['items'];
+  
+    $output = '<ul>';
+    foreach ($items as $key => $item) {
+        $output .= '<li>' .theme('beauty_crm_admin_page_item', array('item' => $item, 'item_key' => $key)) . '</li>';
+    }
+    $output .= '</ul>';
+    
+    return $output;
+}
