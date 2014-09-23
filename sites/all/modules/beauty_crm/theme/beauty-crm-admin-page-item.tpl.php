@@ -10,6 +10,6 @@
 
 <div class="<?php print $item_key; ?>">
     <div class="header"><span class="title"><?php print $item['header_title']; ?></span><span class="count"><?php print $item['header_info']; ?></span></div>
-    <div class="body"><?php print $item['body']; ?></div>
-    <div class="footer"><?php print $item['footer']; ?></div>
+    <?php if (isset($item['body'])):?><div class="body"><?php print $item['body']; ?></div><?php endif;?>
+    <?php if (isset($item['footer'])):?><div class="footer"><?php print $item['footer']; ?></div><?php endif;?>
 </div>
