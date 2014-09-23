@@ -1,0 +1,37 @@
+#content {
+  margin-left: 40px;
+  border-left: 1px solid #aaa;
+}
+#content li {
+  margin-bottom: 15px;
+}
+#content li .header::before {
+  width: 11px;
+  height: 11px;
+  border: 1px solid #f19a9a;
+  background: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  content: '';
+  position: relative;
+  left: -7px;
+}
+#content li .body,
+#content li .footer {
+  margin-left: 11px;
+  margin-top: 10px;
+}
+
+#content li .header .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 20px;
+}
+#content li .header .count {
+  font-weight: bold;
+}
+
+#content li .body span,
+#content li .footer span {
+  margin-right: 10px;
+}
