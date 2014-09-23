@@ -41,7 +41,7 @@ function beauty_crm_admin() {
     $items['shipin'] = array(
         'header_title' => '视频',
         'header_info' => '视频数量(4)',
-        'body' => '<span><a href="/admin/content">店面活动</a>(1)</span> <span><a href="/admin/content">美发作品(3)</a></span> <span><a href="/admin/content">工作花絮(0)</a></span> ',
+        'body' => '<span><a href="/admin/content">店面活动</a>(1)</span> <span><a href="/admin/content">美发作品</a>(3)</span> <span><a href="/admin/content">工作花絮</a>(0)</span> ',
         'footer' => '<span>播放次数：545</span> <span>点赞次数：30</span> <span>分享次数：20</span> <span>点击次数：1128</span> <span>评论次数：198</span> <span>收藏次数：4</span> <span>评论次数：21</span>'
     );
     
@@ -49,14 +49,14 @@ function beauty_crm_admin() {
     $items['picture'] = array(
         'header_title' => '发型图片',
         'header_info' => '发型图片(16)',
-        'body' => '<span><a href="/admin/beauty-crm/content/beauty_hairstyle">男生</a>(10)</span> <span><a href="/admin/beauty-crm/content/beauty_hairstyle">女生</a>(5)</span> <span><a href="/admin/beauty-crm/content/beauty_hairstyle">短发(5)</a></span> ',
+        'body' => '<span><a href="/admin/beauty-crm/content/beauty_hairstyle">男生</a>(10)</span> <span><a href="/admin/beauty-crm/content/beauty_hairstyle">女生</a>(5)</span> <span><a href="/admin/beauty-crm/content/beauty_hairstyle">短发</a>(5)</span> ',
         'footer' => '<span>点击次数：3765</span> <span>点赞次数：87</span> <span>分享次数：59</span> <span>评论次数：368</span> <span>收藏次数：67</span> '
     );    
     
     $items['news'] = array(
         'header_title' => '新闻',
         'header_info' => '新闻数量(2)',
-        'body' => '<span><a href="/admin/content">市场</a>(0)</span> <span><a href="/admin/content">娱乐(0)</a></span> <span><a href="/admin/content">体育(2)</a></span> ',
+        'body' => '<span><a href="/admin/content">市场</a>(0)</span> <span><a href="/admin/content">娱乐</a>(0)</span> <span><a href="/admin/content">体育</a>(2)</span> ',
         'footer' => '<span>点击次数：238</span> <span>点赞次数：37</span> <span>分享次数：8</span> <span>评论次数：18</span> <span>收藏次数：7</span> '
     );        
     drupal_add_css(drupal_get_path('module', 'beauty_crm') . '/css/admin.css');
