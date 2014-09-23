@@ -319,6 +319,12 @@ function beauty_crm_theme() {
   );
 }
 
+function beauty_crm_user_login(&$edit, $account) {
+    if ($account->uid == 1) {
+        drupal_goto('admin/beauty');
+    }
+}
+
 /**
  * 统计各类用户数量
  */
