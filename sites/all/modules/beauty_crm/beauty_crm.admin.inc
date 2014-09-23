@@ -23,8 +23,8 @@ function beauty_crm_admin() {
     $items['dianpu'] = array(
         'header_title' => '视频',
         'header_info' => '视频数量(12)',
-        'body' => '店面活动(1) 美发作品(2) 工作花絮(3) ',
-        'footer' => '播放次数：545 点赞次数：516 分享次数：238 点击次数：1128 评论次数：198 收藏次数：211 评论次数：221 收藏次数：88'
+        'body' => '<span><a href="admin/content">店面活动</a>(1)</span> <span><a href="admin/content">美发作品(2)</a></span> <span><a href="admin/content">工作花絮(3)</a></span> ',
+        'footer' => '<span>播放次数：545</span> <span>点赞次数：516</span> <span>分享次数：238</span> <span>点击次数：1128</span> <span>评论次数：198</span> <span>收藏次数：211</span> <span>评论次数：221</span> <span>收藏次数：88</span>'
     );
     return theme('beauty_crm_admin_page', array('items' => $items));
 }
