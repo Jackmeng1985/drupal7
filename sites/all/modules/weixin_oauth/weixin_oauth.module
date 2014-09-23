@@ -159,3 +159,22 @@ function weixin_oauth_execute_user_save($account, $info) {
   $weixin_user = beauty_weixin_user_create($values);
   $weixin_user->save();
 }
+
+function weixin_oauth_get_followers_count() {
+  $query = array(
+    'grant_type' => 'client_credential',
+    'appid' => variable_get('weixin_appid', ''),
+    'secret' => variable_get('weixin_appsecret', ''),
+  );
+  $url = url('https://api.weixin.qq.com/cgi-bin/token', array('query' => $query));
+
+  $data = file_get_contents($url);
+  $result = drupal_json_decode($data);
+  $access_token = $result['access_token'];
+
+  $followers_url = 'https://api.weixin.qq.com/cgi-bin/user/get?access_token=' . $access_token;
+  $followers = file_get_contents($followers_url);
+  $result = drupal_json_decode($followers);
+
+  return $result['total'];
+}
