@@ -2,7 +2,7 @@
 
 
 /**
- * 
+ *
  */
 
 function beauty_crm_edit_hair_picture(Entity $beauty_hairstyle) {
