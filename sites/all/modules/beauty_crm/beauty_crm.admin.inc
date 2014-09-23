@@ -59,5 +59,6 @@ function beauty_crm_admin() {
         'body' => '<span><a href="admin/content">市场</a>(0)</span> <span><a href="admin/content">娱乐(0)</a></span> <span><a href="admin/content">体育(2)</a></span> ',
         'footer' => '<span>点击次数：545</span> <span>点赞次数：30</span> <span>分享次数：8</span> span>评论次数：18</span> <span>收藏次数：4</span> '
     );        
+    drupal_add_css(drupal_get_path('module', 'beauty_crm') . '/css/admin.css');
     return theme('beauty_crm_admin_page', array('items' => $items));
 }
