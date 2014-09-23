@@ -3,7 +3,7 @@
   border-left: 1px solid #aaa;
 }
 #content li {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 #content li .header::before {
   width: 11px;
