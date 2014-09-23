@@ -20,11 +20,22 @@ function beauty_crm_edit_hair_picture(Entity $beauty_hairstyle) {
 function beauty_crm_admin() {
     $items = array();
     
-    $items['dianpu'] = array(
+    $items['shipin'] = array(
         'header_title' => '视频',
-        'header_info' => '视频数量(12)',
-        'body' => '<span><a href="admin/content">店面活动</a>(1)</span> <span><a href="admin/content">美发作品(2)</a></span> <span><a href="admin/content">工作花絮(3)</a></span> ',
-        'footer' => '<span>播放次数：545</span> <span>点赞次数：516</span> <span>分享次数：238</span> <span>点击次数：1128</span> <span>评论次数：198</span> <span>收藏次数：211</span> <span>评论次数：221</span> <span>收藏次数：88</span>'
+        'header_info' => '视频数量(4)',
+        'body' => '<span><a href="admin/content">店面活动</a>(1)</span> <span><a href="admin/content">美发作品(3)</a></span> <span><a href="admin/content">工作花絮(0)</a></span> ',
+        'footer' => '<span>播放次数：545</span> <span>点赞次数：30</span> <span>分享次数：20</span> <span>点击次数：1128</span> <span>评论次数：198</span> <span>收藏次数：4</span> <span>评论次数：21</span>'
     );
+    
+    $weixin_count = weixin_oauth_get_followers_count();
+    $items['weixin'] = array(
+        'header_title' => '微信粉丝',
+        'header_info' => "粉丝数量($weixin_count)",
+    );    
+    
+    $items['barber'] = array(
+        'header_title' => '美发师',
+        'header_info' => "<a href='/admin/beauty-crm/content/beauty_barber'>美发师数量</a>(381)",
+    );      
     return theme('beauty_crm_admin_page', array('items' => $items));
 }
