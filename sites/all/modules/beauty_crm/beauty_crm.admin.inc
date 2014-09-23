@@ -56,7 +56,7 @@ function beauty_crm_admin() {
     $items['news'] = array(
         'header_title' => '新闻',
         'header_info' => '新闻数量(2)',
-        'body' => '<span><a href="/admin/content">市场</a>(0)</span> <span><a href="/admin/content">娱乐</a>(0)</span> <span><a href="/admin/content">体育</a>(2)</span> ',
+        'body' => '<span><a href="/admin/content">公司新闻</a>(0)</span> <span><a href="/admin/content">市场活动</a>(0)</span> <span><a href="/admin/content">世界杯</a>(2)</span> ',
         'footer' => '<span>点击次数：238</span> <span>点赞次数：37</span> <span>分享次数：8</span> <span>评论次数：18</span> <span>收藏次数：7</span> '
     );        
     drupal_add_css(drupal_get_path('module', 'beauty_crm') . '/css/admin.css');
